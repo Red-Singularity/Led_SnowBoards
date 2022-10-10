@@ -1,0 +1,7 @@
+The goal of this repository is to share code between all members who have custom LED snowbnoards to expedite the process of getting to the slopes
+with actually functioning snowboards
+
+This will not only include the code used on the boards but also possible testbeds, images, and other related files
+This will be compartmentalized between users as all boards are built differently and require different code
+this will allow merges to go a lot smoother since ideally only the user who created the code commited here will be modifying it
+This also allows other people to view and test other members code though
