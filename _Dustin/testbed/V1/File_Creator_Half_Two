@@ -1,6 +1,0 @@
-"""Simple File that outputs a .dat file with a single dimensional array all with the same value"""
-
-import fileinput
-import numpy
-
-array_size = 1140 + 1 # array size
