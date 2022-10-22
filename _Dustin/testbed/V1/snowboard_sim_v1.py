@@ -14,6 +14,23 @@ from numpy import full, loadtxt
 array_size = 1045
 count = 0
 
+def create_image():
+        Board_Half_One = get_input("Half_One.dat")
+        Board_Half_Two = get_input("Half_Two.dat")
+
+        Board = Image.new('RGB', (113,20), 0x000000) # mode, size, color
+        pixels = Board.load() # Create the pixel map
+        All_Assigned = assign(Board_Half_One, Board_Half_Two) # assign file data to rows of the image
+
+        # print(Half_One_Assigned)
+        for i in range(Board.size[1]):
+                # print(Image1.size[1]) # print x dimension
+                for j in range(Board.size[0]):
+                        value = All_Assigned[i][j]
+                        pixels[j,i] = value
+        Board = Board.resize((565,100))
+        Board.show()
+
 def get_input(file):
         """open and read .dat files and convert to integer arrays"""
         conversion = [0 for i in range(array_size)]
@@ -30,133 +47,143 @@ def get_input(file):
                 # print(conversion[i])
         return conversion
 
-def create_image():
-        Board_Half_One = get_input("Half_One.dat")
-        Board_Half_Two = get_input("Half_Two.dat")
-
-        Image1 = Image.new('RGB', (113,10), 0x000000) # mode, size, color
-        pixels1 = Image1.load() # Create the pixel map
-        side = 1
-        Half_One_Assigned = assign(Board_Half_One, side) # assign file data to rows of the image
-
-        # print(Half_One_Assigned)
-        for i in range(Image1.size[1]):
-                # print(Image1.size[1]) # print x dimension
-                for j in range(Image1.size[0]):
-                        value = Half_One_Assigned[i][j]
-                        pixels1[j,i] = value
-        Image1 = Image1.resize((565,50))
-        Image1.show()
-
-        Image2 = Image.new('RGB', (113,10), 0x000000) # mode, size, color
-        pixels2 = Image2.load() # Create the pixel map
-        side = 2
-        Half_Two_Assigned = assign(Board_Half_Two, side) # assign file data to rows of the image
-        # print(Half_Two_Assigned)
-
-        for i in range(Image2.size[1]):
-                # print(Image1.size[1]) # print x dimension
-                for j in range(Image2.size[0]):
-                        value = Half_Two_Assigned[i][j]
-                        pixels2[j,i] = value
-
-        Image2 = Image2.resize((565,50))
-        Image2.show()
-
-        Image3 = concatonate(Image1, Image2)
-        Image3.show()
-
-def concatonate(im1, im2):
-        """Concatonates two images on top of each other to create one image"""
-        dst = Image.new('RGB', (im1.width, im1.height + im2.height))
-        dst.paste(im1, (0, 0))
-        dst.paste(im2, (0, im1.height))
-        return dst
-
-def assign(file_data, side):
+def assign(Half_One, Half_Two):
         """Create several single dimensional arrays that are the length of the board
         that data can be assigned to appropriately"""
 
         count = 0 # data point in array to start at
 
         reverse = False
-        row_data_tuple = assign_row_D38(file_data, count, reverse)
+        row_data_tuple = assign_row_D38(Half_One, count, reverse)
         row1 = row_data_tuple[0]
         count = row_data_tuple[1]
         # print(count)
 
         reverse = True
-        row_data_tuple = assign_row_D109(file_data, count, reverse)
+        row_data_tuple = assign_row_D109(Half_One, count, reverse)
         row2 = row_data_tuple[0]
         count = row_data_tuple[1]
 
         reverse = False
-        row_data_tuple = assign_row_D111(file_data, count, reverse)
+        row_data_tuple = assign_row_D111(Half_One, count, reverse)
         row3 = row_data_tuple[0]
         count = row_data_tuple[1]
 
         reverse = True
-        row_data_tuple = assign_row_D111(file_data, count, reverse)
+        row_data_tuple = assign_row_D111(Half_One, count, reverse)
         row4 = row_data_tuple[0]
         count = row_data_tuple[1]
 
         reverse = False
-        row_data_tuple = assign_row_D111(file_data, count, reverse)
+        row_data_tuple = assign_row_D111(Half_One, count, reverse)
         row5 = row_data_tuple[0]
         count = row_data_tuple[1]
 
         reverse = True
-        row_data_tuple = assign_row_D113(file_data, count, reverse)
+        row_data_tuple = assign_row_D113(Half_One, count, reverse)
         row6 = row_data_tuple[0]
         count = row_data_tuple[1]
 
         reverse = False
-        row_data_tuple = assign_row_D113(file_data, count, reverse)
+        row_data_tuple = assign_row_D113(Half_One, count, reverse)
         row7 = row_data_tuple[0]
         count = row_data_tuple[1]
 
         reverse = True
-        row_data_tuple = assign_row_D113(file_data, count, reverse)
+        row_data_tuple = assign_row_D113(Half_One, count, reverse)
         row8 = row_data_tuple[0]
         count = row_data_tuple[1]
 
         reverse = False
-        row_data_tuple = assign_row_D113(file_data, count, reverse)
+        row_data_tuple = assign_row_D113(Half_One, count, reverse)
         row9 = row_data_tuple[0]
         count = row_data_tuple[1]
 
         # print("final")
         reverse = True
-        row_data_tuple = assign_row_D113(file_data, count, reverse)
+        row_data_tuple = assign_row_D113(Half_One, count, reverse)
         row10 = row_data_tuple[0]
         count = row_data_tuple[1]
 
-        full_matrix = [0 for i in range(10)] # initialize array of arrays
+        #Side 2
+        ########################################################################
+        count = 0
+        reverse = False
+        row_data_tuple = assign_row_D113(Half_Two, count, reverse)
+        row11 = row_data_tuple[0]
+        count = row_data_tuple[1]
+        # print(count)
 
-        if side == 1:
-                #assign all single dimensional arrays to another array
-                full_matrix[0] = row1
-                full_matrix[1] = row2
-                full_matrix[2] = row3
-                full_matrix[3] = row4
-                full_matrix[4] = row5
-                full_matrix[5] = row6
-                full_matrix[6] = row7
-                full_matrix[7] = row8
-                full_matrix[8] = row9
-                full_matrix[9] = row10
+        reverse = True
+        row_data_tuple = assign_row_D113(Half_Two, count, reverse)
+        row12 = row_data_tuple[0]
+        count = row_data_tuple[1]
 
-        if side == 2:
-                full_matrix[0] = row10
-                full_matrix[1] = row9
-                full_matrix[2] = row8
-                full_matrix[3] = row7
-                full_matrix[4] = row6
-                full_matrix[5] = row5
-                full_matrix[6] = row4
-                full_matrix[7] = row3
-                full_matrix[8] = row2
-                full_matrix[9] = row1
+        reverse = False
+        row_data_tuple = assign_row_D113(Half_Two, count, reverse)
+        row13 = row_data_tuple[0]
+        count = row_data_tuple[1]
+
+        reverse = True
+        row_data_tuple = assign_row_D113(Half_Two, count, reverse)
+        row14 = row_data_tuple[0]
+        count = row_data_tuple[1]
+
+        reverse = False
+        row_data_tuple = assign_row_D113(Half_Two, count, reverse)
+        row15 = row_data_tuple[0]
+        count = row_data_tuple[1]
+
+        reverse = True
+        row_data_tuple = assign_row_D111(Half_Two, count, reverse)
+        row16 = row_data_tuple[0]
+        count = row_data_tuple[1]
+
+        reverse = False
+        row_data_tuple = assign_row_D111(Half_Two, count, reverse)
+        row17 = row_data_tuple[0]
+        count = row_data_tuple[1]
+
+        reverse = True
+        row_data_tuple = assign_row_D111(Half_Two, count, reverse)
+        row18 = row_data_tuple[0]
+        count = row_data_tuple[1]
+
+        reverse = False
+        row_data_tuple = assign_row_D109(Half_Two, count, reverse)
+        row19 = row_data_tuple[0]
+        count = row_data_tuple[1]
+
+        # print("final")
+        reverse = True
+        row_data_tuple = assign_row_D38(Half_Two, count, reverse)
+        row20 = row_data_tuple[0]
+        count = row_data_tuple[1]
+
+        full_matrix = [0 for i in range(20)] # initialize array of arrays
+
+        #assign all single dimensional arrays to another array
+        full_matrix[0] = row1
+        full_matrix[1] = row2
+        full_matrix[2] = row3
+        full_matrix[3] = row4
+        full_matrix[4] = row5
+        full_matrix[5] = row6
+        full_matrix[6] = row7
+        full_matrix[7] = row8
+        full_matrix[8] = row9
+        full_matrix[9] = row10
+
+        full_matrix[10] = row11
+        full_matrix[11] = row12
+        full_matrix[12] = row13
+        full_matrix[13] = row14
+        full_matrix[14] = row15
+        full_matrix[15] = row16
+        full_matrix[16] = row17
+        full_matrix[17] = row18
+        full_matrix[18] = row19
+        full_matrix[19] = row20
 
         # print(full_matrix)
         return(full_matrix)
