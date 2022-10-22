@@ -22,29 +22,23 @@ def create_image():
         pixels = Board.load() # Create the pixel map
         All_Assigned = assign(Board_Half_One, Board_Half_Two) # assign file data to rows of the image
 
-        # print(Half_One_Assigned)
         for i in range(Board.size[1]):
-                # print(Image1.size[1]) # print x dimension
                 for j in range(Board.size[0]):
                         value = All_Assigned[i][j]
                         pixels[j,i] = value
-        Board = Board.resize((565,100))
+        Board = Board.resize((565,100), Image.NEAREST)
         Board.show()
 
 def get_input(file):
         """open and read .dat files and convert to integer arrays"""
         conversion = [0 for i in range(array_size)]
-        # print(len(conversion))
         Half_One = open(file, "r")
         data = loadtxt(file, delimiter=",",unpack=False)
         # convert data to python standard integer array
         count = 0
-        # print(array_size)
         for i in range(array_size):
                 count = count + 1
                 conversion[i] = int(data[i].astype(int))
-                # print(count)
-                # print(conversion[i])
         return conversion
 
 def assign(Half_One, Half_Two):
@@ -99,7 +93,6 @@ def assign(Half_One, Half_Two):
         row9 = row_data_tuple[0]
         count = row_data_tuple[1]
 
-        # print("final")
         reverse = True
         row_data_tuple = assign_row_D113(Half_One, count, reverse)
         row10 = row_data_tuple[0]
@@ -112,7 +105,6 @@ def assign(Half_One, Half_Two):
         row_data_tuple = assign_row_D113(Half_Two, count, reverse)
         row11 = row_data_tuple[0]
         count = row_data_tuple[1]
-        # print(count)
 
         reverse = True
         row_data_tuple = assign_row_D113(Half_Two, count, reverse)
@@ -154,7 +146,6 @@ def assign(Half_One, Half_Two):
         row19 = row_data_tuple[0]
         count = row_data_tuple[1]
 
-        # print("final")
         reverse = True
         row_data_tuple = assign_row_D38(Half_Two, count, reverse)
         row20 = row_data_tuple[0]
@@ -244,8 +235,6 @@ def assign_row_D113(file_data, count, reverse):
 def assign_data(length_data, length_blank, count, row, file_data, split, reverse):
         """assigns single dimensional data array from files to appropriate point on image"""
         row_location = 0 # marks point in row we are writing to
-        # print("split:", split)
-        # print("reverse:", reverse)
 
         if split and reverse == True:
                 print("split, Reverse")
