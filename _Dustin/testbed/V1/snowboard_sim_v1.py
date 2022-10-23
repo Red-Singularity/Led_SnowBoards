@@ -14,9 +14,15 @@ from numpy import full, loadtxt
 array_size = 1045
 count = 0
 
+# file to simulate
+media = "RGB_Candy_Cane"
+relative_path = "board_media/"
+
 def create_image():
-        Board_Half_One = get_input("Half_One.dat")
-        Board_Half_Two = get_input("Half_Two.dat")
+        full_path = relative_path + media
+        print("Full Path: ",full_path)
+        Board_Half_One = get_input(full_path+"/Half_One.dat")
+        Board_Half_Two = get_input(full_path+"/Half_Two.dat")
 
         Board = Image.new('RGB', (113,20), 0x000000) # mode, size, color
         pixels = Board.load() # Create the pixel map
