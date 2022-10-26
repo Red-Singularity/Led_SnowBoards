@@ -15,7 +15,7 @@ array_size = 1045
 count = 0
 
 # file to simulate
-media = "RGB_Candy_Cane"
+media = "tests"
 relative_path = "board_media/"
 
 def create_image():
