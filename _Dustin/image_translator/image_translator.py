@@ -1,7 +1,8 @@
-""" This takes in an image and translates it into a single dimensional
-    array that displays properly on the snowboard. """
+    # This takes in an image and translates it into a single dimensional
+    # array that displays properly on the snowboard.
 
-from re import I
+    # to make this work ensure the working folder is the _Dustin folder
+
 from PIL import Image
 import fileinput
 import binascii
@@ -9,9 +10,12 @@ import numpy
 from numpy import concatenate, full, loadtxt
 
 
-image_file = "pip1.png"
+image_file = "link.png"
 image_path = "media/"
 save_path = "board_media/tests/" # path to save output array
+
+background_color = "purple" # can be hex value or color string
+
 
 max_height = 20 # height of board at tip/tail
 max_width = 113
@@ -32,7 +36,7 @@ def image_input():
         print("New width: ", int(ratio*width))
         image = image.resize((int(ratio*width),max_height),Image.Dither.NONE) # resize image
         width,height = image.size
-        print(height)
+        # print(height)
 
     image.convert('RGB') # removes alpha channel
     # image.show()
@@ -42,7 +46,7 @@ def image_input():
 def assign_to_board(display_image):
     """Overlay wanted image over blank image that is max size of board"""
 
-    blank = Image.new(mode='RGB', size=(max_width,max_height), color="red") # set blank background
+    blank = Image.new(mode='RGB', size=(max_width,max_height), color=background_color) # set blank background
     blank.paste(display_image, image_location)
     full_image_tuples = blank.load()
     full_image = [0 for i in range(max_height*max_width)] # total amount of pixels
@@ -59,7 +63,7 @@ def assign_to_board(display_image):
 
 def mask_and_array(full_image):
     """Assign full image's data to 1d array that takes away unused pixels"""
-    print(len(full_image))
+    # print(len(full_image))
 
     row1 = array_assign(1, full_image, 0) # forward
     row2 = array_assign(2, full_image, 1) # reverse
@@ -85,7 +89,11 @@ def mask_and_array(full_image):
     # print(row20)
 
     file1 = numpy.concatenate((row1,row2,row3,row4,row5,row6,row7,row8,row9,row10))
+    length1 = len(row1)+len(row2)+len(row3)+len(row4)+len(row5)+len(row6)+len(row7)+len(row8)+len(row9)+len(row10)
+    # print("File 1 Length: ", length1)
     file2 = numpy.concatenate((row11,row12,row13,row14,row15,row16,row17,row18,row19,row20))
+    length2 = len(row11)+len(row12)+len(row13)+len(row14)+len(row15)+len(row16)+len(row17)+len(row18)+len(row19)+len(row20)
+    # print("File 2 Length: ", length2)
     # print(len(file1))
 
     return file1, file2
@@ -108,7 +116,7 @@ def array_assign(row_number, pix_val, direction):
         initial_blank = 2 # beginning blank leds
 
     # all rows that have 111 pixels
-    elif (6 > row_number >  2) or (18 > row_number > 14):
+    elif (6 > row_number >  2) or (19 > row_number > 15):
         row_count_max = 111
         initial_blank = 1 # beginning blank leds
 
@@ -125,12 +133,12 @@ def array_assign(row_number, pix_val, direction):
 
     count = 0
 
-
     if direction == 0: # forward
         row_count = 0
         for i in range(len(pix_val)): # iterate through all pixels in image
-            if (i>(row_number-1)*113) and (i<row_number*113): # iterate to row of interest (113 leds per row)
+            if (i>=(row_number-1)*113) and (i<=row_number*113): # iterate to row of interest (113 leds per row)
                 start_split = initial_blank + row_count_max + second_blank
+                # print("Count: ", count)
                 if (count > initial_blank and count <= initial_blank+row_count_max) or (count > start_split and count <= start_split + row_count_max):
                     # print("Row Count: ", row_count)
                     row[row_count] = pix_val[i]
@@ -140,7 +148,7 @@ def array_assign(row_number, pix_val, direction):
     elif direction == 1: # reverse
         row_count = row_count_max - 1
         for i in range(len(pix_val)): # iterate through all pixels in image
-            if (i>(row_number-1)*113) and (i<row_number*113): # iterate to row of interest (113 leds per row)
+            if (i>=(row_number-1)*113) and (i<=row_number*113): # iterate to row of interest (113 leds per row)
                 start_split = initial_blank + row_count_max + second_blank
                 if (count > initial_blank and count <= initial_blank+row_count_max) or (count > start_split and count <= start_split + row_count_max):
                     row[row_count] = pix_val[i]
@@ -166,3 +174,4 @@ full_image = assign_to_board(display_image)
 file1, file2 = mask_and_array(full_image)
 save_data(file1, "Half_One.dat")
 save_data(file2, "Half_Two.dat")
+print("Done!")

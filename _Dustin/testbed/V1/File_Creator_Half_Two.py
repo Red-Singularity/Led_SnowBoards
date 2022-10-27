@@ -4,9 +4,12 @@ import fileinput
 import numpy
 
 count = 0
-array_size = 1045 + 1 # array size
+array_size = 1045 # array size
 board_data = [0x000000 for i in range(array_size)] # set data in array
-file = open("Half_Two.dat", "w+")
+
+save_path = "board_media/tests/" # path to save output array
+
+file = open(save_path+"Half_Two.dat", "w+")
 
 shift = 1
 for j in range(5):
@@ -59,17 +62,11 @@ for i in range(38):
     gradiant = int(i * color_step) << (shift*8)
     board_data[i] = gradiant
     file.write(str(board_data[i]))
-    file.write(", ")
     count = count + 1
-
-
-
-for i in range(array_size-count):
-    file.write(str(board_data[i+count]))
-    if i < array_size - count - 1: # to prevent ","" at end of file
+    if count < array_size: # to prevent ","" at end of file
         file.write(", ")
 
-file = open("Half_Two.dat", "r")
+file = open(save_path+"Half_Two.dat", "r")
 print(file.read())
 file.close()
 

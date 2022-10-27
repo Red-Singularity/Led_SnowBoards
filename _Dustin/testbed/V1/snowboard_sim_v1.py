@@ -6,6 +6,8 @@
 # a stretch goal will to be to also represent the top of the board
 # this has the potential to be the start of a visual representation in a custom
 
+# to make this work ensure the working folder is the _Dustin folder
+
 from PIL import Image
 import fileinput
 import numpy
@@ -27,6 +29,9 @@ def create_image():
         Board = Image.new('RGB', (113,20), 0x000000) # mode, size, color
         pixels = Board.load() # Create the pixel map
         All_Assigned = assign(Board_Half_One, Board_Half_Two) # assign file data to rows of the image
+
+        print("Board Height: ", Board.size[0])
+        print("Board width: ", Board.size[1])
 
         for i in range(Board.size[1]):
                 for j in range(Board.size[0]):
