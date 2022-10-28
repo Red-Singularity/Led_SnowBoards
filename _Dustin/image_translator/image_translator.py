@@ -9,43 +9,62 @@ import binascii
 import numpy
 from numpy import concatenate, full, loadtxt
 
+#image parameters
+background_color = "black" # can be hex value or color string
+center_image = True # boolean value. determines if image is centered
+resize_image = False # boolean value. determine if image is resized to fit board
+shift_horizontal = 0 # integer for how much to shift image in pixels (- left + right)
+shift_vertical = 0 # integer for how much to shift image in pixels (- down + up)
 
-image_file = "link.png"
-image_path = "media/"
+#media imports
+image_file = "med.jpg" # image name
+image_path = "media/" # path to pull media from
 save_path = "board_media/tests/" # path to save output array
 
-background_color = "purple" # can be hex value or color string
-
-
+#global variables
 max_height = 20 # height of board at tip/tail
-max_width = 113
+max_width = 113 # max length of board
 height_center = 18 # height of board in center
-center = (int((113/2)-(25/2)), 1) # starting at top left of both images
-image_location = center
 
 def image_input():
     """open image to display on board"""
     image = Image.open(image_path+image_file, "r") # open image
     # image.show()
     width,height = image.size
-    print("width: ", width)
-    print("height: ", height)
+    # print("width: ", width)
+    # print("height: ", height)
     if height > height_center:
         ratio = max_height / height # get ratio between max height and current height
         print("Ratio: ", ratio)
         print("New width: ", int(ratio*width))
         image = image.resize((int(ratio*width),max_height),Image.Dither.NONE) # resize image
         width,height = image.size
-        # print(height)
 
     image.convert('RGB') # removes alpha channel
     # image.show()
 
     return image
 
+def image_positioning(image_width, image_length):
+    print("Image size: ", image_width, image_length)
+    if center_image is True:
+        center_verticle = int((max_height/2)-(image_length/2))
+        center_horizontal = int((max_width/2)-(image_width/2))
+        # center = (int((113/2)-(25/2)), 1) # starting at top left of both images
+        image_location = (center_horizontal, center_verticle)
+
+    else:
+        image_location = (0,0)
+
+    image_location = (image_location[0]+shift_horizontal, image_location[1]+shift_vertical*-1)
+
+    return image_location
+
 def assign_to_board(display_image):
     """Overlay wanted image over blank image that is max size of board"""
-
+    image_width, image_length = display_image.size
+    image_location = image_positioning(image_width, image_length)
+    print("Image location: ", image_location)
     blank = Image.new(mode='RGB', size=(max_width,max_height), color=background_color) # set blank background
     blank.paste(display_image, image_location)
     full_image_tuples = blank.load()
@@ -58,7 +77,7 @@ def assign_to_board(display_image):
             # print(count, full_image[count])
             count = count+1
 
-    # blank.show()
+    blank.show()
     return full_image
 
 def mask_and_array(full_image):
@@ -88,15 +107,11 @@ def mask_and_array(full_image):
     row20 = array_assign(20, full_image, 1) # reverse
     # print(row20)
 
-    file1 = numpy.concatenate((row1,row2,row3,row4,row5,row6,row7,row8,row9,row10))
-    length1 = len(row1)+len(row2)+len(row3)+len(row4)+len(row5)+len(row6)+len(row7)+len(row8)+len(row9)+len(row10)
-    # print("File 1 Length: ", length1)
-    file2 = numpy.concatenate((row11,row12,row13,row14,row15,row16,row17,row18,row19,row20))
-    length2 = len(row11)+len(row12)+len(row13)+len(row14)+len(row15)+len(row16)+len(row17)+len(row18)+len(row19)+len(row20)
-    # print("File 2 Length: ", length2)
+    file = numpy.concatenate((row1,row2,row3,row4,row5,row6,row7,row8,row9,row10, row11,row12,row13,row14,row15,row16,row17,row18,row19,row20))
+    length = len(row1)+len(row2)+len(row3)+len(row4)+len(row5)+len(row6)+len(row7)+len(row8)+len(row9)+len(row10)+len(row11)+len(row12)+len(row13)+len(row14)+len(row15)+len(row16)+len(row17)+len(row18)+len(row19)+len(row20)
+    print("File Length: ", length)
     # print(len(file1))
-
-    return file1, file2
+    return file
 
 def array_assign(row_number, pix_val, direction):
     """assigns pixel data from image to individual rows"""
@@ -159,19 +174,19 @@ def array_assign(row_number, pix_val, direction):
     return row
 
 
-def save_data(data, half):
+def save_data(data):
     """save final data to files"""
-    file = open(save_path + half, "w+")
+    file = open(save_path+"image.dat", "w+")
 
     for i in range(len(data)):
         file.write(str(data[i]))
         if i < len(data) - 1: # to prevent ","" at end of file
-            file.write(", ")
+            file.write(",") # seperate data in file
+
 
 
 display_image = image_input()
 full_image = assign_to_board(display_image)
-file1, file2 = mask_and_array(full_image)
-save_data(file1, "Half_One.dat")
-save_data(file2, "Half_Two.dat")
+file = mask_and_array(full_image)
+save_data(file)
 print("Done!")

@@ -13,22 +13,27 @@ import fileinput
 import numpy
 from numpy import full, loadtxt
 
-array_size = 1045
-count = 0
+
+# sim parameters
+background = 0xFFFFFF # hex color for background color of final image
 
 # file to simulate
-media = "tests"
-relative_path = "board_media/"
+media = "tests/" # file to simulate
+relative_path = "board_media/" # relative path from _Dustin Foldert
+
+#Global variables
+array_size = 2090 # total amount of leds in system
+count = 0
 
 def create_image():
         full_path = relative_path + media
         print("Full Path: ",full_path)
-        Board_Half_One = get_input(full_path+"/Half_One.dat")
-        Board_Half_Two = get_input(full_path+"/Half_Two.dat")
+        board_full = get_input(full_path+"image.dat")
 
-        Board = Image.new('RGB', (113,20), 0x000000) # mode, size, color
+        Board = Image.new('RGB', (113,20), background) # mode, size, color
+        # Board.show()
         pixels = Board.load() # Create the pixel map
-        All_Assigned = assign(Board_Half_One, Board_Half_Two) # assign file data to rows of the image
+        All_Assigned = assign(board_full) # assign file data to rows of the image
 
         print("Board Height: ", Board.size[0])
         print("Board width: ", Board.size[1])
@@ -52,113 +57,113 @@ def get_input(file):
                 conversion[i] = int(data[i].astype(int))
         return conversion
 
-def assign(Half_One, Half_Two):
+def assign(full_board):
         """Create several single dimensional arrays that are the length of the board
         that data can be assigned to appropriately"""
 
         count = 0 # data point in array to start at
 
         reverse = False
-        row_data_tuple = assign_row_D38(Half_One, count, reverse)
+        row_data_tuple = assign_row_D38(full_board, count, reverse)
         row1 = row_data_tuple[0]
         count = row_data_tuple[1]
         # print(count)
 
         reverse = True
-        row_data_tuple = assign_row_D109(Half_One, count, reverse)
+        row_data_tuple = assign_row_D109(full_board, count, reverse)
         row2 = row_data_tuple[0]
         count = row_data_tuple[1]
 
         reverse = False
-        row_data_tuple = assign_row_D111(Half_One, count, reverse)
+        row_data_tuple = assign_row_D111(full_board, count, reverse)
         row3 = row_data_tuple[0]
         count = row_data_tuple[1]
 
         reverse = True
-        row_data_tuple = assign_row_D111(Half_One, count, reverse)
+        row_data_tuple = assign_row_D111(full_board, count, reverse)
         row4 = row_data_tuple[0]
         count = row_data_tuple[1]
 
         reverse = False
-        row_data_tuple = assign_row_D111(Half_One, count, reverse)
+        row_data_tuple = assign_row_D111(full_board, count, reverse)
         row5 = row_data_tuple[0]
         count = row_data_tuple[1]
 
         reverse = True
-        row_data_tuple = assign_row_D113(Half_One, count, reverse)
+        row_data_tuple = assign_row_D113(full_board, count, reverse)
         row6 = row_data_tuple[0]
         count = row_data_tuple[1]
 
         reverse = False
-        row_data_tuple = assign_row_D113(Half_One, count, reverse)
+        row_data_tuple = assign_row_D113(full_board, count, reverse)
         row7 = row_data_tuple[0]
         count = row_data_tuple[1]
 
         reverse = True
-        row_data_tuple = assign_row_D113(Half_One, count, reverse)
+        row_data_tuple = assign_row_D113(full_board, count, reverse)
         row8 = row_data_tuple[0]
         count = row_data_tuple[1]
 
         reverse = False
-        row_data_tuple = assign_row_D113(Half_One, count, reverse)
+        row_data_tuple = assign_row_D113(full_board, count, reverse)
         row9 = row_data_tuple[0]
         count = row_data_tuple[1]
 
         reverse = True
-        row_data_tuple = assign_row_D113(Half_One, count, reverse)
+        row_data_tuple = assign_row_D113(full_board, count, reverse)
         row10 = row_data_tuple[0]
         count = row_data_tuple[1]
 
         #Side 2
         ########################################################################
-        count = 0
+        # count = 0
         reverse = False
-        row_data_tuple = assign_row_D113(Half_Two, count, reverse)
+        row_data_tuple = assign_row_D113(full_board, count, reverse)
         row11 = row_data_tuple[0]
         count = row_data_tuple[1]
 
         reverse = True
-        row_data_tuple = assign_row_D113(Half_Two, count, reverse)
+        row_data_tuple = assign_row_D113(full_board, count, reverse)
         row12 = row_data_tuple[0]
         count = row_data_tuple[1]
 
         reverse = False
-        row_data_tuple = assign_row_D113(Half_Two, count, reverse)
+        row_data_tuple = assign_row_D113(full_board, count, reverse)
         row13 = row_data_tuple[0]
         count = row_data_tuple[1]
 
         reverse = True
-        row_data_tuple = assign_row_D113(Half_Two, count, reverse)
+        row_data_tuple = assign_row_D113(full_board, count, reverse)
         row14 = row_data_tuple[0]
         count = row_data_tuple[1]
 
         reverse = False
-        row_data_tuple = assign_row_D113(Half_Two, count, reverse)
+        row_data_tuple = assign_row_D113(full_board, count, reverse)
         row15 = row_data_tuple[0]
         count = row_data_tuple[1]
 
         reverse = True
-        row_data_tuple = assign_row_D111(Half_Two, count, reverse)
+        row_data_tuple = assign_row_D111(full_board, count, reverse)
         row16 = row_data_tuple[0]
         count = row_data_tuple[1]
 
         reverse = False
-        row_data_tuple = assign_row_D111(Half_Two, count, reverse)
+        row_data_tuple = assign_row_D111(full_board, count, reverse)
         row17 = row_data_tuple[0]
         count = row_data_tuple[1]
 
         reverse = True
-        row_data_tuple = assign_row_D111(Half_Two, count, reverse)
+        row_data_tuple = assign_row_D111(full_board, count, reverse)
         row18 = row_data_tuple[0]
         count = row_data_tuple[1]
 
         reverse = False
-        row_data_tuple = assign_row_D109(Half_Two, count, reverse)
+        row_data_tuple = assign_row_D109(full_board, count, reverse)
         row19 = row_data_tuple[0]
         count = row_data_tuple[1]
 
         reverse = True
-        row_data_tuple = assign_row_D38(Half_Two, count, reverse)
+        row_data_tuple = assign_row_D38(full_board, count, reverse)
         row20 = row_data_tuple[0]
         count = row_data_tuple[1]
 
@@ -195,7 +200,7 @@ def assign(Half_One, Half_Two):
 
 def assign_row_D38(file_data, count, reverse):
         """"assign data to row with 38 leds"""
-        row_D38 = [0 for i in range(113)] # initialize 1D array
+        row_D38 = [background for i in range(113)] # initialize 1D array
 
         split = False # use if row has data split
         length_data = 19 # amount of data that's placed
@@ -213,7 +218,7 @@ def assign_row_D38(file_data, count, reverse):
 
 def assign_row_D109(file_data, count, reverse):
         """"assign data to row with 109 leds"""
-        row_D109 = [0 for i in range(113)] # initialize 1D array
+        row_D109 = [background for i in range(113)] # initialize 1D array
 
         split = False
         length_data = 109 # amount of data that's placed 109
@@ -224,7 +229,7 @@ def assign_row_D109(file_data, count, reverse):
 
 def assign_row_D111(file_data, count, reverse):
         """"assign data to row with 111 leds"""
-        row_D111 = [0 for i in range(113)] # initialize 1D array
+        row_D111 = [background for i in range(113)] # initialize 1D array
 
         split = False
         length_data = 111 # amount of data that's placed
@@ -235,7 +240,7 @@ def assign_row_D111(file_data, count, reverse):
 
 def assign_row_D113(file_data, count, reverse):
         """"assign data to row with 113 leds"""
-        row_D113 = [0 for i in range(113)] # initialize 1D array
+        row_D113 = [background for i in range(113)] # initialize 1D array
 
         split = False
         length_data = 113 # amount of data that's placed
@@ -259,7 +264,7 @@ def assign_data(length_data, length_blank, count, row, file_data, split, reverse
 
         if reverse == True:
                 for i in range (length_blank):
-                        row[row_location] = 0 # assign pixels to 0
+                        row[row_location] = background # assign pixels to 0
                         row_location = row_location - 1
 
                 # print("Length data: ", length_data)
@@ -271,7 +276,7 @@ def assign_data(length_data, length_blank, count, row, file_data, split, reverse
 
         else:
                 for i in range (length_blank):
-                        row[row_location] = 0 # assign pixels to 0
+                        row[row_location] = background # assign pixels to 0
                         row_location = row_location + 1
 
                 # print("Length data: ", length_data)
