@@ -9,26 +9,29 @@
 # to make this work ensure the working folder is the _Dustin folder
 
 from PIL import Image
-import fileinput
-import numpy
 from numpy import full, loadtxt
+import os
 
 
 # sim parameters
 background = 0xFFFFFF # hex color for background color of final image
 
 # file to simulate
-media = "tests/" # file to simulate
-relative_path = "board_media/" # relative path from _Dustin Foldert
+media = "test_gif/" # file to simulate
+relative_path = "board_media/" # relative path from _Dustin Folder
+
+# file to save final result to
+relative_path_gif = "sim_outputs/"
+sim_gif_name = "nyan.gif"
 
 #Global variables
 array_size = 2090 # total amount of leds in system
 count = 0
 
-def create_image():
+def create_image(frames_str):
         full_path = relative_path + media
-        print("Full Path: ",full_path)
-        board_full = get_input(full_path+"image.dat")
+        board_full = get_input(full_path+"image"+frames_str+".dat")
+        print("Full Path: "+full_path+"image"+frames_str+".dat")
 
         Board = Image.new('RGB', (113,20), background) # mode, size, color
         # Board.show()
@@ -43,12 +46,11 @@ def create_image():
                         value = All_Assigned[i][j]
                         pixels[j,i] = value
         Board = Board.resize((565,100), Image.NEAREST)
-        Board.show()
+        return Board
 
 def get_input(file):
         """open and read .dat files and convert to integer arrays"""
         conversion = [0 for i in range(array_size)]
-        Half_One = open(file, "r")
         data = loadtxt(file, delimiter=",",unpack=False)
         # convert data to python standard integer array
         count = 0
@@ -251,14 +253,15 @@ def assign_row_D113(file_data, count, reverse):
 def assign_data(length_data, length_blank, count, row, file_data, split, reverse):
         """assigns single dimensional data array from files to appropriate point on image"""
         row_location = 0 # marks point in row we are writing to
+        # print("Row: ", row)
 
         if split and reverse == True:
                 print("split, Reverse")
-                row_location = 91 # 113-22
+                row_location = 90 # 113-22
         elif (split == True) and (reverse == False):
                 row_location = 22
         elif (split == False) and (reverse == True):
-                row_location = 113 - 1
+                row_location = 113-1
         else:
                 row_location = 0
 
@@ -289,5 +292,32 @@ def assign_data(length_data, length_blank, count, row, file_data, split, reverse
         # print("row location: ", row_location)
         return count
 
-create_image()
+if __name__ == "__main__":
+        full_gif = []
+
+        frames = 0
+        file_location = relative_path + media
+        for path in os.scandir(file_location):
+                if path.is_file():
+                        frames = frames + 1
+
+        frames = frames - 1
+        if frames == 0:
+                frames = 1
+
+        print("Frame Total: ", frames)
+
+        frames_str = str(frames)
+
+        for i in range(frames):
+                print("works")
+                Board = create_image(str(i))
+                full_gif.append(Board)
+
+        if frames > 1:
+                # print(full_gif)
+                full_gif[0].save(relative_path_gif + sim_gif_name,
+                save_all=True, append_images=full_gif[1:], optimize=False, duration=1, loop=0)
+
+        Board.show()
 
