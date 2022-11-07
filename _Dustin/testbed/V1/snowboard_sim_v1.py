@@ -17,7 +17,7 @@ import os
 background = 0xFFFFFF # hex color for background color of final image
 
 # file to simulate
-media = "test_gif/" # file to simulate
+media = "test/" # file to simulate
 relative_path = "board_media/" # relative path from _Dustin Folder
 
 # file to save final result to
@@ -69,52 +69,61 @@ def assign(full_board):
         row_data_tuple = assign_row_D38(full_board, count, reverse)
         row1 = row_data_tuple[0]
         count = row_data_tuple[1]
-        # print(count)
+        print("Count: ",count)
 
         reverse = True
         row_data_tuple = assign_row_D109(full_board, count, reverse)
         row2 = row_data_tuple[0]
         count = row_data_tuple[1]
+        print("Count: ",count)
 
         reverse = False
         row_data_tuple = assign_row_D111(full_board, count, reverse)
         row3 = row_data_tuple[0]
         count = row_data_tuple[1]
+        print("Count: ",count)
 
         reverse = True
         row_data_tuple = assign_row_D111(full_board, count, reverse)
         row4 = row_data_tuple[0]
         count = row_data_tuple[1]
+        print("Count: ",count)
 
         reverse = False
         row_data_tuple = assign_row_D111(full_board, count, reverse)
         row5 = row_data_tuple[0]
         count = row_data_tuple[1]
+        print("Count: ",count)
 
         reverse = True
         row_data_tuple = assign_row_D113(full_board, count, reverse)
         row6 = row_data_tuple[0]
         count = row_data_tuple[1]
+        print("Count: ",count)
 
         reverse = False
         row_data_tuple = assign_row_D113(full_board, count, reverse)
         row7 = row_data_tuple[0]
         count = row_data_tuple[1]
+        print("Count: ",count)
 
         reverse = True
         row_data_tuple = assign_row_D113(full_board, count, reverse)
         row8 = row_data_tuple[0]
         count = row_data_tuple[1]
+        print("Count: ",count)
 
         reverse = False
         row_data_tuple = assign_row_D113(full_board, count, reverse)
         row9 = row_data_tuple[0]
         count = row_data_tuple[1]
+        print("Count: ",count)
 
         reverse = True
         row_data_tuple = assign_row_D113(full_board, count, reverse)
         row10 = row_data_tuple[0]
         count = row_data_tuple[1]
+        print("Count: ",count)
 
         #Side 2
         ########################################################################
@@ -182,6 +191,12 @@ def assign(full_board):
         full_matrix[7] = row8
         full_matrix[8] = row9
         full_matrix[9] = row10
+
+        row_test = Image.new('RGB', (113,1), background) # 113 pixels x 1 pixel to test row
+        pixels_test = row_test.load() # Create the pixel map
+        for i in range(row_test.size[0]):
+                pixels_test[i,0] = row10[i]
+        row_test.show()
 
         full_matrix[10] = row11
         full_matrix[11] = row12
@@ -259,15 +274,15 @@ def assign_data(length_data, length_blank, count, row, file_data, split, reverse
                 print("split, Reverse")
                 row_location = 90 # 113-22
         elif (split == True) and (reverse == False):
-                row_location = 22
+                row_location = 20
         elif (split == False) and (reverse == True):
-                row_location = 113-1
+                row_location = 112
         else:
                 row_location = 0
 
         if reverse == True:
                 for i in range (length_blank):
-                        row[row_location] = background # assign pixels to 0
+                        row[row_location] = background # assign pixels to background color
                         row_location = row_location - 1
 
                 # print("Length data: ", length_data)
@@ -279,7 +294,7 @@ def assign_data(length_data, length_blank, count, row, file_data, split, reverse
 
         else:
                 for i in range (length_blank):
-                        row[row_location] = background # assign pixels to 0
+                        row[row_location] = background # assign pixels to background color
                         row_location = row_location + 1
 
                 # print("Length data: ", length_data)

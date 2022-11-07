@@ -1,0 +1,29 @@
+keep dual xt-60
+move connectors
+
+have single xt-60 power output
+use jst for signal output/input
+
+less wide pcb
+
+appropriately sized mosfets
+
+fuse stupid size. keep soldered in
+
+add rotary encoder / potentiometer
+
+add i2c line 
+
+fix foot print for gps
+
+gyro fix footprint
+
+mpu fix footprint
+
+add current shunt if it doesnt affect size
+
+make led dimmer, amount of status leds is good at 2
+
+
+
+

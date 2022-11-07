@@ -18,10 +18,10 @@ shift_horizontal = 0 # integer for how much to shift image in pixels (- left + r
 shift_vertical = 0 # integer for how much to shift image in pixels (- down + up)
 
 #media imports
-image_file = "nyan.gif" # image name
+image_file = "nyan.png" # image name
 image_path = "media/" # path to pull media from
 
-save_path = "board_media/test_gif/" # path to save output array
+save_path = "board_media/test/" # path to save output array
 
 #global variables
 max_height = 20 # height of board at tip/tail
@@ -204,7 +204,7 @@ if __name__ == "__main__":
     image = Image.open(image_path+image_file, "r") # open image
     if image.format == "GIF":
         try:
-            while(1):
+            while(1): # infinite loop until out of gif frames
                 # print("Count: ", count, "\n")
                 image.seek(image.tell()+1)
                 display_image = image_input(image)
@@ -212,12 +212,13 @@ if __name__ == "__main__":
                 file = mask_and_array(full_image)
                 save_data(file, count)
                 count = count + 1
-        except EOFError:
+        except EOFError: # if there are no more frames, pass
             pass
 
     else:
         display_image = image_input(image) # returns image that has been modified to fit board
         # display_image.show()
+        
         full_image = assign_to_board(display_image) # returns array of image data as hex values
         file = mask_and_array(full_image) # masks image data to fit on board
         save_data(file, count)
