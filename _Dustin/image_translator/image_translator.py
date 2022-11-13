@@ -11,14 +11,14 @@ from pip import main
 
 #image parameters
 background_color = "black" # can be hex value or color string
-center_image = False # boolean value. determines if image is centered
-resize_image = False # boolean value. determine if image is resized to fit board
-rotate = 0 # integer representing angle image is rotated
+center_image = True # boolean value. determines if image is centered
+resize_image = True # boolean value. determine if image is resized to fit board
+rotate = 90 # integer representing angle image is rotated
 shift_horizontal = 0 # integer for how much to shift image in pixels (- left + right)
 shift_vertical = 0 # integer for how much to shift image in pixels (- down + up)
 
 #media imports
-image_file = "nyan.png" # image name
+image_file = "sprite_red.png" # image name
 image_path = "media/" # path to pull media from
 
 save_path = "board_media/test/" # path to save output array
@@ -79,7 +79,7 @@ def assign_to_board(display_image):
             # print(count, full_image[count])
             count = count+1
 
-    # blank.show()
+    blank.show()
     return full_image
 
 def mask_and_array(full_image):
@@ -218,7 +218,7 @@ if __name__ == "__main__":
     else:
         display_image = image_input(image) # returns image that has been modified to fit board
         # display_image.show()
-        
+
         full_image = assign_to_board(display_image) # returns array of image data as hex values
         file = mask_and_array(full_image) # masks image data to fit on board
         save_data(file, count)
