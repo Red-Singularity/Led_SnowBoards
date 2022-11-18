@@ -1,9 +1,10 @@
+
 void sd_setup(){
   // Wait for USB Serial
   while (!Serial) {
   }
 
-  Serial.println("\nSPI pins:\n");
+  Serial.println("\n\nSPI pins:");
   Serial.print("MISO: "); Serial.println(int(MISO));
   Serial.print("MOSI: "); Serial.println(int(MOSI));
   Serial.print("SCK:  "); Serial.println(int(SCK));
@@ -46,7 +47,10 @@ void sd_image_read(){
     currentChar = file.read(); // read next character in file
     //readTime = (micros() - timer)/1000; // end timer
     //Serial.println(currentChar);
-    if(currentChar == ','){ // ',' marks where data is seperated
+    if((currentChar == ',') or (!file.available())){ // ',' marks where data is seperated
+      if(!file.available()){ // make sure to gather last digit in file
+        pixelValue = pixelValue + currentChar; // concatonate character to string
+      }
       pixelData = pixelValue.toInt(); // assign file data to array
       frameData[frameDataCount] = pixelData; // assign file data to array
       pixelValue = ""; // reset pixelValue string to nothing
@@ -61,8 +65,8 @@ void sd_image_read(){
   file.close();
   readTime = (micros() - timer)/1000; // end timer
   Serial.printf("\n\nRead Time: %fmS\n\n", readTime);
-  Serial.print("First item in array: ");
-  Serial.println(frameData[2088]);
+  Serial.print("Last item in array: ");
+  Serial.println(frameData[2089]);
 
   delay(1000);
   

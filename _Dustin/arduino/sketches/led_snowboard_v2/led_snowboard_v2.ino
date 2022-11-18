@@ -13,6 +13,8 @@ rate at which it is displayed and various effects can be applied based on data c
 #include "SdFat.h"
 #include "sdios.h"
 #include <Adafruit_NeoPixel.h>
+#include <Wire.h>
+
 
 //pin defines
 #define DATA_1 12 //sets pin data is being sent from
@@ -27,6 +29,17 @@ rate at which it is displayed and various effects can be applied based on data c
 //other defines
 #define NUM_LEDS 2090 //2090 sets the amount of pixels being controlled
 #define TOP_LEDS 50
+#define MPU_addr 0x68
+//setting for mpu degrees per second
+#define dps2000 0x18
+#define dps1000 0x10
+#define dps500 0x08
+#define dps250 0x00
+//setting for mpu degrees per second
+#define g16 0x18
+#define g8 0x10
+#define g4 0x08
+#define g2 0x00
 
 //spi speed
 #define SPI_CLOCK SD_SCK_MHZ(19)
@@ -58,6 +71,21 @@ ArduinoOutStream cout(Serial);
 //Global variables
 int frameData[2090]; // array of data for single frame
 int chipSelect = 5;
+double mpu_timer = 0;
+float x_angle_gyro = 0;
+float y_angle_gyro = 0;
+float z_angle_gyro = 0;
+
+float ax, ay, az;
+float gx, gy, gz;
+float temp_c;
+
+int cal = 50; // amount of loops to get gyro data for calibration
+
+int offsetx, offsety, offsetz; // offset values for gyro
+
+String accel_set = "16g"; // 2g, 4g, 8g, 16g
+String gyro_set = "2000dps"; // 250dps, 500dps, 1000dps, 2000dps
 
 void setup() {
   //setup serial output
@@ -75,7 +103,10 @@ void setup() {
   sd_setup();
 
   //setup GPS
+  mpu_setup();
 
+  //setup bluetooth
+  
   //setup led strips and initalize to 0
   
 }
@@ -86,13 +117,14 @@ void loop() {
   //comms over bluetooth
 
   //get data from sd card and send to leds
-  sd_image_read();
+  //sd_image_read();
 
   //get gps data
 
   //get MPU data
-
+  mpu();
+  
   //if going slow soft glow. if faster turns red and goes faster. gradiant from front to back. flame effect?
-  //stop effect
+  //stoping effect?
 
 }
