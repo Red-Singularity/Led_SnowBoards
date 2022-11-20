@@ -4,18 +4,18 @@ void sd_setup(){
   while (!Serial) {
   }
 
-  Serial.println("\n\nSPI pins:");
-  Serial.print("MISO: "); Serial.println(int(MISO));
-  Serial.print("MOSI: "); Serial.println(int(MOSI));
-  Serial.print("SCK:  "); Serial.println(int(SCK));
-  Serial.print("SS:   "); Serial.println(int(SS));
+  Serial.println("\n\n SPI pins:");
+  Serial.print(" MISO: "); Serial.println(int(MISO));
+  Serial.print(" MOSI: "); Serial.println(int(MOSI));
+  Serial.print(" SCK:  "); Serial.println(int(SCK));
+  Serial.print(" SS:   "); Serial.println(int(SS));
 
-  Serial.print("Initializing SD card...\n\n");
+  Serial.println("\n Initializing SD card...");
 
   if(!SD.begin(chipSelect, SPI_CLOCK)) {
     if(SD.card()->errorCode()) {
       Serial.println(
-             "\nSD initialization failed.\n"
+             "\n SD initialization failed.\n"
              "Do not reformat the card!\n"
              "Is the card correctly inserted?\n"
              "Is chipSelect set to the correct value?\n"
@@ -25,7 +25,7 @@ void sd_setup(){
     }
   }
     
-  Serial.println("Card successfully initialized");
+  Serial.println(" Card successfully initialized");
   
 }
 
@@ -64,8 +64,8 @@ void sd_image_read(){
 
   file.close();
   readTime = (micros() - timer)/1000; // end timer
-  Serial.printf("\n\nRead Time: %fmS\n\n", readTime);
-  Serial.print("Last item in array: ");
+  Serial.printf("\n\n Read Time: %fmS\n\n", readTime);
+  Serial.print(" Last item in array: ");
   Serial.println(frameData[2089]);
 
   delay(1000);

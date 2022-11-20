@@ -3,7 +3,7 @@ void mpu_setup(){
   byte data_r = 0xFF; //received data
   byte data_s = 0xFF; // sent data
   
-  Serial.println("\n\nConnecting to MPU6050");
+  Serial.println("\n\n Connecting to MPU6050");
   Wire.begin(); // connect to mpu]
 
   //read from WHO_AM_I register to see if mpu is connected
@@ -14,22 +14,22 @@ void mpu_setup(){
   data_r = Wire.read();
   Wire.endTransmission(false);
   if(data_r == 0x68){
-    Serial.println("\nGyro connected!\n");
+    Serial.println("\n Gyro connected!\n");
   }
   else{
-    Serial.println("\nMPU not detected. Wiring issue?");
+    Serial.println("\n MPU not detected. Wiring issue?");
     while(1);
   }
 
   //set power register to get out of sleep
-  Serial.println("Setting power register to get out of sleep mode\n");
+  Serial.println(" Setting power register to get out of sleep mode\n");
   Wire.beginTransmission(MPU_addr);
   Wire.write(0x6B); // write to gyro config register
   Wire.write(0b00000000); //set sleep mode to disabled
   Wire.endTransmission();
   
   //set gyro settings
-  Serial.println("Setting MPU parameters:");
+  Serial.println(" Setting MPU parameters:");
 
   Wire.beginTransmission(MPU_addr);
   Wire.write(0x1B); // write to gyro config register
@@ -46,7 +46,7 @@ void mpu_setup(){
     Wire.write(dps2000); //set degrees per second
   }
   else{
-    Serial.print("Improper gyro_set value");
+    Serial.print(" Improper gyro_set value");
     while(1);
   }
   Wire.endTransmission();
@@ -59,19 +59,19 @@ void mpu_setup(){
   //Serial.println(data_r);
   Wire.endTransmission();
   if(data_r == dps2000){
-    Serial.println("Gyro set to 2000 degrees per second");
+    Serial.println(" Gyro set to 2000 degrees per second");
   }
   else if(data_r == dps1000){
-    Serial.println("Gyro set to 1000 degrees per second");
+    Serial.println(" Gyro set to 1000 degrees per second");
   }
   else if(data_r == dps500){
-    Serial.println("Gyro set to 500 degrees per second");
+    Serial.println(" Gyro set to 500 degrees per second");
   }
   else if(data_r == dps250){
-    Serial.println("Gyro set to 250 degrees per second");
+    Serial.println(" Gyro set to 250 degrees per second");
   }
   else{
-    Serial.println("Couldn't read data from gyro config register");
+    Serial.println(" Couldn't read data from gyro config register");
     while(1);
   }
 
@@ -93,7 +93,7 @@ void mpu_setup(){
     Wire.write(g16); //set G limit
   }
   else{
-    Serial.print("Improper accel_set value");
+    Serial.print(" Improper accel_set value");
     while(1);
   }
   Wire.endTransmission();
@@ -106,23 +106,23 @@ void mpu_setup(){
   //Serial.println(data_r);
   Wire.endTransmission();
   if(data_r == g16){
-    Serial.println("Accel set to 16g");
+    Serial.println(" Accel set to 16g");
   }
   else if(data_r == g8){
-    Serial.println("Accel set to 8g");
+    Serial.println(" Accel set to 8g");
   }
   else if(data_r == g4){
-    Serial.println("Accel set to 4g");
+    Serial.println(" Accel set to 4g");
   }
   else if(data_r == g2){
-    Serial.println("Accel set to 2g");
+    Serial.println(" Accel set to 2g");
   }
   else{
-    Serial.println("Couldn't read data from accel config register");
+    Serial.println("\n\n Couldn't read data from accel config register");
     while(1);
   }
 
-  Serial.println("getting gyro offsets");
+  Serial.println("\n\n getting gyro offsets:");
   calibrate_gyro();
   
 }
@@ -131,15 +131,8 @@ void mpu_setup(){
 
 //===============================================================================================
 
-
-void mpu(){
-  get_gyro_data(); // get raw data from gyro in degrees per second
-  get_accel_data(); // get raw data from accel in m/s^2
-  get_temp(); // get temperature from module in degrees c
-}
-
 float get_gyro_data(){
-  // return Gyro data in degrees per second
+  // gets gyroscope data and sets a few global variables (gx, gy, gz) in degrees/second
   
   int16_t gyrox_data;
   int16_t gyroy_data;
@@ -178,9 +171,9 @@ float get_gyro_data(){
   }
 
   //assign final gyro values to global variable. in degrees per second
-  gx = gyrox_data/scale;
-  gy = gyroy_data/scale;
-  gz = gyroz_data/scale;
+  gx = (gyrox_data/scale) * 9.807;
+  gy = (gyroy_data/scale) * 9.807;
+  gz = (gyroz_data/scale) * 9.807;
   
   //Serial.print(" Gyro X Registers: "); Serial.print(gx);
   //Serial.print(" Gyro Y Registers: "); Serial.print(gy);
@@ -188,7 +181,7 @@ float get_gyro_data(){
 }
 
 float get_accel_data(){
-  // return accel data in m/s^2
+  // gets accelerometer data and sets a few global variables (ax, ay, az) in m/s^2
   int16_t accelx_data;
   int16_t accely_data;
   int16_t accelz_data;
@@ -222,10 +215,10 @@ float get_accel_data(){
     scale = 2048;
   }
 
-  //assign final accel values to global variable. in m/s^2
-  ax = (accelx_data/scale)*9.81;
-  ay = (accely_data/scale)*9.81;
-  az = (accelz_data/scale)*9.81;
+  //assign final accel values to global variable. in Gs
+  ax = (accelx_data/scale);
+  ay = (accely_data/scale);
+  az = (accelz_data/scale);
   
   //Serial.print(" Accel X Registers: "); Serial.print(ax);
   //Serial.print(" Accel Y Registers: "); Serial.print(ay);
@@ -234,7 +227,7 @@ float get_accel_data(){
 }
 
 void get_temp(){
-  //return temperature in degrees C
+  //gets temperature from mpu register and sets global variable called temp_c in degrees c
 
   int16_t temp;
   
@@ -250,13 +243,16 @@ void get_temp(){
   //Temperature in degrees C = (TEMP_OUT Register Value as a signed quantity)/340 + 36.53
   //Please note that the math in the above equation is in decimal.
 
-  //temp = ~temp + 1;
   temp_c = (temp/340) + 36.53;
-  Serial.print("Temperature: "); Serial.println(temp_c);
+  //Serial.print("Temperature: "); Serial.println(temp_c);
 
 }
 
 void calibrate_gyro(){
+  //sets an offset for gyro data to get accurate data. takes ina global variable called "cal" that
+  //specifies how much gyro data it collects before collecting an average for an offset for the 
+  //x, y, and z gyro register values
+  
   //gyro data integers
   int16_t gyrox_data;
   int16_t gyroy_data;
@@ -265,6 +261,9 @@ void calibrate_gyro(){
   int gyrox_data_total = 0;
   int gyroy_data_total = 0;
   int gyroz_data_total = 0;
+
+  //delay to allow time to reast
+  delay(500);
   
   //get instances of gyro data
   for(int i=0; i<cal; i++){
@@ -282,9 +281,58 @@ void calibrate_gyro(){
   }
 
   offsetx = gyrox_data_total / cal;
-  Serial.print("X offset: "); Serial.println(offsetx);
+  Serial.print(" X offset: "); Serial.println(offsetx);
   offsety = gyroy_data_total / cal;
-  Serial.print("Y offset: "); Serial.println(offsety);
+  Serial.print(" Y offset: "); Serial.println(offsety);
   offsetz = gyroz_data_total / cal;
-  Serial.print("Z offset: "); Serial.println(offsetz);
+  Serial.print(" Z offset: "); Serial.println(offsetz);
+}
+
+void get_angle(){
+  // uses accelerometer and gyro data to get an accurate angle measuremnt for X and Y axis
+  
+  float accel_angle_x, accel_angle_y, accel_angle_z = 0;
+  
+  mpu_timer = (millis() - mpu_timer) / 10000; // end mpu timer and convert to seconds
+  //Serial.print("MPU Timer: "); Serial.println(mpu_timer, 5);
+
+  //use only gyro data to get degrees
+  gyro_angle_x = gyro_angle_x + (gx * mpu_timer);
+  gyro_angle_y = gyro_angle_y + (gy * mpu_timer);
+  gyro_angle_z = gyro_angle_z + (gz * mpu_timer);
+
+  //get angle data from acceleromter (in degrees)
+  accel_angle_x = (atan(ay/(sqrt(sq(ax)+sq(az))))) * 57.2958;
+  accel_angle_y = (atan(ax/(sqrt(sq(ay)+sq(az))))) * 57.2958;
+
+  //Serial.print(" X Acceleromter: "); Serial.print(accel_angle_x);
+  //Serial.print(" Y Angle Acceleromter: "); Serial.println(accel_angle_y);
+
+  //complimentary filter
+  comp_x = (0.98 * (comp_x + (gx*mpu_timer))) + (0.02 * accel_angle_x);
+  comp_y = (0.98 * (comp_y + (gy*mpu_timer))) + (0.02 * accel_angle_y);
+
+  //Serial.print(" X Comp: "); Serial.print(comp_x, 2);
+  //Serial.print(" Y Comp Degrees: "); Serial.print(comp_y, 2);
+  
+  //Serial.print(" X Gyro: "); Serial.println(gyro_angle_x, 2);
+  //Serial.print(" Y Gyro Degrees: "); Serial.println(gyro_angle_y, 2);
+  //Serial.print(" Z Gyro Degrees: "); Serial.println(gyro_angle_z, 2);
+
+  
+  mpu_timer = millis(); // restart mpu timer
+  
+}
+
+//==================================================================================================
+
+void mpu(){
+  //main function that gets all gyro data
+  
+  get_gyro_data(); // get raw data from gyro in degrees per second
+  get_accel_data(); // get raw data from accel in m/s^2
+  get_temp(); // get temperature from module in degrees c
+
+  get_angle(); // get accurate angles using gyro and accel values
+  
 }

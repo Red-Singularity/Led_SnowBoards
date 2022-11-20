@@ -1,0 +1,17 @@
+Minimum viable product
+
+1. read board status. (voltage, current, anything else important)
+2. set colors and intensity of leds (hex values? slider for brightness?)
+3. list files stored on sd card
+4. be able to select sd card items to display
+5. be able to turn on and off power to leds
+6. have terminal for diagnostics
+
+Stretch goals
+
+1. be able to simulate snowboard image with python simulator
+2. use gyro data to make cool effects
+3. use GPS data to make cool effects
+4. be able to upload custom photos with python image translator, simulate output then upload to board
+5. display board angle 
+6. display max G force

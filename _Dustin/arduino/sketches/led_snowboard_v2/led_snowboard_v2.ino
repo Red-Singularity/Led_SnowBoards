@@ -12,6 +12,7 @@ rate at which it is displayed and various effects can be applied based on data c
 
 #include "SdFat.h"
 #include "sdios.h"
+#include "BluetoothSerial.h"
 #include <Adafruit_NeoPixel.h>
 #include <Wire.h>
 
@@ -53,12 +54,14 @@ rate at which it is displayed and various effects can be applied based on data c
 #define SD_CONFIG SdSpiConfig(SD_CS_PIN, SHARED_SPI, SPI_CLOCK)
 #endif  // HAS_SDIO_CLASS
 
-
 //initialize sd card class as sd
 SdFat SD;
 
 //initialize File class as file
 File file;
+
+//initialize BluetoothSerial class as SerialBT
+BluetoothSerial SerialBT;
 
 //initialize led strips
 Adafruit_NeoPixel half1(NUM_LEDS/2, DATA_1, NEO_GRB + NEO_KHZ800); // first half of bottom matrix
@@ -71,21 +74,20 @@ ArduinoOutStream cout(Serial);
 //Global variables
 int frameData[2090]; // array of data for single frame
 int chipSelect = 5;
-double mpu_timer = 0;
-float x_angle_gyro = 0;
-float y_angle_gyro = 0;
-float z_angle_gyro = 0;
-
-float ax, ay, az;
-float gx, gy, gz;
-float temp_c;
-
 int cal = 50; // amount of loops to get gyro data for calibration
-
 int offsetx, offsety, offsetz; // offset values for gyro
+int counter = 0; // generic counter for testing
+
+float ax, ay, az; // accelerometer data in Gs
+float gx, gy, gz; // gyro data in degrees/second
+float comp_x, comp_y = 0; // complimentary filter angles
+float gyro_angle_x, gyro_angle_y, gyro_angle_z = 0; // angle calculated with gyro
+float temp_c; // temperature sensor on mpu. in degrees c
+float mpu_timer = 0; // timer to get data from gyro in mpu
 
 String accel_set = "16g"; // 2g, 4g, 8g, 16g
 String gyro_set = "2000dps"; // 250dps, 500dps, 1000dps, 2000dps
+
 
 void setup() {
   //setup serial output
@@ -103,18 +105,23 @@ void setup() {
   sd_setup();
 
   //setup GPS
+  
+
+  //setup mpu
   mpu_setup();
 
   //setup bluetooth
+  bluetooth_setup();
   
   //setup led strips and initalize to 0
   
 }
 
 void loop() {
-  //get board status
+  //get board status (battery info, current measurements, etc)
 
   //comms over bluetooth
+  app();
 
   //get data from sd card and send to leds
   //sd_image_read();
@@ -122,9 +129,9 @@ void loop() {
   //get gps data
 
   //get MPU data
-  mpu();
+  //mpu();
   
-  //if going slow soft glow. if faster turns red and goes faster. gradiant from front to back. flame effect?
-  //stoping effect?
+  //if going slow soft glow breathing effect. if faster turns red and goes faster. gradiant from front to back.
+  //stoping effect? flame effect?
 
 }
