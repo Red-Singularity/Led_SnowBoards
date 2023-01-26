@@ -72,7 +72,7 @@ Adafruit_NeoPixel top(TOP_LEDS, DATA_3, NEO_GRB + NEO_KHZ800); // top set of led
 ArduinoOutStream cout(Serial);
 
 //Global variables
-int frameData[2090]; // array of data for single frame
+int frameData[NUM_LEDS]; // array of data for single frame
 int chipSelect = 5;
 int cal = 50; // amount of loops to get gyro data for calibration
 int offsetx, offsety, offsetz; // offset values for gyro
@@ -102,26 +102,62 @@ void setup() {
   pinMode(DIVIDER, INPUT); // voltage divider
 
   //setup sd card
-  sd_setup();
+  //sd_setup();
 
   //setup GPS
   
 
   //setup mpu
-  mpu_setup();
+  //mpu_setup();
 
   //setup bluetooth
-  bluetooth_setup();
+  //bluetooth_setup();
   
   //setup led strips and initalize to 0
+  digitalWrite(GATE_SIGNAL, 0);
+  half1.begin();
+  half2.begin();
+  top.begin();
+  for(int i=0; i<(NUM_LEDS/2); i++){
+    half1.setPixelColor(i, half1.Color(0,0,0));
+    half2.setPixelColor(i, half2.Color(0,0,0));
+  }
+  for(int i=0; i<TOP_LEDS; i++){
+    top.setPixelColor(i, top.Color(0,0,0));
+  }
+
+  half1.show();
+  half2.show();
+  top.show();
+
+  //delay(1000);
   
 }
 
 void loop() {
+
+  //led tests  
+  digitalWrite(GATE_SIGNAL, true);
+  
+  for(int i=0; i<(NUM_LEDS/2); i++){
+    half1.setPixelColor(i, half1.Color(100,100,100));
+    half2.setPixelColor(i, half2.Color(100,100,100));
+  }
+  for(int i=0; i<TOP_LEDS; i++){
+    top.setPixelColor(i, top.Color(100,100,100));
+  }
+
+  half1.show();
+  half2.show();
+  top.show();
+
+
+
+
   //get board status (battery info, current measurements, etc)
 
   //comms over bluetooth
-  app();
+  //app();
 
   //get data from sd card and send to leds
   //sd_image_read();
@@ -132,6 +168,6 @@ void loop() {
   //mpu();
   
   //if going slow soft glow breathing effect. if faster turns red and goes faster. gradiant from front to back.
-  //stoping effect? flame effect?
+  //stoping effect? flame effect? Tetris?
 
 }
