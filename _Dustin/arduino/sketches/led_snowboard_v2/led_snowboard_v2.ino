@@ -22,14 +22,14 @@ rate at which it is displayed and various effects can be applied based on data c
 #define DATA_2 13 //sets pin data is being sent from
 #define DATA_3 14 //sets pin data is being sent from
 #define GATE_SIGNAL 32 //controls the mosfet for led strip power
-#define DIVIDER 25 // voltage divider pin
+#define DIVIDER 33 // voltage divider pin
 #define LIGHTS_STATUS 15 // board status led
 
 // #define SD_CS_PIN 5 //SPI CS pin
 
 //other defines
 #define NUM_LEDS 2090 //2090 sets the amount of pixels being controlled
-#define TOP_LEDS 50
+#define TOP_LEDS 60
 #define MPU_addr 0x68
 //setting for mpu degrees per second
 #define dps2000 0x18
@@ -77,6 +77,8 @@ int chipSelect = 5;
 int cal = 50; // amount of loops to get gyro data for calibration
 int offsetx, offsety, offsetz; // offset values for gyro
 int counter = 0; // generic counter for testing
+int rand_LED = 0; // flag for random sequence animation
+int bat_safe = 1; //flag for enabling or disabling low battery cutoff. 1 = safety enabled
 
 float ax, ay, az; // accelerometer data in Gs
 float gx, gy, gz; // gyro data in degrees/second
@@ -84,14 +86,18 @@ float comp_x, comp_y = 0; // complimentary filter angles
 float gyro_angle_x, gyro_angle_y, gyro_angle_z = 0; // angle calculated with gyro
 float temp_c; // temperature sensor on mpu. in degrees c
 float mpu_timer = 0; // timer to get data from gyro in mpu
+float voltage; // main battery voltage
 
 String accel_set = "16g"; // 2g, 4g, 8g, 16g
 String gyro_set = "2000dps"; // 250dps, 500dps, 1000dps, 2000dps
 
+String message = "";
+char incomingChar;
+
 
 void setup() {
   //setup serial output
-  Serial.begin(500000);
+  Serial.begin(115200);
 
   //set pin modes
   pinMode(DATA_1, OUTPUT); // set led data pins to output
@@ -111,10 +117,10 @@ void setup() {
   //mpu_setup();
 
   //setup bluetooth
-  //bluetooth_setup();
+  bluetooth_setup();
   
   //setup led strips and initalize to 0
-  digitalWrite(GATE_SIGNAL, 0);
+  digitalWrite(GATE_SIGNAL, true);
   half1.begin();
   half2.begin();
   top.begin();
@@ -135,22 +141,19 @@ void setup() {
 }
 
 void loop() {
+  float divider_in;
 
-  //led tests  
-  digitalWrite(GATE_SIGNAL, true);
-  
-  for(int i=0; i<(NUM_LEDS/2); i++){
-    half1.setPixelColor(i, half1.Color(100,100,100));
-    half2.setPixelColor(i, half2.Color(100,100,100));
-  }
-  for(int i=0; i<TOP_LEDS; i++){
-    top.setPixelColor(i, top.Color(100,100,100));
+  bluetooth_control();
+
+  divider_in = analogRead(DIVIDER); // read voltage divider
+  voltage = ((divider_in*(3.3/4095)) * ((68+22)/22)) + 1; // read battery voltage from divider. R1=68K, R2=22k
+  if ((bat_safe == 1) && (voltage < 9.5)){ // disable lights if voltage is too low
+    digitalWrite(GATE_SIGNAL, false);
   }
 
   half1.show();
   half2.show();
   top.show();
-
 
 
 
