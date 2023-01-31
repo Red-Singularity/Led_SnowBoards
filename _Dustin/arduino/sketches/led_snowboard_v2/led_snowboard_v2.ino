@@ -64,9 +64,9 @@ File file;
 BluetoothSerial SerialBT;
 
 //initialize led strips
-Adafruit_NeoPixel half1(NUM_LEDS/2, DATA_1, NEO_GRB + NEO_KHZ800); // first half of bottom matrix
-Adafruit_NeoPixel half2(NUM_LEDS/2, DATA_2, NEO_GRB + NEO_KHZ800); // second half of bottom matrix
-Adafruit_NeoPixel top(TOP_LEDS, DATA_3, NEO_GRB + NEO_KHZ800); // top set of leds
+Adafruit_NeoPixel half1(NUM_LEDS/2, DATA_1, NEO_BGR + NEO_KHZ800); // first half of bottom matrix
+Adafruit_NeoPixel half2(NUM_LEDS/2, DATA_2, NEO_BGR + NEO_KHZ800); // second half of bottom matrix
+Adafruit_NeoPixel top(TOP_LEDS, DATA_3, NEO_BGR + NEO_KHZ800); // top set of leds
 
 // Create a Serial output stream.
 ArduinoOutStream cout(Serial);
@@ -77,8 +77,11 @@ int chipSelect = 5;
 int cal = 50; // amount of loops to get gyro data for calibration
 int offsetx, offsety, offsetz; // offset values for gyro
 int counter = 0; // generic counter for testing
-int rand_LED = 0; // flag for random sequence animation
-int bat_safe = 1; //flag for enabling or disabling low battery cutoff. 1 = safety enabled
+int frame_number = 0; // sets the frame being displayed for the current gif
+
+bool bat_safe = 1; //flag for enabling or disabling low battery cutoff. 1 = safety enabled
+bool rand_LED = 0; // flag for random sequence animation
+bool nyan = 0; // flag for setting nyan cat animation
 
 float ax, ay, az; // accelerometer data in Gs
 float gx, gy, gz; // gyro data in degrees/second
@@ -87,6 +90,7 @@ float gyro_angle_x, gyro_angle_y, gyro_angle_z = 0; // angle calculated with gyr
 float temp_c; // temperature sensor on mpu. in degrees c
 float mpu_timer = 0; // timer to get data from gyro in mpu
 float voltage; // main battery voltage
+float timer = 0; // generic timer
 
 String accel_set = "16g"; // 2g, 4g, 8g, 16g
 String gyro_set = "2000dps"; // 250dps, 500dps, 1000dps, 2000dps
@@ -106,6 +110,7 @@ void setup() {
   pinMode(GATE_SIGNAL, OUTPUT); // turns on 12v to leds
   pinMode(LIGHTS_STATUS, OUTPUT); // board status led
   pinMode(DIVIDER, INPUT); // voltage divider
+
 
   //setup sd card
   //sd_setup();
@@ -141,19 +146,35 @@ void setup() {
 }
 
 void loop() {
+  timer = millis();
   float divider_in;
-
-  bluetooth_control();
+  int bat_indicator;
 
   divider_in = analogRead(DIVIDER); // read voltage divider
+
   voltage = ((divider_in*(3.3/4095)) * ((68+22)/22)) + 1; // read battery voltage from divider. R1=68K, R2=22k
   if ((bat_safe == 1) && (voltage < 9.5)){ // disable lights if voltage is too low
     digitalWrite(GATE_SIGNAL, false);
   }
 
+  //map max and min voltage to number of leds
+  bat_indicator = map(voltage*10, 9.5, 12.6, 0, 30);
+  SerialBT.print("leds on: ");
+  SerialBT.println(bat_indicator);
+
+  for(int i=0; i++; i<bat_indicator){
+    top.setPixelColor(i, 255,255,255);
+    top.setPixelColor(i+30, 255,255,255);
+  }
+
+  bluetooth_control();
+
+
   half1.show();
   half2.show();
   top.show();
+
+  Serial.println(millis()-timer);
 
 
 

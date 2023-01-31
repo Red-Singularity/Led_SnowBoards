@@ -56,54 +56,59 @@ void bluetooth_control(){
     //set color to white
     else if(message == "06"){
       rand_LED = 0;
+      nyan = 0;
       for(int i=0; i<(NUM_LEDS/2); i++){
         half1.setPixelColor(i, 255, 255, 255);
         half2.setPixelColor(i, 255, 255, 255);
       }
       for(int i=0; i<TOP_LEDS; i++){
-        top.setPixelColor(i, 255, 255, 255);
+        //top.setPixelColor(i, 255, 255, 255);
       }
     }
 
     //set color to Green
     else if(message == "07"){
       rand_LED = 0;
+      nyan = 0;
       for(int i=0; i<(NUM_LEDS/2); i++){
         half1.setPixelColor(i, 255, 0, 0);
         half2.setPixelColor(i, 255, 0, 0);
       }
       for(int i=0; i<TOP_LEDS; i++){
-        top.setPixelColor(i, 0, 255, 0);
+        //top.setPixelColor(i, 0, 255, 0);
       }
     }
 
     //set color to Red
     else if(message == "08"){
       rand_LED = 0;
+      nyan = 0;
       for(int i=0; i<(NUM_LEDS/2); i++){
         half1.setPixelColor(i, 0, 255, 0);
         half2.setPixelColor(i, 0, 255, 0);
       }
       for(int i=0; i<TOP_LEDS; i++){
-        top.setPixelColor(i, 255, 0, 0);
+        //top.setPixelColor(i, 255, 0, 0);
       }
     }
 
     //set color to Blue
     else if(message == "09"){
       rand_LED = 0;
+      nyan = 0;
       for(int i=0; i<(NUM_LEDS/2); i++){
         half1.setPixelColor(i, 0, 0, 255);
         half2.setPixelColor(i, 0, 0, 255);
       }
       for(int i=0; i<TOP_LEDS; i++){
-        top.setPixelColor(i, 0, 0, 255);
+        //top.setPixelColor(i, 0, 0, 255);
       }
     }
 
     //set color to Random
     else if(message == "0A"){
       rand_LED = 1;
+      nyan = 0;
     }
 
     //set brightness to 5%
@@ -149,8 +154,8 @@ void bluetooth_control(){
     }
 
     //assign image to board
-    else if(message == "06"){
-      assign_image();
+    else if(message == "10"){
+      nyan = 1;
     }
 
     else{}
@@ -158,13 +163,23 @@ void bluetooth_control(){
   }
 
   if (rand_LED == 1){
-      for(int i=0; i<(NUM_LEDS/2); i++){
-        half1.setPixelColor(i, random(0, 0xFFFFFF));
-        half2.setPixelColor(i, random(0, 0xFFFFFF));
-      }
-      for(int i=0; i<TOP_LEDS; i++){
-        top.setPixelColor(i, random(0, 0xFFFFFF));
-      }
+    for(int i=0; i<(NUM_LEDS/2); i++){
+      half1.setPixelColor(i, random(0, 0xFFFFFF));
+      half2.setPixelColor(i, random(0, 0xFFFFFF));
+    }
+    for(int i=0; i<TOP_LEDS; i++){
+      //top.setPixelColor(i, random(0, 0xFFFFFF));
+    }
+  }
+
+  if (nyan == 1){
+    if(frame_number < 7){
+      frame_number++;
+    }
+    else{
+      frame_number = 0;
+    }
+    assign_image(frame_number);
   }
 }
 
