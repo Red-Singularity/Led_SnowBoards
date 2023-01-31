@@ -148,6 +148,11 @@ void bluetooth_control(){
       top.setBrightness(255);
     }
 
+    //assign image to board
+    else if(message == "06"){
+      assign_image();
+    }
+
     else{}
 
   }

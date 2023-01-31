@@ -72,7 +72,7 @@ Adafruit_NeoPixel top(TOP_LEDS, DATA_3, NEO_GRB + NEO_KHZ800); // top set of led
 ArduinoOutStream cout(Serial);
 
 //Global variables
-int frameData[NUM_LEDS]; // array of data for single frame
+// int frameData[NUM_LEDS]; // array of data for single frame
 int chipSelect = 5;
 int cal = 50; // amount of loops to get gyro data for calibration
 int offsetx, offsety, offsetz; // offset values for gyro

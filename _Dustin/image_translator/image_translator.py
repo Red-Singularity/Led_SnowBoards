@@ -13,15 +13,15 @@ from pip import main
 background_color = "black" # can be hex value or color string
 center_image = True # boolean value. determines if image is centered
 resize_image = True # boolean value. determine if image is resized to fit board
-rotate = 90 # integer representing angle image is rotated
+rotate = 0 # integer representing angle image is rotated
 shift_horizontal = 0 # integer for how much to shift image in pixels (- left + right)
 shift_vertical = 0 # integer for how much to shift image in pixels (- down + up)
 
 #media imports
-image_file = "sprite_red.png" # image name
+image_file = "nyan.gif" # image name
 image_path = "media/" # path to pull media from
 
-save_path = "board_media/test/" # path to save output array
+save_path = "board_media/nyan/" # path to save output array
 
 #global variables
 max_height = 20 # height of board at tip/tail

@@ -52,7 +52,7 @@ void sd_image_read(){
         pixelValue = pixelValue + currentChar; // concatonate character to string
       }
       pixelData = pixelValue.toInt(); // assign file data to array
-      frameData[frameDataCount] = pixelData; // assign file data to array
+      // frameData[frameDataCount] = pixelData; // assign file data to array
       pixelValue = ""; // reset pixelValue string to nothing
       frameDataCount++; // incriment frame data location
       //Serial.println(frameDataCount);

@@ -17,7 +17,7 @@ import os
 background = 0xFFFFFF # hex color for background color of final image
 
 # file to simulate
-media = "test/" # file to simulate
+media = "nyan/" # file to simulate
 relative_path = "board_media/" # relative path from _Dustin Folder
 
 # file to save final result to
