@@ -158,11 +158,18 @@ void loop() {
   }
 
   //map max and min voltage to number of leds
-  bat_indicator = map(voltage*10, 9.5, 12.6, 0, 30);
-  SerialBT.print("leds on: ");
-  SerialBT.println(bat_indicator);
+  bat_indicator = map(voltage*10, 95, 126, 0, 30);
 
-  for(int i=0; i++; i<bat_indicator){
+  //set top leds to 0
+  for(int i=0; i<30; i++){
+    top.setPixelColor(i, 0,0,0);
+    top.setPixelColor(i+30, 0,0,0);
+  }
+
+  //set appropriatwe top leds to a color based on voltage
+  for(int i=0; i<bat_indicator; i++){
+    SerialBT.print("leds on: ");
+    SerialBT.println(bat_indicator);
     top.setPixelColor(i, 255,255,255);
     top.setPixelColor(i+30, 255,255,255);
   }
