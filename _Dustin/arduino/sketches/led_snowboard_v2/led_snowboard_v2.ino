@@ -82,6 +82,7 @@ int frame_number = 0; // sets the frame being displayed for the current gif
 bool bat_safe = 1; //flag for enabling or disabling low battery cutoff. 1 = safety enabled
 bool rand_LED = 0; // flag for random sequence animation
 bool nyan = 0; // flag for setting nyan cat animation
+bool freefall = 0; // flag for freefall detection
 
 float ax, ay, az; // accelerometer data in Gs
 float gx, gy, gz; // gyro data in degrees/second
@@ -119,7 +120,7 @@ void setup() {
   
 
   //setup mpu
-  //mpu_setup();
+  mpu_setup();
 
   //setup bluetooth
   bluetooth_setup();
@@ -168,20 +169,13 @@ void loop() {
 
   //set appropriatwe top leds to a color based on voltage
   for(int i=0; i<bat_indicator; i++){
-    SerialBT.print("leds on: ");
-    SerialBT.println(bat_indicator);
+    // SerialBT.print("leds on: ");
+    // SerialBT.println(bat_indicator);
     top.setPixelColor(i, 255,255,255);
     top.setPixelColor(i+30, 255,255,255);
   }
 
   bluetooth_control();
-
-
-  half1.show();
-  half2.show();
-  top.show();
-
-  Serial.println(millis()-timer);
 
 
 
@@ -196,7 +190,21 @@ void loop() {
   //get gps data
 
   //get MPU data
-  //mpu();
+  if(freefall == 1 && mpu()==1){
+    for(int i=0; i<(NUM_LEDS/2); i++){
+      half1.setPixelColor(i, 255, 255, 255);
+      half2.setPixelColor(i, 255, 255, 255);
+    }
+  }
+
+  half1.show();
+  half2.show();
+  top.show();
+
+  Serial.println(millis()-timer);
+
+
+
   
   //if going slow soft glow breathing effect. if faster turns red and goes faster. gradiant from front to back.
   //stoping effect? flame effect? Tetris?

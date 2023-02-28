@@ -158,6 +158,26 @@ void bluetooth_control(){
       nyan = 1;
     }
 
+    //assign mario image to board
+    else if(message == "11"){
+      for(int i=0; i<(NUM_LEDS/2); i++){
+        half1.setPixelColor(i, half1.gamma32(marioFrame1[i]));
+        half2.setPixelColor(i, half2.gamma32(marioFrame1[i+NUM_LEDS/2]));
+      }
+    }
+
+    //turn on free fall detection
+    else if(message == "12"){
+      freefall = 1;
+      SerialBT.println("Fall detection on");
+    }
+    //turn off free fall detection
+    else if(message == "13"){
+      freefall = 0;
+      SerialBT.println("Fall detection off");
+    }
+  
+
     else{}
 
   }

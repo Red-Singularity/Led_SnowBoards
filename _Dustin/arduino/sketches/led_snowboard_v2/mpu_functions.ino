@@ -324,9 +324,21 @@ void get_angle(){
   
 }
 
+bool detect_freefall(){
+  // return true or false if freefall is detected
+
+  // check if acceleration in all a xis is below threshold  
+  if(ax < 0.1 && ay < 0.1 && az < 0.1){
+    return(1);
+  }
+  else{
+    return(0);
+  }
+}
+
 //==================================================================================================
 
-void mpu(){
+bool mpu(){
   //main function that gets all gyro data
   
   get_gyro_data(); // get raw data from gyro in degrees per second
@@ -334,5 +346,7 @@ void mpu(){
   get_temp(); // get temperature from module in degrees c
 
   get_angle(); // get accurate angles using gyro and accel values
+
+  return (detect_freefall()); // detect if freefall happens and set flag
   
 }
