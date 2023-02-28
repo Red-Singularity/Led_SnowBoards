@@ -18,10 +18,10 @@ shift_horizontal = 0 # integer for how much to shift image in pixels (- left + r
 shift_vertical = 0 # integer for how much to shift image in pixels (- down + up)
 
 #media imports
-image_file = "nyan.gif" # image name
+image_file = "pacman.gif" # image name
 image_path = "media/" # path to pull media from
 
-save_path = "board_media/nyan/" # path to save output array
+save_path = "board_media/pacman/" # path to save output array
 
 #global variables
 max_height = 20 # height of board at tip/tail
@@ -79,7 +79,7 @@ def assign_to_board(display_image):
             # print(count, full_image[count])
             count = count+1
 
-    blank.show()
+    # blank.show()
     return full_image
 
 def mask_and_array(full_image):

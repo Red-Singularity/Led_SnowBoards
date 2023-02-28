@@ -17,12 +17,12 @@ import os
 background = 0xFFFFFF # hex color for background color of final image
 
 # file to simulate
-media = "nyan/" # file to simulate
+media = "pacman/" # file to simulate
 relative_path = "board_media/" # relative path from _Dustin Folder
 
 # file to save final result to
 relative_path_gif = "sim_outputs/"
-sim_gif_name = "nyan.gif"
+sim_gif_name = "pacman.gif"
 
 #Global variables
 array_size = 2090 # total amount of leds in system
@@ -196,7 +196,7 @@ def assign(full_board):
         pixels_test = row_test.load() # Create the pixel map
         for i in range(row_test.size[0]):
                 pixels_test[i,0] = row10[i]
-        row_test.show()
+        # row_test.show()
 
         full_matrix[10] = row11
         full_matrix[11] = row12
