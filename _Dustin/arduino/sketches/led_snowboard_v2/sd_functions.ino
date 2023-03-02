@@ -65,8 +65,6 @@ void sd_image_read(){
   file.close();
   readTime = (micros() - timer)/1000; // end timer
   Serial.printf("\n\n Read Time: %fmS\n\n", readTime);
-  Serial.print(" Last item in array: ");
-  Serial.println(frameData0[2089]);
 
   delay(1000);
   

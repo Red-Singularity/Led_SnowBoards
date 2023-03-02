@@ -1,4 +1,6 @@
 void bluetooth_setup(){
+  SerialBT.begin("LED_Snowboard_V2"); //name given to esp32
+  Serial.println("\n The device started, now you can pair it with bluetooth!");
   //setup bluetooth connections
   
   SerialBT.begin("LED_Snowboard_V2"); //name given to esp32
@@ -57,6 +59,8 @@ void bluetooth_control(){
     else if(message == "06"){
       rand_LED = 0;
       nyan = 0;
+      mario = 0;
+      pacman = 0;
       for(int i=0; i<(NUM_LEDS/2); i++){
         half1.setPixelColor(i, 255, 255, 255);
         half2.setPixelColor(i, 255, 255, 255);
@@ -70,6 +74,8 @@ void bluetooth_control(){
     else if(message == "07"){
       rand_LED = 0;
       nyan = 0;
+      mario = 0;
+      pacman = 0;
       for(int i=0; i<(NUM_LEDS/2); i++){
         half1.setPixelColor(i, 255, 0, 0);
         half2.setPixelColor(i, 255, 0, 0);
@@ -83,6 +89,8 @@ void bluetooth_control(){
     else if(message == "08"){
       rand_LED = 0;
       nyan = 0;
+      mario = 0;
+      pacman = 0;
       for(int i=0; i<(NUM_LEDS/2); i++){
         half1.setPixelColor(i, 0, 255, 0);
         half2.setPixelColor(i, 0, 255, 0);
@@ -96,6 +104,8 @@ void bluetooth_control(){
     else if(message == "09"){
       rand_LED = 0;
       nyan = 0;
+      mario = 0;
+      pacman = 0;
       for(int i=0; i<(NUM_LEDS/2); i++){
         half1.setPixelColor(i, 0, 0, 255);
         half2.setPixelColor(i, 0, 0, 255);
@@ -107,8 +117,11 @@ void bluetooth_control(){
 
     //set color to Random
     else if(message == "0A"){
-      rand_LED = 1;
+      rand_LED = 0;
       nyan = 0;
+      rand_LED = 1;
+      mario = 0;
+      pacman = 0;
     }
 
     //set brightness to 5%
@@ -153,28 +166,35 @@ void bluetooth_control(){
       top.setBrightness(255);
     }
 
-    //assign image to board
+    //assign nyan cat to board
     else if(message == "10"){
       nyan = 1;
+      rand_LED = 0;
+      rand_LED = 0;
+      mario = 0;
+      pacman = 0;
     }
 
     //assign mario image to board
     else if(message == "11"){
-      for(int i=0; i<(NUM_LEDS/2); i++){
-        half1.setPixelColor(i, half1.gamma32(marioFrame1[i]));
-        half2.setPixelColor(i, half2.gamma32(marioFrame1[i+NUM_LEDS/2]));
-      }
+      mario = 1;  
+      rand_LED = 0;
+      nyan = 0;
+      rand_LED = 0;
+      pacman = 0;    
     }
 
-    //turn on free fall detection
+    //assign pacman to the board
     else if(message == "12"){
-      freefall = 1;
-      SerialBT.println("Fall detection on");
+      pacman = 1;
+      rand_LED = 0;
+      nyan = 0;
+      rand_LED = 0;
+      mario = 0;
     }
-    //turn off free fall detection
+    //assign kirby to the board
     else if(message == "13"){
-      freefall = 0;
-      SerialBT.println("Fall detection off");
+      
     }
   
 
@@ -193,13 +213,15 @@ void bluetooth_control(){
   }
 
   if (nyan == 1){
-    if(frame_number < 7){
-      frame_number++;
-    }
-    else{
-      frame_number = 0;
-    }
-    assign_image(frame_number);
+    assign_nyan();
+  }
+
+  if (pacman == 1){
+    assign_pacman();
+  }
+
+  if (mario == 1){
+    assign_mario();
   }
 }
 

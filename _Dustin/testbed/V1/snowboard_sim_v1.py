@@ -17,12 +17,12 @@ import os
 background = 0xFFFFFF # hex color for background color of final image
 
 # file to simulate
-media = "pacman/" # file to simulate
+media = "kirby/" # file to simulate
 relative_path = "board_media/" # relative path from _Dustin Folder
 
 # file to save final result to
 relative_path_gif = "sim_outputs/"
-sim_gif_name = "pacman.gif"
+sim_gif_name = "kirby_dance.gif"
 
 #Global variables
 array_size = 2090 # total amount of leds in system

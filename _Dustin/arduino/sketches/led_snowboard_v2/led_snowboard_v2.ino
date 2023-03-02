@@ -16,6 +16,10 @@ rate at which it is displayed and various effects can be applied based on data c
 #include <Adafruit_NeoPixel.h>
 #include <Wire.h>
 
+#include "pacman.h"
+#include "mario.h"
+#include "nyan.h"
+
 
 //pin defines
 #define DATA_1 12 //sets pin data is being sent from
@@ -83,7 +87,9 @@ bool bat_safe = 1; //flag for enabling or disabling low battery cutoff. 1 = safe
 bool rand_LED = 0; // flag for random sequence animation
 bool nyan = 0; // flag for setting nyan cat animation
 bool freefall = 0; // flag for freefall detection
-
+bool pacman = 0;
+bool kirby = 0;
+bool mario = 0;
 float ax, ay, az; // accelerometer data in Gs
 float gx, gy, gz; // gyro data in degrees/second
 float comp_x, comp_y = 0; // complimentary filter angles
@@ -120,7 +126,7 @@ void setup() {
   
 
   //setup mpu
-  mpu_setup();
+  //mpu_setup();
 
   //setup bluetooth
   bluetooth_setup();
@@ -190,12 +196,6 @@ void loop() {
   //get gps data
 
   //get MPU data
-  if(freefall == 1 && mpu()==1){
-    for(int i=0; i<(NUM_LEDS/2); i++){
-      half1.setPixelColor(i, 255, 255, 255);
-      half2.setPixelColor(i, 255, 255, 255);
-    }
-  }
 
   half1.show();
   half2.show();

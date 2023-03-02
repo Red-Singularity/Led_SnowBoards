@@ -8,19 +8,38 @@
 
 import os
 
-gif_location = "../board_media/"
-gif_folder = "pacman"
-header_location = "../arduino/sketches/led_snowboard_v2"
-header_name = "gif_data.h"
+dirname = os.path.dirname(__file__) # get absolute path to this location
+
+gif_location = os.path.join(dirname, '../board_media/') # location of board media
+gif_folder = "pacman_cutdown/" # folder of board data to bring to header file
+header_location = os.path.join(dirname, '../arduino/sketches/led_snowboard_v2/') # location of header file
+header_name = "pacman.h" # name of the header file
+
+two_dimensional_array_name = "pacmanData"
 
 if __name__ == "__main__":
     header = open(header_location+header_name, "w") # create a new file
-    frames = # determine how many files there are in the folder
+    frames = 0
 
+    for path in os.listdir(gif_location + gif_folder):# determine how many files there are in the folder
+        # check if current path is a file
+        if os.path.isfile(os.path.join(gif_location + gif_folder, path)):
+            frames += 1
+
+    print("number of files: {}".format(frames))
+
+    # frames = 27
+
+    header.write("const int32_t " + two_dimensional_array_name + "[][2090] = ")
+    header.write("{\n")
     for i in range(frames): # iterate through board data files
         # read string from .dat file and assign to data
-        data = open(gif_location+gif_folder+"image{}.dat".format(i), "r")
-        header.write("const int32_t pacmanFrameData{}[] = {".format(i)) # write array declaration
-        header.write(data) # write data from .dat file
-        header.write("}\n\n") # write end of array declaration with new lines
-        
+        with open(gif_location+gif_folder+"image{}.dat".format(i), "r") as file:
+            data = file.read()
+        # print(data)
+        header.write("{" + data + "}")
+        if i < frames-1:
+            header.write(",\n")
+        else:
+            header.write("\n}; ")
+
