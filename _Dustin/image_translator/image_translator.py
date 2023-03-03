@@ -11,17 +11,17 @@ from pip import main
 
 #image parameters
 background_color = "black" # can be hex value or color string
-center_image = True # boolean value. determines if image is centered
+center_image = False # boolean value. determines if image is centered
 resize_image = True # boolean value. determine if image is resized to fit board
 rotate = 0 # integer representing angle image is rotated
 shift_horizontal = 0 # integer for how much to shift image in pixels (- left + right)
 shift_vertical = 0 # integer for how much to shift image in pixels (- down + up)
 
 #media imports
-image_file = "pacman_cutdown.gif" # image name
+image_file = "rgb_rainbow.png" # image name
 image_path = "media/" # path to pull media from
 
-save_path = "board_media/pacman_cutdown/" # path to save output array
+save_path = "board_media/rgb_rainbow/" # path to save output array
 
 #global variables
 max_height = 20 # height of board at tip/tail
@@ -79,7 +79,7 @@ def assign_to_board(display_image):
             # print(count, full_image[count])
             count = count+1
 
-    # blank.show()
+    blank.show()
     return full_image
 
 def mask_and_array(full_image):
@@ -119,7 +119,7 @@ def array_assign(row_number, pix_val, direction):
     """assigns pixel data from image to individual rows"""
 
     # print("Row Number: ", row_number)
-    second_blank = 113 # set to value that will never happen
+    second_blank = 114 # set to value that will never happen
 
     # all rows that have 38 pixels
     if row_number == 1:

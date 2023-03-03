@@ -17,10 +17,10 @@ import os
 background = 0xFFFFFF # hex color for background color of final image
 
 # file to simulate
-media = "kirby/" # file to simulate
+media = "rgb_rainbow/" # file to simulate
 relative_path = "board_media/" # relative path from _Dustin Folder
 
-# file to save final result to
+# file to save final result to if gif
 relative_path_gif = "sim_outputs/"
 sim_gif_name = "kirby_dance.gif"
 
@@ -274,7 +274,7 @@ def assign_data(length_data, length_blank, count, row, file_data, split, reverse
                 print("split, Reverse")
                 row_location = 90 # 113-22
         elif (split == True) and (reverse == False):
-                row_location = 20
+                row_location = 22
         elif (split == False) and (reverse == True):
                 row_location = 112
         else:

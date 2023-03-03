@@ -10,8 +10,8 @@ data for the bottom matrix will be stored on an sd card which is read frame by f
 rate at which it is displayed and various effects can be applied based on data collected from the mpu and GPS
 */
 
-#include "SdFat.h"
-#include "sdios.h"
+//#include "SdFat.h"
+//#include "sdios.h"
 #include "BluetoothSerial.h"
 #include <Adafruit_NeoPixel.h>
 #include <Wire.h>
@@ -59,10 +59,10 @@ rate at which it is displayed and various effects can be applied based on data c
 #endif  // HAS_SDIO_CLASS
 
 //initialize sd card class as sd
-SdFat SD;
+//SdFat SD;
 
 //initialize File class as file
-File file;
+//File file;
 
 //initialize BluetoothSerial class as SerialBT
 BluetoothSerial SerialBT;
@@ -73,7 +73,7 @@ Adafruit_NeoPixel half2(NUM_LEDS/2, DATA_2, NEO_BGR + NEO_KHZ800); // second hal
 Adafruit_NeoPixel top(TOP_LEDS, DATA_3, NEO_BGR + NEO_KHZ800); // top set of leds
 
 // Create a Serial output stream.
-ArduinoOutStream cout(Serial);
+//ArduinoOutStream cout(Serial);
 
 //Global variables
 // int frameData[NUM_LEDS]; // array of data for single frame
@@ -168,18 +168,17 @@ void loop() {
   bat_indicator = map(voltage*10, 95, 126, 0, 30);
 
   //set top leds to 0
-  for(int i=0; i<30; i++){
-    top.setPixelColor(i, 0,0,0);
-    top.setPixelColor(i+30, 0,0,0);
+  for(int i=0; i<60; i++){
+    top.setPixelColor(i, 50,50,0);
   }
 
   //set appropriatwe top leds to a color based on voltage
-  for(int i=0; i<bat_indicator; i++){
+  /*for(int i=0; i<bat_indicator; i++){
     // SerialBT.print("leds on: ");
     // SerialBT.println(bat_indicator);
     top.setPixelColor(i, 255,255,255);
-    top.setPixelColor(i+30, 255,255,255);
   }
+  */
 
   bluetooth_control();
 

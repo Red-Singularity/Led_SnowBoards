@@ -1,4 +1,4 @@
-
+/*
 void sd_setup(){
   // Wait for USB Serial
   while (!Serial) {
@@ -69,3 +69,4 @@ void sd_image_read(){
   delay(1000);
   
 }
+*/

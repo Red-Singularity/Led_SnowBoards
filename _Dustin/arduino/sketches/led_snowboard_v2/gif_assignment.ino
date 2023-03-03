@@ -21,17 +21,15 @@ void assign_nyan(){
 void assign_mario(){
   //image data is split between two arrays
   Serial.println("mario");
-/*
   for(int x=0; x<1; x++){
     for(int i=0; i<(NUM_LEDS/2); i++){
       half1.setPixelColor(i, half1.gamma32(marioData[x][i]));
-      half2.setPixelColor(i, half2.gamma32(marioData[x][i+NUM_LEDS/2]));
-      delay(50); // fake the frame rate
-      half1.show();
-      half2.show();
+      half2.setPixelColor(i+1, half2.gamma32(marioData[x][i+NUM_LEDS/2]));
+      //delay(50); // fake the frame rate
     }
+    half1.show();
+    half2.show();
   }
-  */
 
 }
 
@@ -43,7 +41,7 @@ void assign_pacman(){
     for(int i=0; i<(NUM_LEDS/2); i++){
       //pacmanData[x][i] = 0;
       half1.setPixelColor(i, half1.gamma32(pacmanData[x][i]));
-      half2.setPixelColor(i, half2.gamma32(pacmanData[x][i+NUM_LEDS/2]));
+      half2.setPixelColor(i+1, half2.gamma32(pacmanData[x][i+NUM_LEDS/2]));
     }
     delay(100); // fake the frame rate
     half1.show();

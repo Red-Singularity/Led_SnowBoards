@@ -11,11 +11,11 @@ import os
 dirname = os.path.dirname(__file__) # get absolute path to this location
 
 gif_location = os.path.join(dirname, '../board_media/') # location of board media
-gif_folder = "pacman_cutdown/" # folder of board data to bring to header file
+gif_folder = "rgb_rainbow/" # folder of board data to bring to header file
 header_location = os.path.join(dirname, '../arduino/sketches/led_snowboard_v2/') # location of header file
-header_name = "pacman.h" # name of the header file
+header_name = "mario.h" # name of the header file
 
-two_dimensional_array_name = "pacmanData"
+two_dimensional_array_name = "marioData"
 
 if __name__ == "__main__":
     header = open(header_location+header_name, "w") # create a new file
