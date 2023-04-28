@@ -18,7 +18,7 @@ Test for reading and writing files to an sd card with esp32
 // Test with reduced SPI speed for breadboards.  SD_SCK_MHZ(4) will select
 // the highest speed supported by the board that is not over 4 MHz.
 // Change SPI_SPEED to SD_SCK_MHZ(50) for best performance.
-#define SPI_SPEED SD_SCK_MHZ(50)
+#define SPI_SPEED SD_SCK_MHZ(4)
 
 // SD card chip select
 const uint8_t SD_CS_PIN = 5;

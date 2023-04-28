@@ -44,7 +44,7 @@ def image_input(image):
         width,height = image.size
 
     image.convert('RGB') # removes alpha channel
-    # image.show()
+    image.show()
 
     return image
 
@@ -58,7 +58,7 @@ def image_positioning(image_width, image_length):
     else:
         image_location = (0,0)
 
-    image_location = (image_location[0]+shift_horizontal, image_location[1]+shift_vertical*-1)
+    image_location = (image_location[0]+shift_horizontal+1, image_location[1]+shift_vertical*-1)
 
     return image_location
 
@@ -66,8 +66,9 @@ def assign_to_board(display_image):
     """Overlay wanted image over blank image that is max size of board"""
     image_width, image_length = display_image.size
     image_location = image_positioning(image_width, image_length)
-    # print("Image location: ", image_location)
+    print("Image location: ", image_location)
     blank = Image.new(mode='RGB', size=(max_width,max_height), color=background_color) # set blank background
+    blank.show()
     blank.paste(display_image, image_location)
     full_image_tuples = blank.load()
     full_image = [0 for i in range(max_height*max_width)] # total amount of pixels
@@ -79,7 +80,7 @@ def assign_to_board(display_image):
             # print(count, full_image[count])
             count = count+1
 
-    blank.show()
+    # blank.show()
     return full_image
 
 def mask_and_array(full_image):
