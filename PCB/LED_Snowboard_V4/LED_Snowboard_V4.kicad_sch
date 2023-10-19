@@ -1,0 +1,65 @@
+(kicad_sch (version 20230121) (generator eeschema)
+
+  (uuid 69eedaaa-0c0b-424a-87de-b98a25a250e0)
+
+  (paper "A4")
+
+  (lib_symbols
+  )
+
+
+  (sheet (at 196.85 46.99) (size 46.99 78.74) (fields_autoplaced)
+    (stroke (width 0.1524) (type solid))
+    (fill (color 0 0 0 0.0000))
+    (uuid 1c15da28-0360-4802-9478-e55dfae7ff35)
+    (property "Sheetname" "peripherals" (at 196.85 46.2784 0)
+      (effects (font (size 1.27 1.27)) (justify left bottom))
+    )
+    (property "Sheetfile" "peripherals.kicad_sch" (at 196.85 126.3146 0)
+      (effects (font (size 1.27 1.27)) (justify left top))
+    )
+    (instances
+      (project "LED_Snowboard_V4"
+        (path "/69eedaaa-0c0b-424a-87de-b98a25a250e0" (page "4"))
+      )
+    )
+  )
+
+  (sheet (at 64.77 46.99) (size 46.99 78.74) (fields_autoplaced)
+    (stroke (width 0.1524) (type solid))
+    (fill (color 0 0 0 0.0000))
+    (uuid 609d0ec3-3d5e-48f8-8437-e8dde642f153)
+    (property "Sheetname" "IO and Power" (at 64.77 46.2784 0)
+      (effects (font (size 1.27 1.27)) (justify left bottom))
+    )
+    (property "Sheetfile" "io.kicad_sch" (at 64.77 126.3146 0)
+      (effects (font (size 1.27 1.27)) (justify left top))
+    )
+    (instances
+      (project "LED_Snowboard_V4"
+        (path "/69eedaaa-0c0b-424a-87de-b98a25a250e0" (page "3"))
+      )
+    )
+  )
+
+  (sheet (at 130.81 46.99) (size 46.99 78.74) (fields_autoplaced)
+    (stroke (width 0.1524) (type solid))
+    (fill (color 0 0 0 0.0000))
+    (uuid e9bdeec5-f2c1-4c3a-b433-37b4e9dce032)
+    (property "Sheetname" "esp32" (at 130.81 46.2784 0)
+      (effects (font (size 1.27 1.27)) (justify left bottom))
+    )
+    (property "Sheetfile" "esp32.kicad_sch" (at 130.81 126.3146 0)
+      (effects (font (size 1.27 1.27)) (justify left top))
+    )
+    (instances
+      (project "LED_Snowboard_V4"
+        (path "/69eedaaa-0c0b-424a-87de-b98a25a250e0" (page "2"))
+      )
+    )
+  )
+
+  (sheet_instances
+    (path "/" (page "1"))
+  )
+)
