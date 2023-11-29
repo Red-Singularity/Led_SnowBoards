@@ -18,10 +18,10 @@ shift_horizontal = 0 # integer for how much to shift image in pixels (- left + r
 shift_vertical = 0 # integer for how much to shift image in pixels (- down + up)
 
 #media imports
-image_file = "rgb_rainbow.png" # image name
+image_file = "amogus.gif" # image name
 image_path = "media/" # path to pull media from
 
-save_path = "board_media/rgb_rainbow/" # path to save output array
+save_path = "board_media/amogus/" # path to save output array
 
 #global variables
 max_height = 20 # height of board at tip/tail
