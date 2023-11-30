@@ -11,7 +11,7 @@ from pip import main
 
 #image parameters
 background_color = "black" # can be hex value or color string
-center_image = False # boolean value. determines if image is centered
+center_image = True # boolean value. determines if image is centered
 resize_image = True # boolean value. determine if image is resized to fit board
 rotate = 0 # integer representing angle image is rotated
 shift_horizontal = 0 # integer for how much to shift image in pixels (- left + right)
@@ -44,7 +44,7 @@ def image_input(image):
         width,height = image.size
 
     image.convert('RGB') # removes alpha channel
-    image.show()
+    # image.show()
 
     return image
 
@@ -68,7 +68,7 @@ def assign_to_board(display_image):
     image_location = image_positioning(image_width, image_length)
     print("Image location: ", image_location)
     blank = Image.new(mode='RGB', size=(max_width,max_height), color=background_color) # set blank background
-    blank.show()
+    # blank.show()
     blank.paste(display_image, image_location)
     full_image_tuples = blank.load()
     full_image = [0 for i in range(max_height*max_width)] # total amount of pixels

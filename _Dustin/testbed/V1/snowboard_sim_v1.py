@@ -17,12 +17,12 @@ import os
 background = 0xFFFFFF # hex color for background color of final image
 
 # file to simulate
-media = "rgb_rainbow/" # file to simulate
+media = "amogus/" # file to simulate
 relative_path = "board_media/" # relative path from _Dustin Folder
 
 # file to save final result to if gif
 relative_path_gif = "sim_outputs/"
-sim_gif_name = "kirby_dance.gif"
+sim_gif_name = "amogus.gif"
 
 #Global variables
 array_size = 2090 # total amount of leds in system
