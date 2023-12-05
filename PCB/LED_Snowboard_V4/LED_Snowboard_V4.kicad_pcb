@@ -692,7 +692,7 @@
       (net 3 "+3V3") (pinfunction "Pin_4") (pintype "passive") (tstamp 4923520f-4aaf-4fc5-97ab-fa8eee5c77bb))
     (pad "5" thru_hole oval (at 10 0 90) (size 1.7 1.95) (drill 0.95) (layers "*.Cu" "*.Mask")
       (net 2 "GND") (pinfunction "Pin_5") (pintype "passive") (tstamp ef4b8c5f-de0b-48ab-9a71-8be2f6270201))
-    (model "${KICAD6_3DMODEL_DIR}/Connector_JST.3dshapes/JST_XA_B05B-XASK-1_1x05_P2.50mm_Vertical.wrl"
+    (model "${KICAD7_3DMODEL_DIR}/Connector_JST.3dshapes/JST_XH_B5B-XH-A_1x05_P2.50mm_Vertical.step"
       (offset (xyz 0 0 0))
       (scale (xyz 1 1 1))
       (rotate (xyz 0 0 0))
@@ -2472,7 +2472,7 @@
       (net 97 "Net-(J1-Pin_3)") (pinfunction "Pin_3") (pintype "passive") (tstamp 81d5f7be-d8d6-43e4-a3d8-c3c082ee96be))
     (pad "4" thru_hole oval (at 7.5 0 180) (size 1.7 1.95) (drill 0.95) (layers "*.Cu" "*.Mask")
       (net 2 "GND") (pinfunction "Pin_4") (pintype "passive") (tstamp be3837a8-d7cc-4606-bbb0-3044b2fe2ac3))
-    (model "${KICAD6_3DMODEL_DIR}/Connector_JST.3dshapes/JST_XA_S04B-XASK-1N-BN_1x04_P2.50mm_Horizontal.wrl"
+    (model "${KICAD7_3DMODEL_DIR}/Connector_JST.3dshapes/JST_XH_S4B-XH-A_1x04_P2.50mm_Horizontal.step"
       (offset (xyz 0 0 0))
       (scale (xyz 1 1 1))
       (rotate (xyz 0 0 0))
@@ -3278,7 +3278,7 @@
       (net 33 "Net-(J7-Pin_2)") (pinfunction "Pin_2") (pintype "passive") (tstamp 72eff5f1-d594-4888-bd64-f55e4c343ff9))
     (pad "3" thru_hole oval (at 5 0 90) (size 1.7 1.95) (drill 0.95) (layers "*.Cu" "*.Mask")
       (net 34 "Net-(J7-Pin_3)") (pinfunction "Pin_3") (pintype "passive") (tstamp 50d930b6-7c32-46a6-bdfd-95ae3acd5e3f))
-    (model "${KICAD6_3DMODEL_DIR}/Connector_JST.3dshapes/JST_XA_B03B-XASK-1_1x03_P2.50mm_Vertical.wrl"
+    (model "${KICAD7_3DMODEL_DIR}/Connector_JST.3dshapes/JST_XH_B3B-XH-A_1x03_P2.50mm_Vertical.step"
       (offset (xyz 0 0 0))
       (scale (xyz 1 1 1))
       (rotate (xyz 0 0 0))
@@ -3829,7 +3829,7 @@
       (net 3 "+3V3") (pinfunction "Pin_2") (pintype "passive") (tstamp c3fcba4c-7499-4260-8547-9aef4f440ba2))
     (pad "3" thru_hole oval (at 5 0 90) (size 1.7 1.95) (drill 0.95) (layers "*.Cu" "*.Mask")
       (net 2 "GND") (pinfunction "Pin_3") (pintype "passive") (tstamp 54615352-92a3-4b7a-8b33-10c38c6d9f4f))
-    (model "${KICAD6_3DMODEL_DIR}/Connector_JST.3dshapes/JST_XA_B03B-XASK-1_1x03_P2.50mm_Vertical.wrl"
+    (model "${KICAD7_3DMODEL_DIR}/Connector_JST.3dshapes/JST_XH_B3B-XH-A_1x03_P2.50mm_Vertical.step"
       (offset (xyz 0 0 0))
       (scale (xyz 1 1 1))
       (rotate (xyz 0 0 0))
@@ -5018,7 +5018,7 @@
       (net 39 "Net-(J12-Pin_2)") (pinfunction "Pin_2") (pintype "passive") (tstamp f6e530e6-c5cb-4357-8ccd-a125bff294e6))
     (pad "3" thru_hole oval (at 5 0 180) (size 1.7 1.95) (drill 0.95) (layers "*.Cu" "*.Mask")
       (net 2 "GND") (pinfunction "Pin_3") (pintype "passive") (tstamp 2c778beb-88b1-43a3-bb16-973be0bdf2c4))
-    (model "${KICAD6_3DMODEL_DIR}/Connector_JST.3dshapes/JST_XA_B03B-XASK-1_1x03_P2.50mm_Vertical.wrl"
+    (model "${KICAD7_3DMODEL_DIR}/Connector_JST.3dshapes/JST_XH_B3B-XH-A_1x03_P2.50mm_Vertical.step"
       (offset (xyz 0 0 0))
       (scale (xyz 1 1 1))
       (rotate (xyz 0 0 0))
@@ -5981,7 +5981,7 @@
       (net 97 "Net-(J1-Pin_3)") (pinfunction "Pin_3") (pintype "passive") (tstamp 7d04779a-0271-4438-b781-dec83528dc3f))
     (pad "4" thru_hole oval (at 7.5 0 90) (size 1.7 1.95) (drill 0.95) (layers "*.Cu" "*.Mask")
       (net 2 "GND") (pinfunction "Pin_4") (pintype "passive") (tstamp 84c52b82-60b0-4013-991b-57d995d4493c))
-    (model "${KICAD6_3DMODEL_DIR}/Connector_JST.3dshapes/JST_XA_B04B-XASK-1_1x04_P2.50mm_Vertical.wrl"
+    (model "${KICAD7_3DMODEL_DIR}/Connector_JST.3dshapes/JST_XH_B4B-XH-A_1x04_P2.50mm_Vertical.step"
       (offset (xyz 0 0 0))
       (scale (xyz 1 1 1))
       (rotate (xyz 0 0 0))
@@ -6173,7 +6173,7 @@
       (net 97 "Net-(J1-Pin_3)") (pinfunction "Pin_3") (pintype "passive") (tstamp be8d514f-15d6-4c08-a4a2-3add6cf8cb1c))
     (pad "4" thru_hole oval (at 7.5 0 180) (size 1.7 1.95) (drill 0.95) (layers "*.Cu" "*.Mask")
       (net 2 "GND") (pinfunction "Pin_4") (pintype "passive") (tstamp 6ed1b6d3-2593-4a33-803a-1b535d5346ed))
-    (model "${KICAD6_3DMODEL_DIR}/Connector_JST.3dshapes/JST_XA_S04B-XASK-1N-BN_1x04_P2.50mm_Horizontal.wrl"
+    (model "${KICAD7_3DMODEL_DIR}/Connector_JST.3dshapes/JST_XH_S4B-XH-A_1x04_P2.50mm_Horizontal.step"
       (offset (xyz 0 0 0))
       (scale (xyz 1 1 1))
       (rotate (xyz 0 0 0))
@@ -7679,9 +7679,11 @@
   (segment (start 182.6 136.4) (end 182.5 136.5) (width 0.25) (layer "F.Cu") (net 28) (tstamp 3e775170-fcdd-4f5a-b9c7-274c44669667))
   (via (at 182.6 136.4) (size 0.8) (drill 0.4) (layers "F.Cu" "B.Cu") (net 28) (tstamp 4328cb85-3fd6-436c-ac53-637a55333667))
   (via (at 187.4 100.015) (size 0.8) (drill 0.4) (layers "F.Cu" "B.Cu") (net 28) (tstamp 7f8cccce-2184-4a48-ad72-02449d88b2ae))
-  (segment (start 182.6 124) (end 182.6 136.4) (width 0.25) (layer "In1.Cu") (net 28) (tstamp 9681f86f-d927-437c-8b3e-705939b49fdb))
+  (segment (start 187.4 119.25) (end 183.1 123.55) (width 0.25) (layer "In1.Cu") (net 28) (tstamp c40f4141-70ac-41e1-932e-2d83045d28a5))
   (segment (start 187.4 100.015) (end 187.4 119.2) (width 0.25) (layer "In1.Cu") (net 28) (tstamp cad09059-b3ca-4485-be0d-cb2a36949c95))
-  (segment (start 187.4 119.2) (end 182.6 124) (width 0.25) (layer "In1.Cu") (net 28) (tstamp ed698189-2b54-42a7-aed6-0c2d202058a6))
+  (segment (start 183.1 123.6) (end 183.1 135.9) (width 0.25) (layer "In1.Cu") (net 28) (tstamp d2db2856-b3e4-49f2-b04d-fd7ccfdb4a42))
+  (segment (start 183.1 123.55) (end 183.1 123.6) (width 0.25) (layer "In1.Cu") (net 28) (tstamp de584242-0c2f-42c5-b3bd-fa40ae362433))
+  (segment (start 183.1 135.9) (end 182.6 136.4) (width 0.25) (layer "In1.Cu") (net 28) (tstamp e024927c-0777-4540-a55c-22f79183a14f))
   (segment (start 188.1 99.315) (end 197.5 99.315) (width 0.25) (layer "In2.Cu") (net 28) (tstamp 0eabb274-c175-4c3b-be71-0142b7a47555))
   (segment (start 187.4 100.015) (end 188.1 99.315) (width 0.25) (layer "In2.Cu") (net 28) (tstamp bd6ce271-582f-475b-b9ca-cab5ec06f91c))
   (segment (start 181.8255 129.55) (end 181.8755 129.5) (width 0.25) (layer "F.Cu") (net 29) (tstamp 4e5b0a4e-f8d1-467e-bdee-4210348bf174))
@@ -7691,10 +7693,11 @@
   (segment (start 180.5 129.55) (end 180.5 131.5) (width 0.25) (layer "F.Cu") (net 29) (tstamp dc350982-a916-4210-aa6e-6a5342c8039c))
   (via (at 187.2875 96.9875) (size 0.8) (drill 0.4) (layers "F.Cu" "B.Cu") (net 29) (tstamp 93cdd730-54a5-4e32-a8ce-d7a2b74649ab))
   (via (at 181.8755 129.5) (size 0.8) (drill 0.4) (layers "F.Cu" "B.Cu") (free) (net 29) (tstamp d1cffefd-ddc5-4150-88c6-0b6226b28569))
-  (segment (start 187.2875 96.9875) (end 186.2 98.075) (width 0.25) (layer "In1.Cu") (net 29) (tstamp 1a91349f-6d6e-4171-a8c2-94e3f98a9525))
-  (segment (start 181.9 123.6) (end 181.9 129.5) (width 0.25) (layer "In1.Cu") (net 29) (tstamp 5412da84-160b-42c6-83a7-6f73acab46fa))
-  (segment (start 186.2 98.075) (end 186.2 119.3) (width 0.25) (layer "In1.Cu") (net 29) (tstamp 6efa4ab4-0dea-4cc1-bf2b-760cb4124e5d))
-  (segment (start 186.2 119.3) (end 181.9 123.6) (width 0.25) (layer "In1.Cu") (net 29) (tstamp b1b36eb5-ec6d-45c0-859a-e1485fac5076))
+  (segment (start 181.9 123) (end 181.9 129.5) (width 0.25) (layer "In1.Cu") (net 29) (tstamp 241a6827-15ec-436b-883f-035673f28a50))
+  (segment (start 187.2875 96.9875) (end 186.2 98.075) (width 0.25) (layer "In1.Cu") (net 29) (tstamp 450061d1-9a1e-4c43-b21a-c92329352f5d))
+  (segment (start 186.2 118.7) (end 181.9 123) (width 0.25) (layer "In1.Cu") (net 29) (tstamp 75270cd0-81f0-444d-8fd6-fcf5c9cbf59b))
+  (segment (start 186.2 98.075) (end 186.2 118.6) (width 0.25) (layer "In1.Cu") (net 29) (tstamp 7d8ce247-c94b-44fc-acc6-f70dc06bcf31))
+  (segment (start 186.2 118.65) (end 186.2 118.7) (width 0.25) (layer "In1.Cu") (net 29) (tstamp e37a04cf-032d-4b70-b3c6-49ee706a1467))
   (segment (start 187.5 96.775) (end 197.5 96.775) (width 0.25) (layer "In2.Cu") (net 29) (tstamp 8c45fc85-5b98-42ea-bcf9-0f530fd9d7c3))
   (segment (start 187.2875 96.9875) (end 187.5 96.775) (width 0.25) (layer "In2.Cu") (net 29) (tstamp d6cfdfbc-0851-4e2b-8b68-b3cfc78f4d69))
   (segment (start 150.3 102.9) (end 152.125 102.9) (width 0.25) (layer "F.Cu") (net 30) (tstamp 09c66ae6-0b4b-4e95-8cab-4377fbbad1ea))
