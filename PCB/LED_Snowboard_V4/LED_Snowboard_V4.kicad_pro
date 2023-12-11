@@ -55,7 +55,19 @@
           "width": 0.0
         }
       ],
-      "drc_exclusions": [],
+      "drc_exclusions": [
+        "courtyards_overlap|179650001|81500001|86989062-42a1-47d1-a718-485dd8ebef00|ef45e5aa-61b8-408f-bfaf-ca6f572460ec",
+        "courtyards_overlap|182000001|80600001|ef45e5aa-61b8-408f-bfaf-ca6f572460ec|f964c446-80a5-465b-8ad9-fb78f26ac747",
+        "courtyards_overlap|184200001|87150001|e6202583-23ac-415a-b7d0-44e8286b4422|ef45e5aa-61b8-408f-bfaf-ca6f572460ec",
+        "courtyards_overlap|190350001|80300001|cbf2c774-f6a0-4c88-b814-abc2a712c11c|ef45e5aa-61b8-408f-bfaf-ca6f572460ec",
+        "hole_clearance|139100000|146480000|0e5913fd-144b-4bcc-80fb-fba586650db5|e1bc5d51-78a5-424e-ae2d-e8969972cb99",
+        "hole_clearance|141120000|146160000|0e5913fd-144b-4bcc-80fb-fba586650db5|43dd01b2-3c4a-4354-b78e-66bacd09f2cd",
+        "starved_thermal|151900000|127500000|0b861d2f-40d6-4df3-9b50-1e2f01c9738b|9f8d5976-bbc2-4f84-82a8-b4831a9fd3ce|F.Cu",
+        "starved_thermal|153000000|113900000|0b861d2f-40d6-4df3-9b50-1e2f01c9738b|8eeb9814-c6c7-4bd8-b57c-1d84857cd8cd|F.Cu",
+        "starved_thermal|163575000|119025000|6aa41e3b-3dc1-4209-b996-c6f8f5f8bc85|de72554a-3399-4f04-a338-5bed3256f650|F.Cu",
+        "starved_thermal|184450000|126000000|0b861d2f-40d6-4df3-9b50-1e2f01c9738b|0fd54665-93b3-4da3-9e41-cb79d521d132|F.Cu",
+        "starved_thermal|188600000|128500000|0b861d2f-40d6-4df3-9b50-1e2f01c9738b|83f81b29-6305-4b79-b7c3-b9f614d55fe2|F.Cu"
+      ],
       "meta": {
         "version": 2
       },
@@ -121,7 +133,7 @@
         "min_resolved_spokes": 2,
         "min_silk_clearance": 0.15,
         "min_text_height": 1.0,
-        "min_text_thickness": 0.153,
+        "min_text_thickness": 0.15,
         "min_through_hole_diameter": 0.15,
         "min_track_width": 0.09999999999999999,
         "min_via_annular_width": 0.13,
@@ -465,7 +477,7 @@
       "idf": "",
       "netlist": "",
       "specctra_dsn": "",
-      "step": "",
+      "step": "LED_Snowboard_V4.step",
       "vrml": ""
     },
     "page_layout_descr_file": ""

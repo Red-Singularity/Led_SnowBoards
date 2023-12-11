@@ -10,7 +10,7 @@ from numpy import concatenate, full, loadtxt
 from pip import main
 
 #image parameters
-background_color = "black" # can be hex value or color string
+background_color = "Black" # can be hex value or color string
 center_image = True # boolean value. determines if image is centered
 resize_image = True # boolean value. determine if image is resized to fit board
 rotate = 0 # integer representing angle image is rotated
@@ -18,10 +18,10 @@ shift_horizontal = 0 # integer for how much to shift image in pixels (- left + r
 shift_vertical = 0 # integer for how much to shift image in pixels (- down + up)
 
 #media imports
-image_file = "amogus.gif" # image name
+image_file = "rgb_rainbow.png" # image name
 image_path = "media/" # path to pull media from
 
-save_path = "board_media/amogus/" # path to save output array
+save_path = "board_media/rgb_rainbow/" # path to save output array
 
 #global variables
 max_height = 20 # height of board at tip/tail
@@ -43,7 +43,7 @@ def image_input(image):
         image = image.resize((int(ratio*width),max_height),Image.NEAREST) # resize image
         width,height = image.size
 
-    image.convert('RGB') # removes alpha channel
+    image.convert('RGBA')
     # image.show()
 
     return image
@@ -58,18 +58,20 @@ def image_positioning(image_width, image_length):
     else:
         image_location = (0,0)
 
-    image_location = (image_location[0]+shift_horizontal+1, image_location[1]+shift_vertical*-1)
+    image_location = (image_location[0]+shift_horizontal, image_location[1]+shift_vertical*-1)
 
     return image_location
 
 def assign_to_board(display_image):
     """Overlay wanted image over blank image that is max size of board"""
+    # display_image.show()
     image_width, image_length = display_image.size
     image_location = image_positioning(image_width, image_length)
     print("Image location: ", image_location)
     blank = Image.new(mode='RGB', size=(max_width,max_height), color=background_color) # set blank background
-    # blank.show()
+    blank.convert('RGBA')
     blank.paste(display_image, image_location)
+    # blank.show()
     full_image_tuples = blank.load()
     full_image = [0 for i in range(max_height*max_width)] # total amount of pixels
     count = 0
@@ -206,9 +208,11 @@ if __name__ == "__main__":
     if image.format == "GIF":
         try:
             while(1): # infinite loop until out of gif frames
-                # print("Count: ", count, "\n")
-                image.seek(image.tell()+1)
+                print("Gif Identified")
+                print("Count: ", count, "\n")
+                image.seek(image.tell()+ 1)
                 display_image = image_input(image)
+                # display_image.show()
                 full_image = assign_to_board(display_image)
                 file = mask_and_array(full_image)
                 save_data(file, count)
@@ -218,7 +222,7 @@ if __name__ == "__main__":
 
     else:
         display_image = image_input(image) # returns image that has been modified to fit board
-        # display_image.show()
+        display_image.show()
 
         full_image = assign_to_board(display_image) # returns array of image data as hex values
         file = mask_and_array(full_image) # masks image data to fit on board

@@ -17,12 +17,12 @@ import os
 background = 0xFFFFFF # hex color for background color of final image
 
 # file to simulate
-media = "amogus/" # file to simulate
+media = "rgb_rainbow/" # file to simulate
 relative_path = "board_media/" # relative path from _Dustin Folder
 
 # file to save final result to if gif
 relative_path_gif = "sim_outputs/"
-sim_gif_name = "amogus.gif"
+sim_gif_name = "pacman_cutdown.gif"
 
 #Global variables
 array_size = 2090 # total amount of leds in system
@@ -316,7 +316,7 @@ if __name__ == "__main__":
                 if path.is_file():
                         frames = frames + 1
 
-        frames = frames - 1
+        frames = frames
         if frames == 0:
                 frames = 1
 
@@ -329,7 +329,7 @@ if __name__ == "__main__":
                 Board = create_image(str(i))
                 full_gif.append(Board)
 
-        if frames > 1:
+        if frames > 0:
                 # print(full_gif)
                 full_gif[0].save(relative_path_gif + sim_gif_name,
                 save_all=True, append_images=full_gif[1:], optimize=False, duration=1, loop=0)
