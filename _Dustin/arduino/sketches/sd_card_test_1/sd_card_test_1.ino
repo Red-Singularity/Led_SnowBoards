@@ -1,6 +1,23 @@
 
-void sd_setup(){
+#include "SdFat.h" // interfaces with sd card
+#include "sdios.h"
+#include "FS.h" // handles files
+
+#define MOSI 23 // MOSI SPI pin
+#define MISO 19 // MISO SPI pin
+#define SCLK 18 // SPI clock pin
+#define SD_CS_PIN 5 // SD card chip select
+#define SPI_CLOCK SD_SCK_MHZ(5) // spi speed
+
+//initialize sd card class as sd
+SdFat SD;
+
+//initialize File class as file
+File file;
+
+void setup() {
   // Wait for USB Serial
+  Serial.begin(115200);
   while (!Serial) {
   }
 
@@ -21,19 +38,16 @@ void sd_setup(){
              "Is chipSelect set to the correct value?\n"
              "Does another SPI device need to be disabled?\n"
              "Is there a wiring/soldering problem?\n");
-       return;
+      while(1);
+      return;
     }
   }
     
   Serial.println(" Card successfully initialized");
 
-  Serial.println("Available Images: ");
-  SD.ls("/", LS_R);
-  
 }
 
-
-void sd_image_read(){
+void loop() {
   //read image data from file then save to global array
   
   String pixelValue = ""; // string of integer values 
@@ -71,40 +85,4 @@ void sd_image_read(){
 
   delay(1000);
   
-}
-
-void readFrame(String filename, int frame){
-  //display frame data from sd card. takes in filename and frame number to display
-  String Path = "/" + filename + "/image" + frame + ".dat";
-  file = SD.open(Path);
-  Serial.println(Path);
-  String pixelValue = ""; // string of integer values 
-  char currentChar;
-  int frameDataCount = 0;
-  int pixelData = 0;
-
-  //assign data from dat file to int array
-  while(file.available()){
-    currentChar = file.read(); // read next character in file
-    if((currentChar == ',') or (!file.available())){ // ',' marks where data is seperated
-      if(!file.available()){ // make sure to gather last digit in file
-        pixelValue = pixelValue + currentChar; // concatonate character to string
-      }
-      pixelData = pixelValue.toInt(); // assign file data to array
-      //Serial.println(pixelData);
-      frameData[frameDataCount] = pixelData; // assign file data to array
-      pixelValue = ""; // reset pixelValue string to nothing
-      frameDataCount++; // incriment frame data location
-      //Serial.println(frameDataCount);
-    }
-    else{
-      pixelValue = pixelValue + currentChar; // concatonate character to string
-    }
-  }
-  
-  for(int i=0; i<(NUM_LEDS/2); i++){
-    half1.setPixelColor(i, half1.gamma32(frameData[i]));
-    half2.setPixelColor(i+1, half2.gamma32(frameData[i+NUM_LEDS/2]));
-    //delay(50); // fake the frame rate
-  }
 }

@@ -18,10 +18,10 @@ shift_horizontal = 0 # integer for how much to shift image in pixels (- left + r
 shift_vertical = 0 # integer for how much to shift image in pixels (- down + up)
 
 #media imports
-image_file = "rgb_rainbow.png" # image name
+image_file = "nyan.gif" # image name
 image_path = "media/" # path to pull media from
 
-save_path = "board_media/rgb_rainbow/" # path to save output array
+save_path = "board_media/nyan/" # path to save output array
 
 #global variables
 max_height = 20 # height of board at tip/tail
@@ -43,7 +43,7 @@ def image_input(image):
         image = image.resize((int(ratio*width),max_height),Image.NEAREST) # resize image
         width,height = image.size
 
-    image.convert('RGBA')
+    # image.convert('RGB')
     # image.show()
 
     return image
@@ -65,12 +65,14 @@ def image_positioning(image_width, image_length):
 def assign_to_board(display_image):
     """Overlay wanted image over blank image that is max size of board"""
     # display_image.show()
+
     image_width, image_length = display_image.size
     image_location = image_positioning(image_width, image_length)
     print("Image location: ", image_location)
     blank = Image.new(mode='RGB', size=(max_width,max_height), color=background_color) # set blank background
     blank.convert('RGBA')
     blank.paste(display_image, image_location)
+
     # blank.show()
     full_image_tuples = blank.load()
     full_image = [0 for i in range(max_height*max_width)] # total amount of pixels

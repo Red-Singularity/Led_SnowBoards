@@ -1,5 +1,5 @@
 
-/*void mpu_setup(){
+void mpu_setup(){
   byte data_r = 0xFF; //received data
   byte data_s = 0xFF; // sent data
   
@@ -350,4 +350,3 @@ bool mpu(){
   return (detect_freefall()); // detect if freefall happens and set flag
   
 }
-*/

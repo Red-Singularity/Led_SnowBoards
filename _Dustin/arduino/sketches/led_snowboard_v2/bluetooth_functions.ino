@@ -1,11 +1,7 @@
 void bluetooth_setup(){
-  SerialBT.begin("LED_Snowboard_V2"); //name given to esp32
-  Serial.println("\n The device started, now you can pair it with bluetooth!");
   //setup bluetooth connections
-  
   SerialBT.begin("LED_Snowboard_V2"); //name given to esp32
   Serial.println("\n The device started, now you can pair it with bluetooth!");
-  
 }
 
 void bluetooth_control(){
@@ -39,10 +35,14 @@ void bluetooth_control(){
       digitalWrite(GATE_SIGNAL, false);
     }
 
-    //read battery voltage
+    //read battery values
     else if(message == "0B"){
-      SerialBT.println("Battery Voltage: ");
+      SerialBT.print("Battery Voltage: ");
       SerialBT.println(voltage);
+      SerialBT.print("Total Current: ");
+      SerialBT.println(current);
+      SerialBT.print("Total Power: ");
+      SerialBT.println(power);
     }
 
     //disable low battery cut off
@@ -117,7 +117,6 @@ void bluetooth_control(){
 
     //set color to Random
     else if(message == "0A"){
-      rand_LED = 0;
       nyan = 0;
       rand_LED = 1;
       mario = 0;
@@ -168,36 +167,39 @@ void bluetooth_control(){
 
     //assign nyan cat to board
     else if(message == "10"){
+      rand_LED = 0;
       nyan = 1;
-      rand_LED = 0;
-      rand_LED = 0;
-      mario = 0;
       pacman = 0;
+      mario = 0;
+      neon = 0;
     }
 
     //assign mario image to board
     else if(message == "11"){
-      mario = 1;  
       rand_LED = 0;
       nyan = 0;
-      rand_LED = 0;
-      pacman = 0;    
+      pacman = 0;
+      mario = 1;
+      neon = 0; 
     }
 
     //assign pacman to the board
     else if(message == "12"){
-      pacman = 1;
       rand_LED = 0;
       nyan = 0;
-      rand_LED = 0;
+      pacman = 1;
       mario = 0;
+      neon = 0;
     }
-    //assign kirby to the board
+    //assign neon board to the board
     else if(message == "13"){
-      
+      rand_LED = 0;
+      nyan = 0;
+      pacman = 0;
+      mario = 0;
+      neon = 1;
     }
   
-
     else{}
 
   }
@@ -213,15 +215,23 @@ void bluetooth_control(){
   }
 
   if (nyan == 1){
+    Serial.println("nyan");
     assign_nyan();
   }
 
   if (pacman == 1){
+    Serial.println("pacman");
     assign_pacman();
   }
 
   if (mario == 1){
+    Serial.println("mario");
     assign_mario();
+  }
+
+  if (neon == 1){
+    Serial.println("neon");
+    assign_neon();
   }
 }
 
