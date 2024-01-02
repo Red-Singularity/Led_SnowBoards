@@ -4,7 +4,7 @@ void INA_setup() {
   delay(100);
 }
 
-void GetInaValues() {
+void getInaValues() {
   int bat_indicator; // for use with top led color
 
   voltage = ina220.getBusMilliVolts(0) / 1000.0; // voltage in volts
@@ -12,6 +12,16 @@ void GetInaValues() {
   power = ina220.getBusMicroWatts(0) / 1000000.0; // power in watts
   //Serial.print("INA at 0x"); Serial.print(ina_addresses[0], HEX); Serial.print(" measures "); Serial.print(voltage); Serial.print(" V, ");
   //Serial.print(current); Serial.print(" A, and "); Serial.print(power); Serial.println(" mW");
+}
+
+void getCellValues(){
+  cell1 = analogRead(cell)
+}
+
+void getBatteryData(){
+
+  getInaValues(); // get voltage, current, and power readings
+  getCellValues(); // get all cell voltage data
 
   if ((bat_safe == 1) && (voltage < 9.5)){ // disable lights if voltage is too low
     digitalWrite(GATE_SIGNAL, false);
@@ -31,5 +41,4 @@ void GetInaValues() {
     // SerialBT.println(bat_indicator);
     top.setPixelColor(i, 0,green,red); // BGR
   }
-  
 }

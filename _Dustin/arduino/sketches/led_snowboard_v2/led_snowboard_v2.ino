@@ -10,7 +10,6 @@ data for the bottom matrix will be stored on an sd card which is read frame by f
 rate at which it is displayed and various effects can be applied based on data collected from the mpu and GPS
 */
 
-//#include "FS.h" // handles files
 #include "SdFat.h" // interfaces with sd card
 #include "sdios.h"
 #include "SPI.h" // handles SPI comms
@@ -18,11 +17,6 @@ rate at which it is displayed and various effects can be applied based on data c
 #include <Adafruit_NeoPixel.h>
 #include <Wire.h>
 #include <INA220.h>
-
-//#include "pacman.h"
-//#include "mario.h"
-//#include "nyan.h"
-
 
 //pin defines
 #define CELL_1 36 // analog cell 1 data
@@ -123,10 +117,9 @@ float comp_x, comp_y = 0; // complimentary filter angles
 float gyro_angle_x, gyro_angle_y, gyro_angle_z = 0; // angle calculated with gyro
 float temp_c; // temperature sensor on mpu. in degrees c
 float mpu_timer = 0; // timer to get data from gyro in mpu
-float voltage; // main battery voltage
-float current; // total current draw
-float power; // total power draw
+float voltage, current, power; // ina chip values
 float timer = 0; // generic timer
+float cell1, cell2, cell3; // op-amp cell values
 
 String accel_set = "16g"; // 2g, 4g, 8g, 16g
 String gyro_set = "2000dps"; // 250dps, 500dps, 1000dps, 2000dps
@@ -174,7 +167,8 @@ void setup() {
 void loop() {
   timer = millis();
 
-  GetInaValues(); //get board status (battery info, current measurements, etc)
+  getInaValues(); //get board status (battery info, current measurements, etc)
+  getBatteryData(); // get all battery data
   bluetooth_control(); // use data over bluetooth to control images
   //sd_image_read(); //get data from sd card and send to leds
   //app();

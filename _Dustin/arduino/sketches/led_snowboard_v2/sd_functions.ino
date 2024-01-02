@@ -102,9 +102,9 @@ void readFrame(String filename, int frame){
     }
   }
   
-  for(int i=0; i<(NUM_LEDS/2); i++){
-    half1.setPixelColor(i, half1.gamma32(frameData[i]));
-    half2.setPixelColor(i+1, half2.gamma32(frameData[i+NUM_LEDS/2]));
+  for(int i=1; i<(NUM_LEDS/2); i++){
+    half1.setPixelColor(i+1, half1.gamma32(frameData[i]));
+    half2.setPixelColor(i, half2.gamma32(frameData[i+NUM_LEDS/2]));
     //delay(50); // fake the frame rate
   }
 }
