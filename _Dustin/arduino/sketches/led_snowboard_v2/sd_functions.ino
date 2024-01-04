@@ -73,15 +73,21 @@ void sd_image_read(){
   
 }
 
-void readFrame(String filename, int frame){
-  //display frame data from sd card. takes in filename and frame number to display
-  String Path = "/" + filename + "/image" + frame + ".dat";
+void readFrame(String filename){
+  //display frame data from sd card. takes in filename
+  String Path = "/" + filename + "/image" + frame_number + ".dat";
   file = SD.open(Path);
   Serial.println(Path);
   String pixelValue = ""; // string of integer values 
   char currentChar;
   int frameDataCount = 0;
   int pixelData = 0;
+
+  if(!file.available()){
+    frame_number = 0;
+    String Path = "/" + filename + "/image" + frame_number + ".dat";
+    file = SD.open(Path);
+  }
 
   //assign data from dat file to int array
   while(file.available()){
@@ -101,7 +107,9 @@ void readFrame(String filename, int frame){
       pixelValue = pixelValue + currentChar; // concatonate character to string
     }
   }
-  
+
+  frame_number = frame_number + 1;
+
   for(int i=1; i<(NUM_LEDS/2); i++){
     half1.setPixelColor(i+1, half1.gamma32(frameData[i]));
     half2.setPixelColor(i, half2.gamma32(frameData[i+NUM_LEDS/2]));

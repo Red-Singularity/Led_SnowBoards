@@ -5,8 +5,6 @@ void INA_setup() {
 }
 
 void getInaValues() {
-  int bat_indicator; // for use with top led color
-
   voltage = ina220.getBusMilliVolts(0) / 1000.0; // voltage in volts
   current = ina220.getBusMicroAmps(0) / 1000000.0; // current in amps
   power = ina220.getBusMicroWatts(0) / 1000000.0; // power in watts
@@ -15,24 +13,70 @@ void getInaValues() {
 }
 
 void getCellValues(){
-  cell1 = analogRead(cell)
+  float gain = 100/49.9; //gain for the op-amp
+  float gainCorrect1 = 1.0824;
+  float gainCorrect2 = 1.0755;
+  float gainCorrect3 = 1.0789;
+
+  float cell_1, cell_2, cell_3;
+
+  //read cell values
+  cell_1 = analogRead(CELL_1);
+  cell_2 = analogRead(CELL_2);
+  cell_3 = analogRead(CELL_3);
+
+  //turn analog values into voltages
+  cell_1 = ((cell_1*(3.3/4095))*gain)*gainCorrect1;
+  cell_2 = ((cell_2*(3.3/4095))*gain)*gainCorrect2;
+  cell_3 = ((cell_3*(3.3/4095))*gain)*gainCorrect3;
+
+  //output data to terminal
+  Serial.print("\nCell 1 Voltage: ");
+  Serial.print(cell_1);
+  Serial.print("   Cell 2 Voltage: ");
+  Serial.print(cell_2);
+  Serial.print("   Cell 3 Voltage: ");
+  Serial.println(cell_3);
+
+  //find min cell value
+  if((cell_1 <= cell_2) && (cell_1 < cell_3)){
+    minCell = cell_1;
+  }
+
+  else if((cell_2 <= cell_1) && (cell_2 < cell_3)){
+    minCell = cell_2;
+  }
+
+  else if((cell_3 <= cell_1) && (cell_3 < cell_2)){
+    minCell = cell_3;
+  }
+
+  else{
+    Serial.print("cell error");
+    minCell = 0;
+  }
 }
 
 void getBatteryData(){
+  int bat_indicator; // for use with top led color
 
   getInaValues(); // get voltage, current, and power readings
   getCellValues(); // get all cell voltage data
 
-  if ((bat_safe == 1) && (voltage < 9.5)){ // disable lights if voltage is too low
+  Serial.print("Minimum cell voltage: "); Serial.println(minCell);
+  Serial.print("Voltage: "); Serial.println(voltage);
+
+  if ((bat_safe == 1) && (voltage < 9.5) && (minCell < 3)){ // disable lights if voltage is too low
     digitalWrite(GATE_SIGNAL, false);
   }
 
   //map max and min voltage to number of leds
-  bat_indicator = map(voltage*10, 95, 126, 0, TOP_LEDS/2); // map function requires integers so voltage was multiplied by 10 to retain resolution
+  //bat_indicator = map(voltage*10, 95, 126, 0, TOP_LEDS/2); // map function requires integers so voltage was multiplied by 10 to retain resolution
+  bat_indicator = map(minCell*10, 30, 42, 0, TOP_LEDS/2); 
 
   //set red and green color for status
-  int red = 255 + bat_indicator*(255/TOP_LEDS/2); //increase red value as battery gets lower
-  int green = 255 - bat_indicator*(255/TOP_LEDS/2); //decrease green value as battery gets lower
+  int red = 255 - bat_indicator*(255/TOP_LEDS/2); //increase red value as battery gets lower
+  int green = 255 + bat_indicator*(255/TOP_LEDS/2); //decrease green value as battery gets lower
 
 
   //set appropriate top leds to a color based on voltage

@@ -11,12 +11,12 @@ rate at which it is displayed and various effects can be applied based on data c
 */
 
 #include "SdFat.h" // interfaces with sd card
-#include "sdios.h"
+#include "sdios.h" // sd card comms
 #include "SPI.h" // handles SPI comms
-#include "BluetoothSerial.h"
-#include <Adafruit_NeoPixel.h>
-#include <Wire.h>
-#include <INA220.h>
+#include "BluetoothSerial.h" // Bluetooth comms
+#include <Adafruit_NeoPixel.h> // for communicating with ws2815 led strips
+#include <Wire.h> // i2c communication
+#include <INA220.h> // for power monitor
 
 //pin defines
 #define CELL_1 36 // analog cell 1 data
@@ -58,7 +58,7 @@ rate at which it is displayed and various effects can be applied based on data c
 #define g2 0x00
 
 //spi speed
-#define SPI_CLOCK SD_SCK_MHZ(15)
+#define SPI_CLOCK SD_SCK_MHZ(19)
 
 // Try to select the best SD card configuration.
 #if HAS_SDIO_CLASS
@@ -119,7 +119,7 @@ float temp_c; // temperature sensor on mpu. in degrees c
 float mpu_timer = 0; // timer to get data from gyro in mpu
 float voltage, current, power; // ina chip values
 float timer = 0; // generic timer
-float cell1, cell2, cell3; // op-amp cell values
+float minCell = 4.2; // minimum cell voltage reading
 
 String accel_set = "16g"; // 2g, 4g, 8g, 16g
 String gyro_set = "2000dps"; // 250dps, 500dps, 1000dps, 2000dps
@@ -142,8 +142,8 @@ void setup() {
   INA_setup(); //INA220 setup
   sd_setup(); //setup sd card
   bluetooth_setup(); //setup bluetooth
-  //setup GPS
   //mpu_setup(); //setup mpu
+  //setup GPS
   
   //setup led strips and initalize to 0
   digitalWrite(GATE_SIGNAL, false);
@@ -158,6 +158,11 @@ void setup() {
     top.setPixelColor(i, top.Color(0,0,0));
   }
 
+  //set brightness to 5%
+  half1.setBrightness(13);
+  half2.setBrightness(13);
+  top.setBrightness(13);
+
   half1.show();
   half2.show();
   top.show();
@@ -170,10 +175,10 @@ void loop() {
   getInaValues(); //get board status (battery info, current measurements, etc)
   getBatteryData(); // get all battery data
   bluetooth_control(); // use data over bluetooth to control images
-  //sd_image_read(); //get data from sd card and send to leds
+  //get MPU data
+  //get GPS data
   //app();
   //get gps data
-  //get MPU data
 
   half1.show();
   half2.show();

@@ -39,6 +39,8 @@ void bluetooth_control(){
     else if(message == "0B"){
       SerialBT.print("Battery Voltage: ");
       SerialBT.println(voltage);
+      SerialBT.print("Min Cell Voltage: ");
+      SerialBT.println(minCell);
       SerialBT.print("Total Current: ");
       SerialBT.println(current);
       SerialBT.print("Total Power: ");
@@ -167,6 +169,8 @@ void bluetooth_control(){
 
     //assign nyan cat to board
     else if(message == "10"){
+      SerialBT.println("nyan");
+      frame_number = 0;
       rand_LED = 0;
       nyan = 1;
       pacman = 0;
@@ -176,6 +180,8 @@ void bluetooth_control(){
 
     //assign mario image to board
     else if(message == "11"){
+      SerialBT.println("mario");
+      frame_number = 0;
       rand_LED = 0;
       nyan = 0;
       pacman = 0;
@@ -185,6 +191,8 @@ void bluetooth_control(){
 
     //assign pacman to the board
     else if(message == "12"){
+      SerialBT.println("pacman");
+      frame_number = 0;
       rand_LED = 0;
       nyan = 0;
       pacman = 1;
@@ -193,6 +201,8 @@ void bluetooth_control(){
     }
     //assign neon board to the board
     else if(message == "13"){
+      SerialBT.println("neon");
+      frame_number = 0;
       rand_LED = 0;
       nyan = 0;
       pacman = 0;
@@ -215,47 +225,18 @@ void bluetooth_control(){
   }
 
   if (nyan == 1){
-    Serial.println("nyan");
     assign_nyan();
   }
 
   if (pacman == 1){
-    Serial.println("pacman");
     assign_pacman();
   }
 
   if (mario == 1){
-    Serial.println("mario");
     assign_mario();
   }
 
   if (neon == 1){
-    Serial.println("neon");
     assign_neon();
   }
 }
-
-
-/*void app(){
-  // communications with android app. 
-  int loops = 0;
-  float timer = micros();
-  
-  while (Serial.available()) {
-    SerialBT.write(Serial.read());
-    loops = 1;
-    counter = counter++;
-  }
-  
-  while (SerialBT.available()){
-    Serial.write(SerialBT.read());
-    loops = 1;
-    counter = counter++;
-  }
-
-  if(loops == 1){
-    loops = 0;
-    timer = micros() - timer;
-    Serial.print("\n Bluetooth Time(s): "); Serial.println(timer/1000000);
-  }
-}*/

@@ -7,7 +7,7 @@
 #define MISO 19 // MISO SPI pin
 #define SCLK 18 // SPI clock pin
 #define SD_CS_PIN 5 // SD card chip select
-#define SPI_CLOCK SD_SCK_MHZ(5) // spi speed
+#define SPI_CLOCK SD_SCK_MHZ(19) // spi speed
 
 //initialize sd card class as sd
 SdFat SD;
