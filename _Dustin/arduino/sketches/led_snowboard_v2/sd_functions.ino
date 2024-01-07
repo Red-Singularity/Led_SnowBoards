@@ -77,7 +77,7 @@ void readFrame(String filename){
   //display frame data from sd card. takes in filename
   String Path = "/" + filename + "/image" + frame_number + ".dat";
   file = SD.open(Path);
-  Serial.println(Path);
+  //Serial.println(Path);
   String pixelValue = ""; // string of integer values 
   char currentChar;
   int frameDataCount = 0;

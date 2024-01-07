@@ -1,0 +1,13 @@
+* silk screen for labeling not showing
+* level shifter needs to be the TXS0104EDR
+* power switch needs pull down resistor
+* op amp needs 12v power. only on when power switch is hit
+* make connectors different for led data lines
+* make sure fuse blows when crowbar circuit is active
+* change diodes / thyristor circuit to actually work
+* ground clamp test point (looping test point)
+* bat test point messed up
+* make components assemblable by jlcpcb
+* better pin 1 markings
+* bottom pad on mpu6050 doesnt exist
+* add 10k pull up resistors to encoder data pins

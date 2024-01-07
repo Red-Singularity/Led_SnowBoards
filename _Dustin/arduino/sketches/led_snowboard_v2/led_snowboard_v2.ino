@@ -58,7 +58,7 @@ rate at which it is displayed and various effects can be applied based on data c
 #define g2 0x00
 
 //spi speed
-#define SPI_CLOCK SD_SCK_MHZ(19)
+#define SPI_CLOCK SD_SCK_MHZ(18)
 
 // Try to select the best SD card configuration.
 #if HAS_SDIO_CLASS
