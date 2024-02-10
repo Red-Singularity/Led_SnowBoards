@@ -54,8 +54,8 @@ void getCellValues(){
   }
 
   else{
-    Serial.print("cell error");
-    minCell = 0;
+    Serial.print("CELL ERROR. Deriving from average");
+    minCell = (cell_1+cell_2+cell_3)/3;
   }
 }
 
@@ -68,23 +68,23 @@ void getBatteryData(){
   //Serial.print("Minimum cell voltage: "); Serial.println(minCell);
   //Serial.print("Voltage: "); Serial.println(voltage);
 
-  if (((bat_safe == 1) && (minCell < 3))){ // disable lights if voltage is too low
+  if (((bat_safe == 1) && (minCell < 2.9))){ // disable lights if voltage is too low
     digitalWrite(GATE_SIGNAL, false);
   }
 
   //map max and min voltage to number of leds
   //bat_indicator = map(voltage*10, 95, 126, 0, TOP_LEDS/2); // map function requires integers so voltage was multiplied by 10 to retain resolution
-  bat_indicator = map(minCell*100, 300, 420, 0, 255); 
+  bat_indicator = map(minCell*100, 290, 420, 0, 255); 
 
-  //set red and green color for status
-  int red = 255 + bat_indicator*(255/TOP_LEDS/2); //increase red value as battery gets lower
-  int green = 255 - bat_indicator*(255/TOP_LEDS/2); //decrease green value as battery gets lower
+  //set red and blue color for status
+  int red = 255 - bat_indicator; //increase red value as battery gets lower
+  int blue = 255 + bat_indicator; //decrease blue value as battery gets lower
 
 
   //set appropriate top leds to a color based on voltage
   for(int i=0; i<TOP_LEDS; i++){
     // SerialBT.print("leds on: ");
     // SerialBT.println(bat_indicator);
-    top.setPixelColor(i, green,red,0); // BGR
+    top.setPixelColor(i, blue,red,0); // BGR
   }
 }

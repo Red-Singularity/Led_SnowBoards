@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/mobile_navigation"
+    app:startDestination="@+id/navigation_home">
+
+    <fragment
+        android:id="@+id/navigation_home"
+        android:name="com.example.led_snowboard_nav.ui.home.HomeFragment"
+        android:label="@string/title_home"
+        tools:layout="@layout/fragment_home" />
+
+    <fragment
+        android:id="@+id/navigation_bluetooth"
+        android:name="com.example.led_snowboard_nav.ui.bluetooth.BluetoothFragment"
+        android:label="bluetooth"
+        tools:layout="@layout/fragment_bluetooth" />
+
+    <fragment
+        android:id="@+id/navigation_upload"
+        android:name="com.example.led_snowboard_nav.ui.upload.NotificationsFragment"
+        android:label="title_upload"
+        tools:layout="@layout/fragment_upload" />
+
+    <fragment
+        android:id="@+id/navigation_settings"
+        android:name="com.example.led_snowboard_nav.ui.upload.NotificationsFragment"
+        android:label="title_settings"
+        tools:layout="@layout/fragment_settings" />
+</navigation>

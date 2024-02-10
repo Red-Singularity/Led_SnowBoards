@@ -9,7 +9,7 @@
         android:id="@+id/navigation_home"
         android:name="com.example.ledsnowboardapp.ui.home.HomeFragment"
         android:label="@string/title_home"
-        tools:layout="@layout/fragment_home" />
+        tools:layout="@layout/fragment_terminal" />
 
     <fragment
         android:id="@+id/navigation_dashboard"
@@ -21,5 +21,5 @@
         android:id="@+id/navigation_notifications"
         android:name="com.example.ledsnowboardapp.ui.notifications.NotificationsFragment"
         android:label="@string/title_notifications"
-        tools:layout="@layout/fragment_notifications" />
+        tools:layout="@layout/fragment_advanced" />
 </navigation>

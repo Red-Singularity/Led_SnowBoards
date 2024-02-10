@@ -16,7 +16,7 @@ rate at which it is displayed and various effects can be applied based on data c
 #include "BluetoothSerial.h" // Bluetooth comms
 #include <Adafruit_NeoPixel.h> // for communicating with ws2815 led strips
 #include <Wire.h> // i2c communication
-#include <INA220.h> // for power monitor
+#include <INA220.h> // for power monitor https://github.com/nathancheek/INA220
 
 //pin defines
 #define CELL_1 36 // analog cell 1 data
