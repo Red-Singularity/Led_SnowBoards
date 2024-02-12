@@ -23,7 +23,7 @@ class BluetoothFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         val settingsViewModel =
-            ViewModelProvider(this).get(SettingsViewModel::class.java)
+            ViewModelProvider(this).get(BluetoothViewModel::class.java)
 
         _binding = FragmentBluetoothBinding.inflate(inflater, container, false)
         val root: View = binding.root

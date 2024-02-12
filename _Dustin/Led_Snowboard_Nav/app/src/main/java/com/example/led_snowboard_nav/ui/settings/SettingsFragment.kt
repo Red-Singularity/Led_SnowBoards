@@ -1,4 +1,4 @@
-package com.example.led_snowboard_nav.ui.bluetooth
+package com.example.led_snowboard_nav.ui.settings
 
 import android.os.Bundle
 import android.view.LayoutInflater
