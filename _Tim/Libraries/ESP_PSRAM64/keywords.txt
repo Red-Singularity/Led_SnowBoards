@@ -1,0 +1,44 @@
+##########################################
+# Syntax Coloring Map For Adafruit4677
+##########################################
+
+##########################################
+# Library Name (KEYWORD1)
+##########################################
+
+ESP_PSRAM64	KEYWORD1
+
+##########################################
+# Public Methods and Functions (KEYWORD2)
+##########################################
+
+begin	KEYWORD2
+write	KEYWORD2
+read	KEYWORD2
+overwrite	KEYWORD2
+
+##########################################
+# Public Structs (KEYWORD3)
+##########################################
+
+dataRegion	KEYWORD3
+pulledData	KEYWORD3
+return_vals	KEYWORD3
+
+##########################################
+# Public Non-Constant Variables (KEYWORD3)
+##########################################
+
+data_regions	KEYWORD3
+
+##########################################
+# Defined Values (LITERAL1)
+##########################################
+
+RAM_DEBUG	LITERAL1
+MAX_DATA_SIZE	LITERAL1
+MAX_DATA_REGIONS	LITERAL1
+
+##########################################
+# Constants (LITERAL2)
+##########################################
