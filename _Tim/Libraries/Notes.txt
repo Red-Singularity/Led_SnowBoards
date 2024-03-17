@@ -1,0 +1,1 @@
+These are my user-made libraries. They all compile and work on the ESP32 DEVKIT V1, but have not been tested on other hardware or for other use-cases.
