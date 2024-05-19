@@ -1,0 +1,1 @@
+Library source code is well documented and goes into a bit more detail
