@@ -80,11 +80,8 @@ void getBatteryData(){
   int red = 255 - bat_indicator; //increase red value as battery gets lower
   int blue = 255 + bat_indicator; //decrease blue value as battery gets lower
 
-
   //set appropriate top leds to a color based on voltage
   for(int i=0; i<TOP_LEDS; i++){
-    // SerialBT.print("leds on: ");
-    // SerialBT.println(bat_indicator);
-    top.setPixelColor(i, blue,red,0); // BGR
+    top[i] = CRGB(0, blue, red);
   }
 }

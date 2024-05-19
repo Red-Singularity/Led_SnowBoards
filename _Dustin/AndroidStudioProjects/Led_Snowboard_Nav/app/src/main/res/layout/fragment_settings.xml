@@ -14,9 +14,193 @@
         android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
         android:textAlignment="center"
+        android:textSize="30sp"
+        android:text="Settings"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.025" />
+
+
+    <TextView
+        android:id="@+id/voltage"
+        android:layout_width="100dp"
+        android:layout_height="25dp"
+        android:text="Voltage: "
         android:textSize="20sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.025"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.1" />
+
+    <TextView
+        android:id="@+id/current"
+        android:layout_width="100dp"
+        android:layout_height="25dp"
+        android:text="Current: "
+        android:textSize="20sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.025"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/voltage"
+        app:layout_constraintVertical_bias="0.05" />
+
+    <TextView
+        android:id="@+id/gyro"
+        android:layout_width="100dp"
+        android:layout_height="25dp"
+        android:layout_marginBottom="200dp"
+        android:text="Gyro: "
+        android:textSize="20sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.025"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/current"
+        app:layout_constraintVertical_bias="0.1" />
+
+    <TextView
+        android:id="@+id/accel"
+        android:layout_width="100dp"
+        android:layout_height="25dp"
+        android:layout_marginBottom="164dp"
+        android:text="Accel: "
+        android:textSize="20sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.025"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/gyro"
+        app:layout_constraintVertical_bias="0.15" />
+
+    <TextView
+        android:id="@+id/speed"
+        android:layout_width="100dp"
+        android:layout_height="25dp"
+        android:layout_marginBottom="128dp"
+        android:text="Speed: "
+        android:textSize="20sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.025"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/accel"
+        app:layout_constraintVertical_bias="0.2" />
+
+    <TextView
+        android:id="@+id/sensor"
+        android:layout_width="100dp"
+        android:layout_height="25dp"
+        android:layout_marginBottom="80dp"
+        android:text="Sensor: "
+        android:textSize="20sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.025"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/speed"
+        app:layout_constraintVertical_bias="0.25" />
+
+    <TextView
+        android:id="@+id/gyrox"
+        android:layout_width="30dp"
+        android:layout_height="25dp"
+        android:layout_marginStart="20dp"
+        android:text="X: "
+        android:textSize="20sp"
+        app:layout_constraintBottom_toBottomOf="@+id/gyro"
+        app:layout_constraintStart_toEndOf="@+id/gyro"
+        app:layout_constraintTop_toTopOf="@+id/gyro" />
+
+    <TextView
+        android:id="@+id/gyroy"
+        android:layout_width="30dp"
+        android:layout_height="25dp"
+        android:layout_marginStart="20dp"
+        android:text="Y: "
+        android:textSize="20sp"
+        app:layout_constraintBottom_toBottomOf="@+id/gyro"
+        app:layout_constraintStart_toEndOf="@+id/gyrox"
+        app:layout_constraintTop_toTopOf="@+id/gyro" />
+
+    <TextView
+        android:id="@+id/gyroz"
+        android:layout_width="30dp"
+        android:layout_height="25dp"
+        android:layout_marginStart="20dp"
+        android:text="Z: "
+        android:textSize="20sp"
+        app:layout_constraintBottom_toBottomOf="@+id/gyro"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toEndOf="@+id/gyroy"
+        app:layout_constraintTop_toTopOf="@+id/gyro" />
+
+    <TextView
+        android:id="@+id/accelx"
+        android:layout_width="30dp"
+        android:layout_height="25dp"
+        android:layout_marginStart="20dp"
+        android:text="X: "
+        android:textSize="20sp"
+        app:layout_constraintBottom_toBottomOf="@+id/accel"
+        app:layout_constraintStart_toEndOf="@+id/accel"
+        app:layout_constraintTop_toTopOf="@+id/accel" />
+
+    <TextView
+        android:id="@+id/accely"
+        android:layout_width="30dp"
+        android:layout_height="25dp"
+        android:layout_marginStart="20dp"
+        android:text="Y: "
+        android:textSize="20sp"
+        app:layout_constraintBottom_toBottomOf="@+id/accel"
+        app:layout_constraintStart_toEndOf="@+id/accelx"
+        app:layout_constraintTop_toTopOf="@+id/accel"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <TextView
+        android:id="@+id/accelz"
+        android:layout_width="30dp"
+        android:layout_height="25dp"
+        android:layout_marginStart="20dp"
+        android:text="Z: "
+        android:textSize="20sp"
+        app:layout_constraintBottom_toBottomOf="@+id/accel"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toEndOf="@+id/accely"
+        app:layout_constraintTop_toTopOf="@+id/accel" />
+
+    <Button
+        android:id="@+id/button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Scan Bluetooth"
+        android:onClick="scanBt"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.9" />
+
+    <TextView
+        android:id="@+id/device_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="9dp"
+        android:text="TextView"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.943" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

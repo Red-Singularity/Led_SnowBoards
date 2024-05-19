@@ -14,9 +14,9 @@ rate at which it is displayed and various effects can be applied based on data c
 #include "sdios.h" // sd card comms
 #include "SPI.h" // handles SPI comms
 #include "BluetoothSerial.h" // Bluetooth comms
-#include <Adafruit_NeoPixel.h> // for communicating with ws2815 led strips
 #include <Wire.h> // i2c communication
 #include <INA220.h> // for power monitor https://github.com/nathancheek/INA220
+#include <FastLED.h> // main led control
 
 //pin defines
 #define CELL_1 36 // analog cell 1 data
@@ -28,9 +28,9 @@ rate at which it is displayed and various effects can be applied based on data c
 #define DT 25 // Encoder DT pin
 #define CLK 26 // Encoder clock pin
 #define SD_SW 27 // SD detect switch
-#define DATA_3 12 // sets pin data is being sent from
-#define DATA_1 14 // sets pin data is being sent from
-#define DATA_2 13 // sets pin data is being sent from
+#define DATA_3 13 // sets pin data is being sent from
+#define DATA_1 12 // sets pin data is being sent from
+#define DATA_2 14 // sets pin data is being sent from
 #define MOSI 23 // MOSI SPI pin
 #define SCL 22 // I2C clock pin
 #define SDA 21 // I2C data pin
@@ -82,9 +82,9 @@ BluetoothSerial SerialBT;
 INA220 ina220;
 
 //initialize led strips
-Adafruit_NeoPixel half1(NUM_LEDS/2, DATA_1, NEO_BGR + NEO_KHZ800); // first half of bottom matrix
-Adafruit_NeoPixel half2(NUM_LEDS/2, DATA_2, NEO_BGR + NEO_KHZ800); // second half of bottom matrix
-Adafruit_NeoPixel top(TOP_LEDS, DATA_3, NEO_BGR + NEO_KHZ800); // top set of leds
+CRGB half1[NUM_LEDS/2];
+CRGB half2[NUM_LEDS/2];
+CRGB top[TOP_LEDS];
 
 // Create a Serial output stream.
 //ArduinoOutStream cout(Serial);
@@ -124,9 +124,6 @@ float minCell = 4.2; // minimum cell voltage reading
 String accel_set = "16g"; // 2g, 4g, 8g, 16g
 String gyro_set = "2000dps"; // 250dps, 500dps, 1000dps, 2000dps
 
-String message = "";
-char incomingChar;
-
 
 void setup() {
   //setup serial output
@@ -145,27 +142,15 @@ void setup() {
   //mpu_setup(); //setup mpu
   //setup GPS
   
-  //setup led strips and initalize to 0
+  //setup led strips
   digitalWrite(GATE_SIGNAL, false);
-  half1.begin();
-  half2.begin();
-  top.begin();
-  for(int i=0; i<(NUM_LEDS/2); i++){
-    half1.setPixelColor(i, half1.Color(0,0,0));
-    half2.setPixelColor(i, half2.Color(0,0,0));
-  }
-  for(int i=0; i<TOP_LEDS; i++){
-    top.setPixelColor(i, top.Color(0,0,0));
-  }
-
+  FastLED.addLeds<WS2812, DATA_1, BGR>(half1, NUM_LEDS);
+  FastLED.addLeds<WS2812, DATA_2, BGR>(half2, NUM_LEDS);
+  FastLED.addLeds<WS2812, DATA_3, BGR>(top, TOP_LEDS);
+  FastLED.setCorrection(TypicalLEDStrip);
   //set brightness to 5%
-  half1.setBrightness(13);
-  half2.setBrightness(13);
-  top.setBrightness(13);
-
-  half1.show();
-  half2.show();
-  top.show();
+  FastLED.setBrightness(5);
+  FastLED.show();
   
 }
 
@@ -180,9 +165,7 @@ void loop() {
   //app();
   //get gps data
 
-  half1.show();
-  half2.show();
-  top.show();
+  FastLED.show();
 
   //Serial.println(millis()-timer);
 }

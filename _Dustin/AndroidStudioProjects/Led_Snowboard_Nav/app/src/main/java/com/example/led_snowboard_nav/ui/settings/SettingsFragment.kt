@@ -40,4 +40,8 @@ class SettingsFragment : Fragment() {
         super.onDestroyView()
         _binding = null
     }
+
+    fun scanBt(view: View) {
+        
+    }
 }

@@ -68,7 +68,6 @@ void sd_image_read(){
   file.close();
   readTime = (micros() - timer)/1000; // end timer
   Serial.printf("\n\n Read Time: %fmS\n\n", readTime);
-
   delay(1000);
   
 }
@@ -110,9 +109,9 @@ void readFrame(String filename){
 
   frame_number = frame_number + 1;
 
-  for(int i=1; i<(NUM_LEDS/2); i++){
-    half1.setPixelColor(i+1, half1.gamma32(frameData[i]));
-    half2.setPixelColor(i, half2.gamma32(frameData[i+NUM_LEDS/2]));
+  for(int i=0; i<(NUM_LEDS/2); i++){
+    half1[i] = CRGB(frameData[i]);
+    half2[i+1] = CRGB(frameData[i+NUM_LEDS/2]);
     //delay(50); // fake the frame rate
   }
 }
