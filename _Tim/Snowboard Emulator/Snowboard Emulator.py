@@ -18,14 +18,14 @@ from PIL import Image, ImageOps, ImageChops, ImageFilter
 import math
 
 #Change these values
-Lres = 130                          #resolution across the length of the snowboard at its longest point
+Lres = 100                          #resolution across the length of the snowboard at its longest point
 input_filename = "Nyan Cat 2.gif"   #filename of image to use
 
 #Display constants
 led_size_m = 0.005              #size of the LED side length in m
 board_length_m = 1.6            #length of the snowboard from tail to tip in m
 mask_filename = "Template.png"  #filename of the BW mask of the snowboard profile
-diffusivity = 0.8               #value for the amount that light will blend between adjacent pixels, must be > 0 with higher numbers being more blur
+diffusivity = 0.9               #value for the amount that light will blend between adjacent pixels, must be > 0 with higher numbers being more blur
 
 #-----Load the board profile mask and relate the real size of components to their image size-----
 board_mask = Image.open(mask_filename)
@@ -71,6 +71,8 @@ else:
 #fill in all the LEDs on the bottom right of the image
 lpos_p: int
 wpos_p: int
+led_count = 0
+small_width_count = 0       #number of LEDs at the thinnest part of the width of the snowboard
 for l_c in range(l_count):
     for w_c in range(w_count):
         #get the center of the LED
@@ -94,9 +96,23 @@ for l_c in range(l_count):
         
         #fill in LED pixels if in the board profile
         if in_board:
+            led_count = led_count + 1
             for y in range(math.ceil(-led_size_p/2), math.ceil(-led_size_p/2) + math.floor(led_size_p) + 1):
                 for x in range(math.ceil(-led_size_p/2), math.ceil(-led_size_p/2) + math.floor(led_size_p) + 1):
                     led_pixel_dat[lpos_p + y, wpos_p + x] = 255
+            
+            if l_c == math.floor(l_count / 2):
+                small_width_count = small_width_count + 1
+
+led_count = led_count * 4
+if Lres % 2 != 0:
+    led_count = led_count - Lres
+
+if Wres % 2 != 0:
+    small_width_count = small_width_count * 2 - 1
+    led_count = led_count - small_width_count
+else:
+    small_width_count = small_width_count * 2
 
 #mirror twice to fill in all the LEDs
 for y in range(math.floor(mask_length_p / 2)):
@@ -146,3 +162,8 @@ elif input_filename.lower().endswith('.png', '.jpg', '.jpeg'):
 else:
     raise Exception("Input file extension not valid")
 
+print("Max LEDs along length: " + str(Lres))
+print("Max LEDs along width: " + str(Wres))
+print("Min LEDs along width: " + str(small_width_count))
+print("LED resolution: " + str(1/(led_gap_m + led_size_m)) + "LEDs per meter")
+print("Total LEDs: " + str(led_count))
