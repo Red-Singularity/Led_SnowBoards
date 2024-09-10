@@ -18,14 +18,14 @@ from PIL import Image, ImageOps, ImageChops, ImageFilter
 import math
 
 #Change these values
-Lres = 100                          #resolution across the length of the snowboard at its longest point
+led_res = 80                        #linear resolution of the screen in leds/m
 input_filename = "Nyan Cat 2.gif"   #filename of image to use
 
 #Display constants
-led_size_m = 0.005              #size of the LED side length in m
-board_length_m = 1.6            #length of the snowboard from tail to tip in m
-mask_filename = "Template.png"  #filename of the BW mask of the snowboard profile
-diffusivity = 0.9               #value for the amount that light will blend between adjacent pixels, must be > 0 with higher numbers being more blur
+led_size_m = 0.002                      #size of the LED side length in m
+board_length_m = 1.4                    #length of the snowboard from tail to tip in m
+mask_filename = "140cm Profile.png"     #filename of the BW mask of the snowboard profile
+diffusivity = 0.9                       #value for the amount that light will blend between adjacent pixels, must be > 0 with higher numbers being more blur
 
 #-----Load the board profile mask and relate the real size of components to their image size-----
 board_mask = Image.open(mask_filename)
@@ -40,15 +40,17 @@ led_size_p = led_size_m / pixel_size            #size of the LED side length in 
 if led_size_p < 1:
     raise Exception("Impossible LED size")
 
-led_gap_p = (mask_length_p - (Lres * led_size_p) - (2 * led_size_p)) / (Lres - 1)  #distance between edges of neighbouring LEDs in pixels
+led_gap_m = (1 / led_res) - led_size_m
+led_gap_p = led_gap_m / pixel_size              #distance between edges of neighbouring LEDs in pixels
 if led_gap_p < 1:
     raise Exception("Impossible LED density")
-led_gap_m = led_gap_p * pixel_size
+
+Lres = math.floor((mask_length_p + led_gap_p) / (led_gap_p + led_size_p))   #resolution across the length of the snowboard at its longest point
 
 Wres = math.floor((mask_width_p + led_gap_p) / (led_gap_p + led_size_p))    #number of LEDs along the width of the board at its widest point
 
 #--------------------Create a mask with all the LED locations marked in white--------------------
-led_mask = Image.new('1', (mask_length_p,mask_width_p), color = 0)
+led_mask = Image.new('L', (mask_length_p,mask_width_p), color = 0)
 led_pixel_dat = led_mask.load()
 board_pixel_dat = board_mask.load()
 
@@ -96,6 +98,8 @@ for l_c in range(l_count):
         
         #fill in LED pixels if in the board profile
         if in_board:
+            #add circular blur
+            
             led_count = led_count + 1
             for y in range(math.ceil(-led_size_p/2), math.ceil(-led_size_p/2) + math.floor(led_size_p) + 1):
                 for x in range(math.ceil(-led_size_p/2), math.ceil(-led_size_p/2) + math.floor(led_size_p) + 1):
