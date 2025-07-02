@@ -1,24 +1,20 @@
 
-#include <NeoPixelAnimator.h>
-#include <NeoPixelBrightnessBus.h>
 #include <NeoPixelBus.h>
-#include <NeoPixelBusLg.h>
-#include <NeoPixelSegmentBus.h>
+#include <NeoPixelBusLg.h> // instead of NeoPixelBus.h
+
+const uint16_t PixelCount = 260; // this example assumes 4 pixels, making it smaller will cause a failure
+const uint8_t PixelPin = 12;  // make sure to set this to the correct pin, ignored for Esp8266
+
+#define colorSaturation 75
 
 
-#define DATA_1 12 // sets pin data is being sent from
-#define DATA_2 14 // sets pin data is being sent from
-#define NUM_LEDS 2090 //2090 sets the amount of pixels being controlled
 
-//initialize led strips
-// The WS2816 uses GRB color order
-NeoPixelBus<NeoGrbFeature, NeoWs2816Method> strip1(NUM_LEDS, DATA_1);
-NeoPixelBus<NeoGrbFeature, NeoWs2816Method> strip2(NUM_LEDS, DATA_2);
+NeoPixelBusLg<NeoGrbWs2816Feature, NeoWs2816Method> strip(PixelCount, PixelPin);
 
-RgbColor red(255, 0, 0);
-RgbColor green(0, 255, 0);
-RgbColor blue(0, 0, 255);
-RgbColor white(255);
+RgbColor red(colorSaturation, 0, 0);
+RgbColor green(0, colorSaturation, 0);
+RgbColor blue(0, 0, colorSaturation);
+RgbColor white(colorSaturation);
 RgbColor black(0);
 
 HslColor hslRed(red);
@@ -28,70 +24,30 @@ HslColor hslWhite(white);
 HslColor hslBlack(black);
 
 
-void setup() {
+void setup()
+{
+    Serial.begin(115200);
+    while (!Serial); // wait for serial attach
 
-  //setup serial output
-  Serial.begin(115200);
+    Serial.println();
+    Serial.println("Initializing...");
+    Serial.flush();
 
-  //set pin modes
-  pinMode(DATA_1, OUTPUT); // set led data pins to output
-  pinMode(DATA_2, OUTPUT); 
+    // this resets all the neopixels to an off state
+    strip.Begin();
+    strip.Show();
 
-  //setup led strips
-  // this resets all the neopixels to an off state
-  strip1.Begin();
-  strip2.Begin();
-  strip1.Show();
-  strip2.Show();
 
+    Serial.println();
+    Serial.println("Running...");
+}
+
+
+void loop(){
+  for(int i=0; i<PixelCount; i++){
+    strip.SetPixelColor(i,white);
+  }
+  strip.Show();
 
 }
 
-void loop() {
-
-    // set the color red
-    for(int i=0; i<NUM_LEDS; i++){
-      strip1.SetPixelColor(i, red);
-      strip2.SetPixelColor(i, red);
-    }
-    strip1.Show();
-    strip2.Show();
-    delay(3000);
-
-    // set color to black
-    for(int i=0; i<NUM_LEDS; i++){
-      strip1.SetPixelColor(i, 0);
-      strip2.SetPixelColor(i, 0);
-    }
-
-    // set the color green 
-    for(int i=0; i<NUM_LEDS; i++){
-      strip1.SetPixelColor(i, green);
-      strip2.SetPixelColor(i, green);
-    }
-    strip1.Show();
-    strip2.Show();
-    delay(3000);
-
-    // set color to black
-    for(int i=0; i<NUM_LEDS; i++){
-      strip1.SetPixelColor(i, 0);
-      strip2.SetPixelColor(i, 0);
-    }
-
-    // set the colors, 
-    for(int i=0; i<NUM_LEDS; i++){
-      strip1.SetPixelColor(i, blue);
-      strip2.SetPixelColor(i, blue);
-    }
-    strip1.Show();
-    strip2.Show();
-    delay(3000);
-
-    // set color to black
-    for(int i=0; i<NUM_LEDS; i++){
-      strip1.SetPixelColor(i, 0);
-      strip2.SetPixelColor(i, 0);
-    }
-
-}
