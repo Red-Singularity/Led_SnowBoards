@@ -58,7 +58,13 @@
           "width": 0.0
         }
       ],
-      "drc_exclusions": [],
+      "drc_exclusions": [
+        "courtyards_overlap|182005000|80605000|ef45e5aa-61b8-408f-bfaf-ca6f572460ec|f964c446-80a5-465b-8ad9-fb78f26ac747",
+        "courtyards_overlap|185655000|78875000|2780c43b-7a5f-463d-a145-2f20f870488a|ef45e5aa-61b8-408f-bfaf-ca6f572460ec",
+        "courtyards_overlap|193975000|106155000|54a3a227-9582-4e0e-9587-86f8ede6ae2c|ef45e5aa-61b8-408f-bfaf-ca6f572460ec",
+        "hole_clearance|139100000|146480000|0e5913fd-144b-4bcc-80fb-fba586650db5|e1bc5d51-78a5-424e-ae2d-e8969972cb99",
+        "hole_clearance|141120000|146160000|0e5913fd-144b-4bcc-80fb-fba586650db5|43dd01b2-3c4a-4354-b78e-66bacd09f2cd"
+      ],
       "meta": {
         "version": 2
       },
@@ -503,7 +509,7 @@
       "gencad": "",
       "idf": "",
       "netlist": "",
-      "plot": "",
+      "plot": "LED_Snowboard_V4_Outputs/",
       "pos_files": "",
       "specctra_dsn": "",
       "step": "LED_Snowboard_V4.step",
@@ -514,7 +520,7 @@
   },
   "schematic": {
     "annotate_start_num": 0,
-    "bom_export_filename": "",
+    "bom_export_filename": "LED_Snowboard_V4.csv",
     "bom_fmt_presets": [],
     "bom_fmt_settings": {
       "field_delimiter": ",",
@@ -564,11 +570,47 @@
           "label": "DNP",
           "name": "${DNP}",
           "show": true
+        },
+        {
+          "group_by": false,
+          "label": "#",
+          "name": "${ITEM_NUMBER}",
+          "show": false
+        },
+        {
+          "group_by": false,
+          "label": "MANUFACTURER",
+          "name": "MANUFACTURER",
+          "show": false
+        },
+        {
+          "group_by": false,
+          "label": "MAXIMUM_PACKAGE_HEIGHT",
+          "name": "MAXIMUM_PACKAGE_HEIGHT",
+          "show": false
+        },
+        {
+          "group_by": false,
+          "label": "PARTREV",
+          "name": "PARTREV",
+          "show": false
+        },
+        {
+          "group_by": false,
+          "label": "STANDARD",
+          "name": "STANDARD",
+          "show": false
+        },
+        {
+          "group_by": false,
+          "label": "Description",
+          "name": "Description",
+          "show": false
         }
       ],
       "filter_string": "",
       "group_symbols": true,
-      "name": "Grouped By Value",
+      "name": "",
       "sort_asc": true,
       "sort_field": "Reference"
     },
