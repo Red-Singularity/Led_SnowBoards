@@ -28,9 +28,9 @@ rate at which it is displayed and various effects can be applied based on data c
 #define DT 25 // Encoder DT pin
 #define CLK 26 // Encoder clock pin
 #define SD_SW 27 // SD detect switch
-#define DATA_3 13 // sets pin data is being sent from
+#define DATA_3 14 // sets pin data is being sent from
 #define DATA_1 12 // sets pin data is being sent from
-#define DATA_2 14 // sets pin data is being sent from
+#define DATA_2 13 // sets pin data is being sent from
 #define MOSI 23 // MOSI SPI pin
 #define SCL 22 // I2C clock pin
 #define SDA 21 // I2C data pin
@@ -40,7 +40,8 @@ rate at which it is displayed and various effects can be applied based on data c
 #define TX 17 // UART transmit pin
 #define RX 16 // UART receive pin
 #define INT 26 // mpu6050 interrupt
-#define CS_RAM // PSRAM chip select
+#define CS_RAM 2 // PSRAM chip select
+#define BAT 15 // battery voltage voltage divider
 
 //other defines
 #define NUM_LEDS 2090 //2090 sets the amount of pixels being controlled
@@ -58,7 +59,7 @@ rate at which it is displayed and various effects can be applied based on data c
 #define g2 0x00
 
 //spi speed
-#define SPI_CLOCK SD_SCK_MHZ(18)
+#define SPI_CLOCK SD_SCK_MHZ(1)
 
 // Try to select the best SD card configuration.
 #if HAS_SDIO_CLASS
@@ -102,7 +103,7 @@ const uint16_t SHUNT_R = 1000; // 1 mOhm
 
 uint8_t ina_addresses[NUM_INA] = {0x40}; // INA I2C addresses
 
-bool bat_safe = 1; //flag for enabling or disabling low battery cutoff. 1 = safety enabled
+bool bat_safe = 0; //flag for enabling or disabling low battery cutoff. 1 = safety enabled
 bool rand_LED = 0; // flag for random sequence animation
 bool nyan = 0; // flag for setting nyan cat animation
 bool freefall = 0; // flag for freefall detection
@@ -134,6 +135,7 @@ void setup() {
   pinMode(DATA_2, OUTPUT); 
   pinMode(DATA_3, OUTPUT);
   pinMode(GATE_SIGNAL, OUTPUT); // turns on 12v to leds
+  pinMode(BAT, INPUT);
 
   //device setups
   INA_setup(); //INA220 setup

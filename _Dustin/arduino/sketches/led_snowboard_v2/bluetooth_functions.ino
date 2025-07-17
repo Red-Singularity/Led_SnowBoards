@@ -30,9 +30,11 @@ void bluetooth_control(){
       Serial.println("On");
       if ((bat_safe == 1) && (voltage < 9.5)){
         digitalWrite(GATE_SIGNAL, false);
+        SerialBT.println("Error - Low Voltage");
       }
       else{
         digitalWrite(GATE_SIGNAL, true);
+        SerialBT.println("On");
       }
     }
 
@@ -40,6 +42,7 @@ void bluetooth_control(){
     else if(message == "FE"){
       Serial.println("Off");
       digitalWrite(GATE_SIGNAL, false);
+      SerialBT.println("Off");
     }
 
     //read battery values
@@ -57,15 +60,18 @@ void bluetooth_control(){
     //disable low battery cut off
      else if(message == "0D"){
       bat_safe = 0;
+      SerialBT.println("Battery Safety Diabled");
     }
 
     //enable low battery cutoff ( is set to on by default)
      else if(message == "0C"){
       bat_safe = 1;
+      SerialBT.println("Battery Safety Enabled");
     }
 
     //set color to white
     else if(message == "06"){
+      SerialBT.println("Color - White");
       rand_LED = 0;
       nyan = 0;
       pacman = 0;
@@ -82,6 +88,7 @@ void bluetooth_control(){
 
     //set color to Green
     else if(message == "07"){
+      SerialBT.println("Color - Green");
       rand_LED = 0;
       nyan = 0;
       pacman = 0;
@@ -98,6 +105,7 @@ void bluetooth_control(){
 
     //set color to Red
     else if(message == "08"){
+      SerialBT.println("Color - Red");
       rand_LED = 0;
       nyan = 0;
       pacman = 0;
@@ -114,6 +122,7 @@ void bluetooth_control(){
 
     //set color to Blue
     else if(message == "09"){
+      SerialBT.println("Color - Blue");
       rand_LED = 0;
       nyan = 0;
       pacman = 0;
@@ -130,6 +139,7 @@ void bluetooth_control(){
 
     //set color to Random
     else if(message == "0A"){
+      SerialBT.println("Color - Random");
       rand_LED = 1;
       nyan = 0;
       pacman = 0;
@@ -140,31 +150,37 @@ void bluetooth_control(){
 
     //set brightness to 5%
     else if(message == "00"){
+      SerialBT.println("Brightness - 5%");
       FastLED.setBrightness(5);
     }
 
     //set brightness to 10%
     else if(message == "01"){
+      SerialBT.println("Brightness - 10%");
       FastLED.setBrightness(10);
     }
 
     //set brightness to 25%
     else if(message == "02"){
+      SerialBT.println("Brightness - 25%");
       FastLED.setBrightness(25);
     }
 
     //set brightness to 50%
     else if(message == "03"){
+      SerialBT.println("Brightness - 50%");
       FastLED.setBrightness(50);
     }
 
     //set brightness to 75%
     else if(message == "04"){
+      SerialBT.println("Brightness - 75%");
       FastLED.setBrightness(75);
     }
 
     //set brightness to 100%
     else if(message == "05"){
+      SerialBT.println("Brightness - 100%");
       FastLED.setBrightness(100);
     }
 

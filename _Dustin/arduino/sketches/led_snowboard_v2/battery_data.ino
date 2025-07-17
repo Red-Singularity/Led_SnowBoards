@@ -5,9 +5,9 @@ void INA_setup() {
 }
 
 void getInaValues() {
-  voltage = ina220.getBusMilliVolts(0) / 1000.0; // voltage in volts
+  //voltage = ina220.getBusMilliVolts(0) / 1000.0; // voltage in volts
   current = (ina220.getBusMicroAmps(0) / 1000000.0)/3; // current in amps
-  power = (ina220.getBusMicroWatts(0) / 1000000.0)/3; // power in watts
+  //power = (ina220.getBusMicroWatts(0) / 1000000.0)/3; // power in watts
   //Serial.print("INA at 0x"); Serial.print(ina_addresses[0], HEX); Serial.print(" measures "); Serial.print(voltage); Serial.print(" V, ");
   //Serial.print(current); Serial.print(" A, and "); Serial.print(power); Serial.println(" mW");
 }
@@ -54,19 +54,23 @@ void getCellValues(){
   }
 
   else{
-    Serial.print("CELL ERROR. Deriving from average");
+    //Serial.print("CELL ERROR. Deriving from average");
     minCell = (cell_1+cell_2+cell_3)/3;
   }
 }
 
 void getBatteryData(){
   int bat_indicator; // for use with top led color
-
+  voltage = analogRead(BAT);
+  voltage = (voltage*(3.3/4095)) * 6.48;//((90.909.0+499)/90.909); // voltage divider with 499k R1 and 100k R2 and 1meg input impedance
   getInaValues(); // get voltage, current, and power readings
   getCellValues(); // get all cell voltage data
 
-  //Serial.print("Minimum cell voltage: "); Serial.println(minCell);
-  //Serial.print("Voltage: "); Serial.println(voltage);
+  power = voltage * current;
+  Serial.print("Minimum cell voltage: "); Serial.print(minCell); Serial.print("V   ,");
+  Serial.print("Voltage: "); Serial.print(voltage); Serial.print("V   ,");
+  Serial.print("Current: "); Serial.print(current); Serial.print("A   ,");
+  Serial.print("Power: "); Serial.print(power); Serial.println("W");
 
   if (((bat_safe == 1) && (minCell < 2.9))){ // disable lights if voltage is too low
     digitalWrite(GATE_SIGNAL, false);
