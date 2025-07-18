@@ -1,6 +1,6 @@
 void INA_setup() {
-  uint8_t availableDevices = ina220.begin(MAX_CUR, SHUNT_R, INA_ADC_MODE_128AVG, INA_ADC_MODE_128AVG, INA_MODE_CONTINUOUS_BOTH, ina_addresses, NUM_INA);
-  Serial.print("Configured "); Serial.print(availableDevices); Serial.print(" of "); Serial.print(NUM_INA); Serial.println(" INA220 current sensors");
+  //uint8_t availableDevices = ina220.begin(MAX_CUR, SHUNT_R, INA_ADC_MODE_128AVG, INA_ADC_MODE_128AVG, INA_MODE_CONTINUOUS_BOTH, ina_addresses, NUM_INA);
+  //Serial.print("Configured "); Serial.print(availableDevices); Serial.print(" of "); Serial.print(NUM_INA); Serial.println(" INA220 current sensors");
   delay(100);
 }
 
@@ -31,14 +31,14 @@ void getCellValues(){
   cell_3 = ((cell_3*(3.3/4095))*gain)*gainCorrect3;
 
   //output data to terminal
-  /*
-  Serial.print("\nCell 1 Voltage: ");
-  Serial.print(cell_1);
-  Serial.print("   Cell 2 Voltage: ");
-  Serial.print(cell_2);
-  Serial.print("   Cell 3 Voltage: ");
-  Serial.println(cell_3);
-  */
+
+  //Serial.print("\nCell 1 Voltage: ");
+  //Serial.print(cell_1);
+  //Serial.print("   Cell 2 Voltage: ");
+  //Serial.print(cell_2);
+  //Serial.print("   Cell 3 Voltage: ");
+  //Serial.println(cell_3);
+  
 
   //find min cell value
   if((cell_1 <= cell_2) && (cell_1 < cell_3)){
@@ -67,10 +67,10 @@ void getBatteryData(){
   getCellValues(); // get all cell voltage data
 
   power = voltage * current;
-  Serial.print("Minimum cell voltage: "); Serial.print(minCell); Serial.print("V   ,");
-  Serial.print("Voltage: "); Serial.print(voltage); Serial.print("V   ,");
-  Serial.print("Current: "); Serial.print(current); Serial.print("A   ,");
-  Serial.print("Power: "); Serial.print(power); Serial.println("W");
+  //Serial.print("Minimum cell voltage: "); Serial.print(minCell); Serial.print("V   ,");
+  //Serial.print("Voltage: "); Serial.print(voltage); Serial.print("V   ,");
+  //Serial.print("Current: "); Serial.print(current); Serial.print("A   ,");
+  //Serial.print("Power: "); Serial.print(power); Serial.println("W");
 
   if (((bat_safe == 1) && (minCell < 2.9))){ // disable lights if voltage is too low
     digitalWrite(GATE_SIGNAL, false);
@@ -89,3 +89,4 @@ void getBatteryData(){
     top[i] = CRGB(0, blue, red);
   }
 }
+

@@ -17,12 +17,12 @@ import os
 background = 0xFFFFFF # hex color for background color of final image
 
 # file to simulate
-media = "opensauce/" # file to simulate
+media = "rainbow_circle/" # file to simulate
 relative_path = "board_media/" # relative path from _Dustin Folder
 
 # file to save final result to if gif
 relative_path_gif = "sim_outputs/"
-sim_gif_name = "opensauce.gif"
+sim_gif_name = "rainbow_circle.gif"
 
 #Global variables
 array_size = 2090 # total amount of leds in system

@@ -73,11 +73,11 @@ void bluetooth_control(){
     else if(message == "06"){
       SerialBT.println("Color - White");
       rand_LED = 0;
-      nyan = 0;
-      pacman = 0;
-      mario = 0;
-      neon = 0;
-      kirby = 0;
+      media1 = 0;
+      media2 = 0;
+      media3 = 0;
+      media4 = 0;
+      media5 = 0;
       for(int i=0; i<(NUM_LEDS/2); i++){
         half1[i] = CRGB::White;
         half2[i+1] = CRGB::White;
@@ -88,13 +88,13 @@ void bluetooth_control(){
 
     //set color to Green
     else if(message == "07"){
-      SerialBT.println("Color - Green");
+      //SerialBT.println("Color - Green");
       rand_LED = 0;
-      nyan = 0;
-      pacman = 0;
-      mario = 0;
-      neon = 0;
-      kirby = 0;
+      media1 = 0;
+      media2 = 0;
+      media3 = 0;
+      media4 = 0;
+      media5 = 0;
       for(int i=0; i<(NUM_LEDS/2); i++){
         half1[i] = CRGB::Green;
         half2[i+1] = CRGB::Green;
@@ -107,11 +107,11 @@ void bluetooth_control(){
     else if(message == "08"){
       SerialBT.println("Color - Red");
       rand_LED = 0;
-      nyan = 0;
-      pacman = 0;
-      mario = 0;
-      neon = 0;
-      kirby = 0;
+      media1 = 0;
+      media2 = 0;
+      media3 = 0;
+      media4 = 0;
+      media5 = 0;
       for(int i=0; i<(NUM_LEDS/2); i++){
         half1[i] = CRGB::Red;
         half2[i+1] = CRGB::Red;
@@ -124,11 +124,11 @@ void bluetooth_control(){
     else if(message == "09"){
       SerialBT.println("Color - Blue");
       rand_LED = 0;
-      nyan = 0;
-      pacman = 0;
-      mario = 0;
-      neon = 0;
-      kirby = 0;
+      media1 = 0;
+      media2 = 0;
+      media3 = 0;
+      media4 = 0;
+      media5 = 0;
       for(int i=0; i<(NUM_LEDS/2); i++){
         half1[i] = CRGB::Blue;
         half2[i+1] = CRGB::Blue;
@@ -141,11 +141,11 @@ void bluetooth_control(){
     else if(message == "0A"){
       SerialBT.println("Color - Random");
       rand_LED = 1;
-      nyan = 0;
-      pacman = 0;
-      mario = 0;
-      neon = 0;
-      kirby = 0;
+      media1 = 0;
+      media2 = 0;
+      media3 = 0;
+      media4 = 0;
+      media5 = 0;
     }
 
     //set brightness to 5%
@@ -184,64 +184,64 @@ void bluetooth_control(){
       FastLED.setBrightness(100);
     }
 
-    //assign nyan cat to board
+    //assign media 1 to board
     else if(message == "10"){
-      SerialBT.println("nyan");
+      SerialBT.println("media1");
       frame_number = 0;
       rand_LED = 0;
-      nyan = 1;
-      pacman = 0;
-      mario = 0;
-      neon = 0;
-      kirby = 0;
+      media1 = 1;
+      media2 = 0;
+      media3 = 0;
+      media4 = 0;
+      media5 = 0;
     }
 
-    //assign mario image to board
+    //assign media 2 image to board
     else if(message == "11"){
-      SerialBT.println("mario");
+      SerialBT.println("media2");
       frame_number = 0;
       rand_LED = 0;
-      nyan = 0;
-      pacman = 0;
-      mario = 1;
-      neon = 0;
-      kirby = 0; 
+      media1 = 0;
+      media2 = 1;
+      media3 = 0;
+      media4 = 0;
+      media5 = 0; 
     }
 
-    //assign pacman to the board
+    //assign media 3 to the board
     else if(message == "12"){
-      SerialBT.println("pacman");
+      SerialBT.println("media3");
       frame_number = 0;
       rand_LED = 0;
-      nyan = 0;
-      pacman = 1;
-      mario = 0;
-      neon = 0;
-      kirby = 0;
+      media1 = 0;
+      media2 = 0;
+      media3 = 1;
+      media4 = 0;
+      media5 = 0;
     }
-    //assign neon board to the board
+    //assign media4 to the board
     else if(message == "13"){
-      SerialBT.println("neon");
+      SerialBT.println("media4");
       frame_number = 0;
       rand_LED = 0;
-      nyan = 0;
-      pacman = 0;
-      mario = 0;
-      neon = 1;
-      kirby = 0;
+      media1 = 0;
+      media2 = 0;
+      media3 = 0;
+      media4 = 1;
+      media5 = 0;
     }
-    //assign kirby board to the board
+    //assign media 5 board to the board
     else if(message == "14"){
-      SerialBT.println("kirby");
+      SerialBT.println("media5");
       frame_number = 0;
       rand_LED = 0;
-      nyan = 0;
-      pacman = 0;
-      mario = 0;
-      neon = 0;
-      kirby = 1;
+      media1 = 0;
+      media2 = 0;
+      media3 = 0;
+      media4 = 0;
+      media5 = 1;
     }
-
+  //debugging function
     else if(message == "list"){
       Serial.print("list");
     }
@@ -262,23 +262,23 @@ void bluetooth_control(){
     }
   }
 
-  if (nyan == 1){
-    assign_nyan();
+  if (media1 == 1){
+    assign_media1();
   }
 
-  if (pacman == 1){
-    assign_pacman();
+  if (media2 == 1){
+    assign_media2();
   }
 
-  if (mario == 1){
-    assign_mario();
+  if (media3 == 1){
+    assign_media3();
   }
 
-  if (neon == 1){
-    assign_neon();
+  if (media4 == 1){
+    assign_media4();
   }
 
-  if (kirby == 1){
-    assign_kirby();
+  if (media5 == 1){
+    assign_media5();
   }
 }

@@ -1,31 +1,30 @@
 
-void assign_nyan(){
-  // assign nyan cat from sd card
-  readFrame("nyan");
+void assign_media1(){
+  readFrame("media1");
   FastLED.show();
 }
 
-void assign_mario(){
+void assign_media2(){
   // assign mario from sd card
-  readFrame("mario");
+  readFrame("media2");
   FastLED.show();
 }
 
 
-void assign_pacman(){
+void assign_media3(){
   // assign pacman from sd card
-  readFrame("pacman");
+  readFrame("media3");
   FastLED.show();
 }
 
-void assign_neon(){
+void assign_media4(){
   // assign neon board from sd card
-  readFrame("The_Heart_of_Neon_board_background");
+  readFrame("media4");
   FastLED.show();
 }
 
-void assign_kirby(){
+void assign_media5(){
   // assign neon board from sd card
-  readFrame("kirby");
+  readFrame("media5");
   FastLED.show();
 }

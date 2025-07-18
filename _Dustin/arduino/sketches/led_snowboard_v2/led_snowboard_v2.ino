@@ -10,6 +10,9 @@ data for the bottom matrix will be stored on an sd card which is read frame by f
 rate at which it is displayed and various effects can be applied based on data collected from the mpu and GPS
 */
 
+//#define FASTLED_INTERRUPT_RETRY_COUNT 1
+//#define FASTLED_ALLOW_INTERRUPTS 0
+
 #include "SdFat.h" // interfaces with sd card
 #include "sdios.h" // sd card comms
 #include "SPI.h" // handles SPI comms
@@ -17,6 +20,7 @@ rate at which it is displayed and various effects can be applied based on data c
 #include <Wire.h> // i2c communication
 #include <INA220.h> // for power monitor https://github.com/nathancheek/INA220
 #include <FastLED.h> // main led control
+
 
 //pin defines
 #define CELL_1 36 // analog cell 1 data
@@ -59,7 +63,7 @@ rate at which it is displayed and various effects can be applied based on data c
 #define g2 0x00
 
 //spi speed
-#define SPI_CLOCK SD_SCK_MHZ(1)
+#define SPI_CLOCK SD_SCK_MHZ(25)
 
 // Try to select the best SD card configuration.
 #if HAS_SDIO_CLASS
@@ -87,6 +91,8 @@ CRGB half1[NUM_LEDS/2];
 CRGB half2[NUM_LEDS/2];
 CRGB top[TOP_LEDS];
 
+TaskHandle_t LEDs; // dedicated task and loop to handle LEd output and avoid bluetooth code interference
+
 // Create a Serial output stream.
 //ArduinoOutStream cout(Serial);
 
@@ -97,20 +103,20 @@ int offsetx, offsety, offsetz; // offset values for gyro
 int counter = 0; // generic counter for testing
 int frame_number = 0; // sets the frame being displayed for the current gif
 
-const uint8_t NUM_INA = 1; // 2 INA devices
-const uint8_t MAX_CUR = 40; // 5 Amps
+const uint8_t NUM_INA = 1; // 1 INA device
+const uint8_t MAX_CUR = 40; 
 const uint16_t SHUNT_R = 1000; // 1 mOhm
 
 uint8_t ina_addresses[NUM_INA] = {0x40}; // INA I2C addresses
 
 bool bat_safe = 0; //flag for enabling or disabling low battery cutoff. 1 = safety enabled
 bool rand_LED = 0; // flag for random sequence animation
-bool nyan = 0; // flag for setting nyan cat animation
 bool freefall = 0; // flag for freefall detection
-bool pacman = 0;
-bool kirby = 0;
-bool mario = 0;
-bool neon = 0;
+bool media1 = 0;
+bool media2 = 0;
+bool media3 = 0;
+bool media4 = 0;
+bool media5 = 0;
 
 float ax, ay, az; // accelerometer data in Gs
 float gx, gy, gz; // gyro data in degrees/second
@@ -137,8 +143,18 @@ void setup() {
   pinMode(GATE_SIGNAL, OUTPUT); // turns on 12v to leds
   pinMode(BAT, INPUT);
 
+
+  xTaskCreatePinnedToCore(
+    LEDs_Code, /* Function to implement the task */
+    "LEDs", /* Name of the task */
+    10000,  /* Stack size in words */
+    NULL,  /* Task input parameter */
+    0,  /* Priority of the task */
+    &LEDs,  /* Task handle. */
+    0); /* Core where the task should run */
+
   //device setups
-  INA_setup(); //INA220 setup
+  //INA_setup(); //INA220 setup
   sd_setup(); //setup sd card
   bluetooth_setup(); //setup bluetooth
   //mpu_setup(); //setup mpu
@@ -159,15 +175,20 @@ void setup() {
 void loop() {
   timer = millis();
 
-  getInaValues(); //get board status (battery info, current measurements, etc)
-  getBatteryData(); // get all battery data
   bluetooth_control(); // use data over bluetooth to control images
+  //getInaValues(); //get board status (battery info, current measurements, etc)
+  //getBatteryData(); // get all battery data
   //get MPU data
   //get GPS data
   //app();
   //get gps data
-
   FastLED.show();
 
   //Serial.println(millis()-timer);
+}
+
+
+void LEDs_Code( void * parameter) {
+  for(;;) {
+  }
 }
