@@ -1,5 +1,6 @@
-#include <Adafruit_NeoPixel.h>
+//#include <Adafruit_NeoPixel.h>
 #include "BluetoothSerial.h"
+#include <FastLED.h>
 
 //by Dustin Fisher
 //minimum led length is 13 across board up 17
@@ -8,7 +9,7 @@
 #define USE_ADC2      true
 
 #define DATA_PIN 13 //sets pin data is being sent from
-#define ledPower 15 //controls the mosfet for led strip power
+#define ledPower 12 //controls the mosfet for led strip power
 #define statusLight 14 //green led light on board
 #define batPin 33 //voltage divider data
 #define NUM_LEDS 2090 // 1270 sets the amount of pixels being controlled
@@ -22,17 +23,18 @@ const double vDiv = .2361; //68k/(68k+220k)
 int loop_time = 0;
 int batData = 4095;
 int cutOff = 2500;
-int Brightness;
+int Brightness = 26;
 float inputVoltage = 0;
 float batVoltage = 0;
 
 bool Danger = true;
 
-Adafruit_NeoPixel pixels(NUM_LEDS, DATA_PIN, NEO_GRB + NEO_KHZ800);
+//Adafruit_NeoPixel pixels(NUM_LEDS, DATA_PIN, NEO_GRB + NEO_KHZ800);
+CRGB Board[NUM_LEDS]; // initialize led strip
 BluetoothSerial SerialBT;
 
 void setup(){
-  Serial.begin(57600);
+  Serial.begin(115200);
   SerialBT.begin("LED_SnowBoard"); //Bluetooth device name
   Serial.println("The device started, now you can pair it with bluetooth!");
 
@@ -44,7 +46,16 @@ void setup(){
   pinMode(statusLight, OUTPUT);
   pinMode(batPin, INPUT);
   
-  pixels.begin();
+  //pixels.begin();
+  FastLED.addLeds<WS2812, DATA_PIN, BGR>(Board, NUM_LEDS);
+  FastLED.setCorrection(TypicalLEDStrip);
+  FastLED.setBrightness(10);
+  FastLED.show();
+
+  state = On;
+  color = Rand;
+  digitalWrite(ledPower, HIGH);
+  digitalWrite(statusLight, HIGH);
 }
 
 
@@ -77,22 +88,22 @@ void Bluetooth(){
       state = On;
     }
     else if(InData == 0x00){ //5% brightness
-      Brightness = 13;
+      FastLED.setBrightness(5);
     }
     else if(InData == 0x01){ //10% brightness
-      Brightness = 26;
+      FastLED.setBrightness(10);
     }
     else if(InData == 0x02){ //25% brightness
-      Brightness = 64;
+      FastLED.setBrightness(25);
     }
     else if(InData == 0x03){ //50% brightness
-      Brightness = 127;
+      FastLED.setBrightness(50);
     }
     else if(InData == 0x04){ //75% brightness
-      Brightness = 191;
+      FastLED.setBrightness(75);
     }
     else if(InData == 0x05){ //100% brightness
-      Brightness = 255;
+      FastLED.setBrightness(100);
     }
     else if(InData == 0x06){ //Red
       color = Red;
@@ -136,45 +147,52 @@ void Lights(){
       switch(color){
         case White:
           for(int i = 0; i <= NUM_LEDS; i++){
-            pixels.setPixelColor(i, pixels.Color(Brightness,Brightness,Brightness));
+            //pixels.setPixelColor(i, pixels.Color(Brightness,Brightness,Brightness));
+            Board[i] = CRGB::White;
           }
           break;
         case Red:
           for(int i = 0; i <= NUM_LEDS; i++){
-            pixels.setPixelColor(i, pixels.Color(0,Brightness,0));
+            //pixels.setPixelColor(i, pixels.Color(0,Brightness,0));
+            Board[i] = CRGB::Red;
           }
           break;
           
         case Green:
           for(int i = 0; i <= NUM_LEDS; i++){
-            pixels.setPixelColor(i, pixels.Color(Brightness,0,0));
+            //pixels.setPixelColor(i, pixels.Color(Brightness,0,0));
+            Board[i] = CRGB::Green;
           }
           break;
           
         case Blue:
           for(int i = 0; i <= NUM_LEDS; i++){
-            pixels.setPixelColor(i, pixels.Color(0,0,Brightness));
+            //pixels.setPixelColor(i, pixels.Color(0,0,Brightness));
+            Board[i] = CRGB::Blue;
           }
           break;
           
         case Rand:
           for(int i = 0; i <= NUM_LEDS; i++){
-            pixels.setPixelColor(i, pixels.Color(random(Brightness),random(Brightness),random(Brightness)));
+            //pixels.setPixelColor(i, pixels.Color(random(Brightness),random(Brightness),random(Brightness)));
+            Board[i] = random(0, 0xFFFFFF);
           }
           break;
 
         case None:
           for(int i = 0; i <= NUM_LEDS; i++){
-            pixels.setPixelColor(i, pixels.Color(0,0,0));
+            //pixels.setPixelColor(i, pixels.Color(0,0,0));
+            Board[i] = CRGB::Black;
           }
           break;
       }
         
-      pixels.show();
+      //pixels.show();
+      FastLED.show();
       break;
 
    case Off:
-      pixels.clear();
+      //pixels.clear();
       digitalWrite(ledPower, LOW);
       digitalWrite(statusLight, LOW);
       break;
