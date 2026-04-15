@@ -252,59 +252,59 @@ void clockMode(){
   displaySevenSeg(minutesTens, 2); // minutes tens. pass digit to be displayed and position. 
   displaySevenSeg(minutesOnes, 3); // minutes ones. pass digit to be displayed and position. 
 
-  Board[633] = CRGB::Blue; // location of center "colon" of clock
-  Board[627] = CRGB::Blue; // location of center "colon" of clock
+  Board[633] = CRGB::Indigo; // location of center "colon" of clock
+  Board[627] = CRGB::Indigo; // location of center "colon" of clock
 
   if(pmFlag == false){ //display "A" in AM if its morning
-    Board[287] = CRGB::Blue;
-    Board[288] = CRGB::Blue;
-    Board[289] = CRGB::Blue;
-    Board[290] = CRGB::Blue;
-    Board[291] = CRGB::Blue;
-    Board[280] = CRGB::Blue;
-    Board[283] = CRGB::Blue;
-    Board[256] = CRGB::Blue;
-    Board[259] = CRGB::Blue;
-    Board[248] = CRGB::Blue;
-    Board[249] = CRGB::Blue;
-    Board[250] = CRGB::Blue;
-    Board[251] = CRGB::Blue;
-    Board[252] = CRGB::Blue;
+    Board[287] = CRGB::Indigo;
+    Board[288] = CRGB::Indigo;
+    Board[289] = CRGB::Indigo;
+    Board[290] = CRGB::Indigo;
+    Board[291] = CRGB::Indigo;
+    Board[280] = CRGB::Indigo;
+    Board[283] = CRGB::Indigo;
+    Board[256] = CRGB::Indigo;
+    Board[259] = CRGB::Indigo;
+    Board[248] = CRGB::Indigo;
+    Board[249] = CRGB::Indigo;
+    Board[250] = CRGB::Indigo;
+    Board[251] = CRGB::Indigo;
+    Board[252] = CRGB::Indigo;
   }
 
   else if(pmFlag == true){ //display "P" in PM if its afternoon
-    Board[287] = CRGB::Blue;
-    Board[288] = CRGB::Blue;
-    Board[289] = CRGB::Blue;
-    Board[290] = CRGB::Blue;
-    Board[291] = CRGB::Blue;
-    Board[280] = CRGB::Blue;
-    Board[283] = CRGB::Blue;
-    Board[256] = CRGB::Blue;
-    Board[259] = CRGB::Blue;
-    Board[251] = CRGB::Blue;
-    Board[252] = CRGB::Blue;
+    Board[287] = CRGB::Indigo;
+    Board[288] = CRGB::Indigo;
+    Board[289] = CRGB::Indigo;
+    Board[290] = CRGB::Indigo;
+    Board[291] = CRGB::Indigo;
+    Board[280] = CRGB::Indigo;
+    Board[283] = CRGB::Indigo;
+    Board[256] = CRGB::Indigo;
+    Board[259] = CRGB::Indigo;
+    Board[251] = CRGB::Indigo;
+    Board[252] = CRGB::Indigo;
   }
 
   //display "M" for AM and PM
-  Board[223] = CRGB::Blue;
-  Board[222] = CRGB::Blue;
-  Board[221] = CRGB::Blue;
-  Board[220] = CRGB::Blue;
-  Board[219] = CRGB::Blue;
-  Board[218] = CRGB::Blue;
-  Board[198] = CRGB::Blue;
-  Board[197] = CRGB::Blue;
-  Board[192] = CRGB::Blue;
-  Board[191] = CRGB::Blue;
-  Board[169] = CRGB::Blue;
-  Board[168] = CRGB::Blue;
-  Board[165] = CRGB::Blue;
-  Board[164] = CRGB::Blue;
-  Board[163] = CRGB::Blue;
-  Board[162] = CRGB::Blue;
-  Board[161] = CRGB::Blue;
-  Board[160] = CRGB::Blue;
+  Board[223] = CRGB::Indigo;
+  Board[222] = CRGB::Indigo;
+  Board[221] = CRGB::Indigo;
+  Board[220] = CRGB::Indigo;
+  Board[219] = CRGB::Indigo;
+  Board[218] = CRGB::Indigo;
+  Board[198] = CRGB::Indigo;
+  Board[197] = CRGB::Indigo;
+  Board[192] = CRGB::Indigo;
+  Board[191] = CRGB::Indigo;
+  Board[169] = CRGB::Indigo;
+  Board[168] = CRGB::Indigo;
+  Board[165] = CRGB::Indigo;
+  Board[164] = CRGB::Indigo;
+  Board[163] = CRGB::Indigo;
+  Board[162] = CRGB::Indigo;
+  Board[161] = CRGB::Indigo;
+  Board[160] = CRGB::Indigo;
 
 
   //check engine light
@@ -385,14 +385,14 @@ void clockMode(){
   Board[936] = CRGB::Orange;
 
   //display battery
-  Board[275] = CRGB::Green;
-  Board[274] = CRGB::Green;
-  Board[273] = CRGB::Green;
-  Board[272] = CRGB::Green;
+  Board[275] = CRGB::SeaGreen;
+  Board[274] = CRGB::SeaGreen;
+  Board[273] = CRGB::SeaGreen;
+  Board[272] = CRGB::SeaGreen;
 
   Serial.println(Hour);
   Serial.println(pmFlag);
-  Board[267] = CRGB::Green;
+  Board[267] = CRGB::SeaGreen;
   if((Hour == 12 && pmFlag == false) || (Hour < 5 && pmFlag == false)){ // if between midnight and 5 am set lowest batt to blink
     if(Second % 2 == 1){
       Board[266] = CRGB::Red; // lowest batt
@@ -409,15 +409,15 @@ void clockMode(){
     Board[266] = CRGB::Red; // lowest batt
     Board[265] = CRGB::Red; // lowest batt
   }
-  Board[264] = CRGB::Green;
+  Board[264] = CRGB::SeaGreen;
 
-  Board[245] = CRGB::Green;
-  Board[244] = CRGB::Green;
-  Board[243] = CRGB::Green;
-  Board[242] = CRGB::Green;
+  Board[245] = CRGB::SeaGreen;
+  Board[244] = CRGB::SeaGreen;
+  Board[243] = CRGB::SeaGreen;
+  Board[242] = CRGB::SeaGreen;
 
-  Board[237] = CRGB::Green;
-  if((Hour > 10 && pmFlag == true) || (Hour < 5 && pmFlag == false)){
+  Board[237] = CRGB::SeaGreen;
+  if((Hour > 9 && pmFlag == true) || (Hour < 5 && pmFlag == false)){
     Board[236] = CRGB::Black; // mid batt
     Board[235] = CRGB::Black; // mid batt
   }
@@ -426,32 +426,32 @@ void clockMode(){
     Board[236] = CRGB::Yellow; // mid batt
     Board[235] = CRGB::Yellow; // mid batt
   }
-  Board[234] = CRGB::Green;
+  Board[234] = CRGB::SeaGreen;
 
-  Board[215] = CRGB::Green;
-  Board[214] = CRGB::Green;
-  Board[213] = CRGB::Green;
-  Board[212] = CRGB::Green;
+  Board[215] = CRGB::SeaGreen;
+  Board[214] = CRGB::SeaGreen;
+  Board[213] = CRGB::SeaGreen;
+  Board[212] = CRGB::SeaGreen;
 
-  Board[207] = CRGB::Green;
-  if((Hour > 5 && pmFlag == true) || (Hour < 5 && pmFlag == false)){
+  Board[207] = CRGB::SeaGreen;
+  if((Hour > 4 && pmFlag == true) || (Hour < 5 && pmFlag == false)){
     Board[206] = CRGB::Black; // full batt
     Board[205] = CRGB::Black; // full batt
   }
 
   else{
-    Board[206] = CRGB::DarkGreen; // full batt
-    Board[205] = CRGB::DarkGreen; // full batt
+    Board[206] = CRGB::Green; // full batt
+    Board[205] = CRGB::Green; // full batt
   }
-  Board[204] = CRGB::Green;
+  Board[204] = CRGB::SeaGreen;
 
-  Board[186] = CRGB::Green;
-  Board[185] = CRGB::Green;
-  Board[184] = CRGB::Green;
-  Board[183] = CRGB::Green;
+  Board[186] = CRGB::SeaGreen;
+  Board[185] = CRGB::SeaGreen;
+  Board[184] = CRGB::SeaGreen;
+  Board[183] = CRGB::SeaGreen;
 
-  Board[177] = CRGB::Green;
-  Board[176] = CRGB::Green;
+  Board[177] = CRGB::SeaGreen;
+  Board[176] = CRGB::SeaGreen;
 
   FastLED.show(); // need to call multiple times due to faulty leds
   FastLED.show();
@@ -499,49 +499,49 @@ void displaySevenSeg(int digit, int position){
   if(digit==0 || digit==4 || digit==5 || digit==6 || digit==8 || digit==9){
     for(int i=0; i<5; i++){ // top left segment
       x = topLeft[i];
-      Board[x] = CRGB::Turquoise;
+      Board[x] = CRGB::Green;
     }
   }
 
   if(digit==0 || digit==2 || digit==6 || digit==8){
     for(int i=0; i<5; i++){ // Bottom left segment
       x = bottomLeft[i];
-      Board[x] = CRGB::Turquoise;
+      Board[x] = CRGB::Green;
     }
   }
 
   if(digit==0 || digit==1 || digit==2 || digit==3 || digit==4 || digit==7 || digit==8|| digit==9){
     for(int i=0; i<5; i++){ // top right segment
       x = topRight[i];
-      Board[x] = CRGB::Turquoise;
+      Board[x] = CRGB::Green;
     }
   }
 
   if(digit==0 || digit==1 || digit==3 || digit==4 || digit==5 || digit==6 || digit==7 || digit==8 || digit==9){
     for(int i=0; i<5; i++){ // Bottom right segment
       x = bottomRight[i];
-      Board[x] = CRGB::Turquoise;
+      Board[x] = CRGB::Green;
     }
   }
 
   if(digit==0 || digit==2 || digit==3 || digit==5 || digit==6 || digit==8 || digit==9){
     for(int i=0; i<5; i++){ // bottom segment
       x = bottom[i];
-      Board[x] = CRGB::Turquoise;
+      Board[x] = CRGB::Green;
     }
   }
 
   if(digit==2 || digit==3 || digit==4 || digit==5 || digit==6 || digit==8 || digit==9){
     for(int i=0; i<5; i++){ // middle segment
       x = middle[i];
-      Board[x] = CRGB::Turquoise;
+      Board[x] = CRGB::Green;
     }
   }
 
   if(digit==0 || digit==2 || digit==3 || digit==5 || digit==6 || digit==7 || digit==8 || digit==9){
     for(int i=0; i<5; i++){ // top segment
       x = top[i];
-      Board[x] = CRGB::Turquoise;
+      Board[x] = CRGB::Green;
     }
   }
 
