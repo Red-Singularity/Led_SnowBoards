@@ -417,7 +417,7 @@ void clockMode(){
   Board[242] = CRGB::SeaGreen;
 
   Board[237] = CRGB::SeaGreen;
-  if((Hour > 9 && pmFlag == true) || (Hour < 5 && pmFlag == false)){
+  if((Hour == 12 && pmFlag == false) || (Hour > 9 && pmFlag == true) || (Hour < 5 && pmFlag == false)){
     Board[236] = CRGB::Black; // mid batt
     Board[235] = CRGB::Black; // mid batt
   }
@@ -434,7 +434,7 @@ void clockMode(){
   Board[212] = CRGB::SeaGreen;
 
   Board[207] = CRGB::SeaGreen;
-  if((Hour > 4 && pmFlag == true) || (Hour < 5 && pmFlag == false)){
+  if((Hour == 12 && pmFlag == false) || (Hour > 4 && pmFlag == true) || (Hour < 5 && pmFlag == false)){
     Board[206] = CRGB::Black; // full batt
     Board[205] = CRGB::Black; // full batt
   }
